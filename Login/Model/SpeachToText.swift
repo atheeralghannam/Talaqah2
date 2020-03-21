@@ -29,7 +29,7 @@ extension TrialController{
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         
         let inputNode = audioEngine.inputNode
-        
+        audioEngine.inputNode.removeTap(onBus: 0)
         guard let recognitionRequest = recognitionRequest else {
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         }
