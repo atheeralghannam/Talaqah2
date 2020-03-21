@@ -136,7 +136,6 @@
 		208F16752235EAAB002CF75F /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				F523F838240D46D700B003CF /* Patients List */,
 				459FA39D2402FA2900EA3255 /* Sounds */,
 				37D3037E23EC813B00DD3E0C /* Model */,
 				37D3037F23EC814B00DD3E0C /* View */,
@@ -210,13 +209,6 @@
 				45B21C8C2403177900184DBC /* canYouNaming.mp3 */,
 			);
 			path = Sounds;
-			sourceTree = "<group>";
-		};
-		F523F838240D46D700B003CF /* Patients List */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Patients List";
 			sourceTree = "<group>";
 		};
 		FCE6F9B21A679FDE6102A64D /* Frameworks */ = {
