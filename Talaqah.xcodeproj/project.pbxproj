@@ -152,6 +152,8 @@
 		37D3037D23EC812600DD3E0C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F523F83B240D473700B003CF /* PatientsTableViewController.swift */,
+				F5221A43240E173500CBC7B2 /* DetailViewController.swift */,
 				88CB23A5240405E40099A3C2 /* ResultController.swift */,
 				88925F4323F48B2000425C75 /* AccountViewController.swift */,
 				88925F4523F48C1C00425C75 /* getTrial.swift */,
@@ -188,6 +190,7 @@
 				45D136C423F42CFE00ADEA97 /* Patient.swift */,
 				45D136C623F42D3500ADEA97 /* Trial.swift */,
 				F5FC8AB623F6AF9500BC8F63 /* validateSAID.swift */,
+				F523F83F240D47A300B003CF /* TableCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,9 +215,6 @@
 		F523F838240D46D700B003CF /* Patients List */ = {
 			isa = PBXGroup;
 			children = (
-				F523F83B240D473700B003CF /* PatientsTableViewController.swift */,
-				F523F83F240D47A300B003CF /* TableCell.swift */,
-				F5221A43240E173500CBC7B2 /* DetailViewController.swift */,
 			);
 			path = "Patients List";
 			sourceTree = "<group>";
