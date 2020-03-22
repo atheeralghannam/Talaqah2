@@ -44,6 +44,7 @@
 		F5B7BF1023EB43E70033B094 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B7BF0F23EB43E70033B094 /* Validation.swift */; };
 		F5C8DBE223FE93D60098D790 /* TestTrialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C8DBE123FE93D60098D790 /* TestTrialViewController.swift */; };
 		F5DA5C6C2427F62400B02F7C /* SLPCuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DA5C6B2427F62400B02F7C /* SLPCuesViewController.swift */; };
+		F5DA5C6E242809F000B02F7C /* patientCuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DA5C6D242809F000B02F7C /* patientCuesViewController.swift */; };
 		F5DCFFEC23E5A453005B2D38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5DCFFEB23E5A453005B2D38 /* GoogleService-Info.plist */; };
 		F5E1735F241A52DB00DA5967 /* SLPEditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E1735E241A52DB00DA5967 /* SLPEditProfileViewController.swift */; };
 		F5FC8AB723F6AF9500BC8F63 /* validateSAID.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC8AB623F6AF9500BC8F63 /* validateSAID.swift */; };
@@ -91,6 +92,7 @@
 		F5B7BF0F23EB43E70033B094 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		F5C8DBE123FE93D60098D790 /* TestTrialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTrialViewController.swift; sourceTree = "<group>"; };
 		F5DA5C6B2427F62400B02F7C /* SLPCuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPCuesViewController.swift; sourceTree = "<group>"; };
+		F5DA5C6D242809F000B02F7C /* patientCuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = patientCuesViewController.swift; sourceTree = "<group>"; };
 		F5DCFFEB23E5A453005B2D38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5E1735E241A52DB00DA5967 /* SLPEditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPEditProfileViewController.swift; sourceTree = "<group>"; };
 		F5FC8AB623F6AF9500BC8F63 /* validateSAID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = validateSAID.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				F5E1735E241A52DB00DA5967 /* SLPEditProfileViewController.swift */,
 				88966670241FBC0600A4CE20 /* ProgressViewController.swift */,
 				F5DA5C6B2427F62400B02F7C /* SLPCuesViewController.swift */,
+				F5DA5C6D242809F000B02F7C /* patientCuesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5DA5C6E242809F000B02F7C /* patientCuesViewController.swift in Sources */,
 				F523F840240D47A300B003CF /* TableCell.swift in Sources */,
 				F50DC0752402ED3100604AAE /* SelectCategoriesController.swift in Sources */,
 				F518A58123ED4CB300A41AC8 /* SpeachToText.swift in Sources */,

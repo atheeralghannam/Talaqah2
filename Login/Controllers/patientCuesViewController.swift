@@ -1,16 +1,15 @@
 //
-//  SLPCuesViewController.swift
+//  patientCuesViewController.swift
 //  Talaqah
 //
-//  Created by Atheer Alghannam on 22/03/2020.
+//  Created by Atheer Alghannam on 23/03/2020.
 //  Copyright © 2020 Gary Tokman. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class SLPCuesViewController: UIViewController {
-
+class patientCuesViewController: UIViewController {
     @IBOutlet var cue1: UISwitch!
     @IBOutlet var cue2: UISwitch!
     @IBOutlet var cue3: UISwitch!
@@ -21,27 +20,16 @@ class SLPCuesViewController: UIViewController {
     
     let db = Firestore.firestore()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupSwitches()
+
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func setupSwitches(){
         
-        db.collection("patients").whereField("uid", isEqualTo:UserDefaults.standard.string(forKey: Constants.selectedPatient)).getDocuments {(snapshot, error) in
+        db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments {(snapshot, error) in
             if let error = error{print(error.localizedDescription)}
             else {
                 if let snapshot = snapshot {
@@ -60,7 +48,7 @@ class SLPCuesViewController: UIViewController {
         
     }
     
-    @IBAction func cue1Clicked(_ sender: Any) {
+    @IBAction func cue1pressed(_ sender: Any) {
         if cue1.isOn {
 
 
@@ -104,9 +92,7 @@ class SLPCuesViewController: UIViewController {
             cue1.setOn(false, animated:true)
         }
     }
-    
-    @IBAction func cue2Clicked(_ sender: Any) {
-        if cue2.isOn {
+    @IBAction func cue2pressed(_ sender: Any) {        if cue2.isOn {
 
 
             self.db.collection("patients")
@@ -148,9 +134,9 @@ class SLPCuesViewController: UIViewController {
 
             cue2.setOn(false, animated:true)
         }
-
     }
-    @IBAction func cue3Clicked(_ sender: Any) {
+    
+    @IBAction func cue3pressed(_ sender: Any) {
         if cue3.isOn {
 
 
@@ -194,52 +180,52 @@ class SLPCuesViewController: UIViewController {
             cue3.setOn(false, animated:true)
         }
     }
-    @IBAction func cue4Clicked(_ sender: Any) {
+    @IBAction func cue4pressed(_ sender: Any) {
         if cue4.isOn {
 
 
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue4": true
-                                   
-                                ])
-                            }
-                    }
+                 self.db.collection("patients")
+                             .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
+                             .getDocuments() { (querySnapshot, error) in
+                                 if let error = error {
+                                         print(error.localizedDescription)
+                                 } else if querySnapshot!.documents.count != 1 {
+                                         print("More than one documents or none")
+                                 } else {
+                                     let document = querySnapshot!.documents.first
+                                     document!.reference.updateData([
+                                       "cue4": true
+                                        
+                                     ])
+                                 }
+                         }
 
 
-            cue4.setOn(true, animated:true)
-        } else {
-            
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue4": false
-                                   
-                                ])
-                            }
-                    }
+                 cue4.setOn(true, animated:true)
+             } else {
+                 
+                 self.db.collection("patients")
+                             .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
+                             .getDocuments() { (querySnapshot, error) in
+                                 if let error = error {
+                                         print(error.localizedDescription)
+                                 } else if querySnapshot!.documents.count != 1 {
+                                         print("More than one documents or none")
+                                 } else {
+                                     let document = querySnapshot!.documents.first
+                                     document!.reference.updateData([
+                                       "cue4": false
+                                        
+                                     ])
+                                 }
+                         }
 
 
-            cue4.setOn(false, animated:true)
-        }
+                 cue4.setOn(false, animated:true)
+             }
 
     }
-    @IBAction func cue5Clicked(_ sender: Any) {
+    @IBAction func cue5pressed(_ sender: Any) {
         if cue5.isOn {
 
 
@@ -282,9 +268,8 @@ class SLPCuesViewController: UIViewController {
 
             cue5.setOn(false, animated:true)
         }
-
     }
-    @IBAction func cue6Clicked(_ sender: Any) {
+    @IBAction func cue6pressed(_ sender: Any) {
         if cue6.isOn {
 
 
@@ -327,9 +312,8 @@ class SLPCuesViewController: UIViewController {
 
             cue6.setOn(false, animated:true)
         }
-
     }
-    @IBAction func cue7Clicked(_ sender: Any) {
+    @IBAction func cue7pressed(_ sender: Any) {
         if cue7.isOn {
 
 
@@ -372,8 +356,15 @@ class SLPCuesViewController: UIViewController {
 
             cue7.setOn(false, animated:true)
         }
-
     }
-    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
 }
