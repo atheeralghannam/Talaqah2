@@ -37,6 +37,10 @@ var patient: Patient?
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //selectedPatient
+        UserDefaults.standard.set(patient?.uid, forKey: Constants.selectedPatient)
+
+        
         SetUpElements()
 
         if let patient = patient {

@@ -19,6 +19,7 @@ struct Constants {
     static let linkedSlpFname="linkedSlpFname"
     static let linkedSlpLname="linkedSlpLname"
     static let isNewEmail="isNewEmail"
+    static let selectedPatient="selectedPatient"
 
 
 
