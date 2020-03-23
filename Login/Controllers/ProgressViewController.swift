@@ -32,24 +32,34 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                             for document in snapshot.documents {
                                 let data = document.data()
                                 self.pEmail = data["Email"] as! String
+                                print (self.pEmail)
                                 //print("I send email")
                             }
                         }
                     }
-                    // from talagah to SLP check
                     //mail.setToRecipients(["horalfaisal2016@gmail.com"])
                     //mail.setToRecipients([self.pEmail])
                     //mail.setToRecipients(["horalfaisal2016@gmail.com","horalfaisal2016@gmail.com"])
                 }
                  //message.append(Auth.auth().currentUser!.email!)
-                mail.setToRecipients(["@gmail.com"])
-                    mail.setSubject("Subject")
-                    mail.setMessageBody("ViewBody", isHTML: false)
+        mail.setToRecipients([self.pEmail])
+                    mail.setSubject("تقدم حالة المريض")
+                    mail.setMessageBody("هنا سيكون تقدم حالة المريض", isHTML: false)
                     self.present(mail, animated: true)
                     
                 } else {
                     // show failure alert
+                
                             print("Cannot send email")
+        // create the alert
+        let alert = UIAlertController(title:"" , message: "لم يتم ربط هذا الجهاز بحساب البريد الإلكتروني. يرجى تسجيل الدخول إلى بريدك الإلكتروني في برنامج Mail,Gmail,...", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        
+        alert.addAction(UIAlertAction(title: "حسنا", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
 
                 }
             }

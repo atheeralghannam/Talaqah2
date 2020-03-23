@@ -21,6 +21,7 @@
 		45D136C523F42CFE00ADEA97 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136C423F42CFE00ADEA97 /* Patient.swift */; };
 		45D136C723F42D3500ADEA97 /* Trial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136C623F42D3500ADEA97 /* Trial.swift */; };
 		45E32E8E24004F4000F2E4F0 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E32E8D24004F4000F2E4F0 /* ResetPasswordViewController.swift */; };
+		8853FEEF2428D19100170B23 /* SLPViewProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853FEEE2428D19100170B23 /* SLPViewProgressController.swift */; };
 		88925F4423F48B2000425C75 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88925F4323F48B2000425C75 /* AccountViewController.swift */; };
 		88925F4623F48C1C00425C75 /* getTrial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88925F4523F48C1C00425C75 /* getTrial.swift */; };
 		88966671241FBC0600A4CE20 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88966670241FBC0600A4CE20 /* ProgressViewController.swift */; };
@@ -69,6 +70,7 @@
 		45D136C623F42D3500ADEA97 /* Trial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial.swift; sourceTree = "<group>"; };
 		45E32E8D24004F4000F2E4F0 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		6C7D32D6A7CD1276522B9440 /* Pods-Talaqah.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Talaqah.release.xcconfig"; path = "Target Support Files/Pods-Talaqah/Pods-Talaqah.release.xcconfig"; sourceTree = "<group>"; };
+		8853FEEE2428D19100170B23 /* SLPViewProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPViewProgressController.swift; sourceTree = "<group>"; };
 		88925F4323F48B2000425C75 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		88925F4523F48C1C00425C75 /* getTrial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTrial.swift; sourceTree = "<group>"; };
 		88966670241FBC0600A4CE20 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				88966670241FBC0600A4CE20 /* ProgressViewController.swift */,
 				F5DA5C6B2427F62400B02F7C /* SLPCuesViewController.swift */,
 				F5DA5C6D242809F000B02F7C /* patientCuesViewController.swift */,
+				8853FEEE2428D19100170B23 /* SLPViewProgressController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				F50DC0752402ED3100604AAE /* SelectCategoriesController.swift in Sources */,
 				F518A58123ED4CB300A41AC8 /* SpeachToText.swift in Sources */,
 				88966671241FBC0600A4CE20 /* ProgressViewController.swift in Sources */,
+				8853FEEF2428D19100170B23 /* SLPViewProgressController.swift in Sources */,
 				F5096F4C23E5C4AC00078322 /* Constants.swift in Sources */,
 				88925F4423F48B2000425C75 /* AccountViewController.swift in Sources */,
 				45D136C723F42D3500ADEA97 /* Trial.swift in Sources */,
