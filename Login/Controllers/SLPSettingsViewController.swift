@@ -14,6 +14,7 @@ class SLPSettingsViewController: UIViewController {
     let db = Firestore.firestore()
        var categories = [""]
        var settings = [3,2,2,2]
+    var patient : Patient?
     var uid = ""
      override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
           return .landscapeLeft
@@ -54,6 +55,7 @@ class SLPSettingsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "back"{
                let destnationVC = segue.destination as! DetailViewController
+            destnationVC.patient = patient
                destnationVC.modalPresentationStyle = .fullScreen
            }
            if segue.identifier == "toCat"{

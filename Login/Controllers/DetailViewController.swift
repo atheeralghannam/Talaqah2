@@ -187,6 +187,7 @@ var patient: Patient?
             destnationVC.settings = patient!.settings
             destnationVC.categories = patient!.categories
             destnationVC.uid = patient!.uid
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }
