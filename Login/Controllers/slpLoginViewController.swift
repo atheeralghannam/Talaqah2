@@ -15,6 +15,7 @@ class slpLoginViewController: UIViewController {
     @IBOutlet var forgetPassword: UIButton!
     @IBOutlet var haveAccount: UILabel!
     
+    @IBOutlet weak var slpregisterButton: UIButton!
     @IBOutlet var slploginButton: UIButton!
     var validation = Validation()
     
@@ -133,13 +134,17 @@ class slpLoginViewController: UIViewController {
         
         Utilities.styleLabel(label: haveAccount)
         Utilities.styleSecondaryButton(button: forgetPassword)
-        Utilities.styleSecondaryButton(button: slploginButton)
+        Utilities.styleSecondaryButton(button: slpregisterButton)
+        
         
         
 //        // limit input length of id
 //        idTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
 //        idTextField.delegate = self
         
+    }
+    @IBAction func slploginTapped(_ sender: Any) {
+              self.performSegue(withIdentifier: "toRegisterSlp", sender: nil)
     }
     // ------------for disable rotate > portrait view only
     override func viewWillAppear(_ animated: Bool) {

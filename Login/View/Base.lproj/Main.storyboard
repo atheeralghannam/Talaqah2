@@ -1156,7 +1156,7 @@
                                         <color key="tintColor" red="0.97253721950000005" green="0.97254294159999999" blue="0.97255772350000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="qPh-RT-jh7">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bd3-Oq-0DF">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bd3-Oq-0DF">
                                             <rect key="frame" x="512" y="12" width="72" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="الحرف الأول">
@@ -2180,6 +2180,9 @@
                                                 <state key="normal" title="تسجيل جديد">
                                                     <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="slploginTapped:" destination="xtt-j7-JDD" eventType="touchUpInside" id="R7e-zj-ulB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Th-7f-NMs">
                                                 <rect key="frame" x="229" y="0.0" width="111" height="30"/>
@@ -2236,7 +2239,9 @@
                         <outlet property="haveAccount" destination="Rla-uE-Hgp" id="EeY-hg-BNC"/>
                         <outlet property="passwordTextfield" destination="WAw-gu-ahB" id="RyN-Fc-LEu"/>
                         <outlet property="slploginButton" destination="JMm-R0-HzY" id="K1v-bw-MhQ"/>
+                        <outlet property="slpregisterButton" destination="EtK-9w-Ade" id="ZZb-of-1c4"/>
                         <segue destination="D19-PG-Bu2" kind="show" identifier="toSLPhome" id="zHK-9b-rot"/>
+                        <segue destination="iDz-qZ-rKC" kind="presentation" identifier="toRegisterSlp" id="duR-uC-Uva"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lba-Sr-j51" sceneMemberID="firstResponder"/>
@@ -2483,7 +2488,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="aTG-L1-EgI">
-                                <rect key="frame" x="179" y="0.0" width="538" height="382"/>
+                                <rect key="frame" x="179" y="-382" width="538" height="764"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCG-tu-ysO">
                                 <rect key="frame" x="60" y="577" width="776" height="50"/>
@@ -5315,6 +5320,171 @@
             </objects>
             <point key="canvasLocation" x="1425" y="-2436"/>
         </scene>
+        <!--Slp Register View Controller-->
+        <scene sceneID="2HF-br-jZQ">
+            <objects>
+                <viewController id="iDz-qZ-rKC" customClass="SlpRegisterViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M58-rO-2pw">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8ur-QL-Vmn">
+                                <rect key="frame" x="0.0" y="30" width="458" height="839"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="dDT-DW-xCX">
+                                        <rect key="frame" x="44" y="8" width="414" height="744"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="اسم المستشفى" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUC-im-tvv">
+                                                <rect key="frame" x="50" y="221" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="البريد الإلكتروني" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pfA-QQ-8KV">
+                                                <rect key="frame" x="50" y="331" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="رقم الجوال" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7vt-ln-AmO">
+                                                <rect key="frame" x="50" y="276" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="تأكيد كلمة المرور" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgJ-vu-09u">
+                                                <rect key="frame" x="51" y="349" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="الاسم الآول" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALe-3Z-mnt">
+                                                <rect key="frame" x="50" y="111" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="اسم العائلة" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zet-Pc-ikj">
+                                                <rect key="frame" x="50" y="166" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" textContentType="family-name"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="هناك خطأ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSH-o7-YpE">
+                                                <rect key="frame" x="50" y="460" width="312" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qio-Yh-kev">
+                                                <rect key="frame" x="16" y="520" width="382" height="50"/>
+                                                <color key="backgroundColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="hIL-MF-TUq"/>
+                                                </constraints>
+                                                <state key="normal" title="تسجيل">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="RegisterTapped:" destination="iDz-qZ-rKC" eventType="touchUpInside" id="Tvb-6B-K9c"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="لديك حساب؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcz-ar-xOo">
+                                                <rect key="frame" x="201" y="583" width="90.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQX-yf-3mG">
+                                                <rect key="frame" x="102" y="685" width="91" height="30"/>
+                                                <state key="normal" title="تسجيل الدخول">
+                                                    <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginTapped:" destination="iDz-qZ-rKC" eventType="touchUpInside" id="Xam-P1-FGG"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="كلمة المرور" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-xP-Hxg">
+                                                <rect key="frame" x="51" y="295" width="312" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="qio-Yh-kev" firstAttribute="top" secondItem="qSH-o7-YpE" secondAttribute="bottom" constant="39" id="0No-oG-KIs"/>
+                                            <constraint firstItem="mgJ-vu-09u" firstAttribute="top" secondItem="9sd-xP-Hxg" secondAttribute="bottom" constant="18" id="0Uz-wA-Na2"/>
+                                            <constraint firstItem="Zet-Pc-ikj" firstAttribute="top" secondItem="ALe-3Z-mnt" secondAttribute="bottom" constant="21" id="3GU-iW-7x4"/>
+                                            <constraint firstAttribute="trailing" secondItem="Zet-Pc-ikj" secondAttribute="trailing" constant="52" id="67s-Cm-VUs"/>
+                                            <constraint firstItem="qio-Yh-kev" firstAttribute="top" secondItem="mgJ-vu-09u" secondAttribute="bottom" constant="137" id="8cQ-Dl-Ntv"/>
+                                            <constraint firstItem="ALe-3Z-mnt" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="9u7-Xe-Nsn"/>
+                                            <constraint firstItem="xQX-yf-3mG" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="102" id="BNF-eO-rlm"/>
+                                            <constraint firstAttribute="bottom" secondItem="xQX-yf-3mG" secondAttribute="bottom" constant="29" id="ETI-X3-06r"/>
+                                            <constraint firstAttribute="trailing" secondItem="pfA-QQ-8KV" secondAttribute="trailing" constant="52" id="FRA-zg-KYI"/>
+                                            <constraint firstItem="9sd-xP-Hxg" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="LZb-nl-8ed"/>
+                                            <constraint firstAttribute="trailing" secondItem="xQX-yf-3mG" secondAttribute="trailing" constant="221" id="LlF-U8-mcI"/>
+                                            <constraint firstItem="qio-Yh-kev" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="15" id="Lud-wv-NFh"/>
+                                            <constraint firstAttribute="trailing" secondItem="mgJ-vu-09u" secondAttribute="trailing" constant="52" id="UXC-ko-mia"/>
+                                            <constraint firstItem="qSH-o7-YpE" firstAttribute="top" secondItem="mgJ-vu-09u" secondAttribute="bottom" constant="77" id="VVM-SF-MZY"/>
+                                            <constraint firstItem="qio-Yh-kev" firstAttribute="centerX" secondItem="dDT-DW-xCX" secondAttribute="centerX" constant="-1" id="WWG-UC-9ca"/>
+                                            <constraint firstItem="7vt-ln-AmO" firstAttribute="top" secondItem="cUC-im-tvv" secondAttribute="bottom" constant="21" id="a1V-Mg-8Hn"/>
+                                            <constraint firstItem="qSH-o7-YpE" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="bV8-dX-cfQ"/>
+                                            <constraint firstItem="cUC-im-tvv" firstAttribute="top" secondItem="Zet-Pc-ikj" secondAttribute="bottom" constant="21" id="bl2-2G-mwd"/>
+                                            <constraint firstItem="7vt-ln-AmO" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="eJK-de-5W8"/>
+                                            <constraint firstItem="Zet-Pc-ikj" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="eZF-7a-dbg"/>
+                                            <constraint firstAttribute="trailing" secondItem="qSH-o7-YpE" secondAttribute="trailing" constant="50" id="fGD-7K-Olr"/>
+                                            <constraint firstItem="dcz-ar-xOo" firstAttribute="top" secondItem="qio-Yh-kev" secondAttribute="bottom" constant="26" id="gJy-jh-hn6"/>
+                                            <constraint firstAttribute="trailing" secondItem="ALe-3Z-mnt" secondAttribute="trailing" constant="52" id="hdt-bd-TEr"/>
+                                            <constraint firstItem="pfA-QQ-8KV" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="jCY-3P-GOj"/>
+                                            <constraint firstAttribute="trailing" secondItem="dcz-ar-xOo" secondAttribute="trailing" constant="55" id="jWp-bV-e37"/>
+                                            <constraint firstItem="dcz-ar-xOo" firstAttribute="leading" secondItem="xQX-yf-3mG" secondAttribute="trailing" constant="8" id="kQE-3q-QBJ"/>
+                                            <constraint firstItem="9sd-xP-Hxg" firstAttribute="top" secondItem="pfA-QQ-8KV" secondAttribute="bottom" constant="21" id="kQZ-Ek-Mm9"/>
+                                            <constraint firstItem="xQX-yf-3mG" firstAttribute="top" secondItem="qio-Yh-kev" secondAttribute="bottom" constant="26" id="lXj-1X-yzP"/>
+                                            <constraint firstAttribute="trailing" secondItem="9sd-xP-Hxg" secondAttribute="trailing" constant="52" id="qie-gA-aRv"/>
+                                            <constraint firstAttribute="trailing" secondItem="7vt-ln-AmO" secondAttribute="trailing" constant="52" id="qqw-OP-TVs"/>
+                                            <constraint firstItem="mgJ-vu-09u" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="qsK-b7-7rK"/>
+                                            <constraint firstAttribute="trailing" secondItem="cUC-im-tvv" secondAttribute="trailing" constant="52" id="rk7-ht-3mE"/>
+                                            <constraint firstItem="pfA-QQ-8KV" firstAttribute="top" secondItem="7vt-ln-AmO" secondAttribute="bottom" constant="21" id="uxR-Pe-v9W"/>
+                                            <constraint firstItem="cUC-im-tvv" firstAttribute="leading" secondItem="dDT-DW-xCX" secondAttribute="leading" constant="50" id="x6E-iB-RFd"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Goy-xL-FCD">
+                                        <rect key="frame" x="44" y="760" width="414" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="sxU-hF-B9O">
+                                                <rect key="frame" x="168" y="0.0" width="78" height="50"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Goy-xL-FCD" firstAttribute="top" secondItem="8ur-QL-Vmn" secondAttribute="top" constant="760" id="R5z-gX-6qY"/>
+                                </constraints>
+                                <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="9nE-Gp-9Vc"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="mgJ-vu-09u" id="ai6-9N-4mr"/>
+                        <outlet property="emailTextField" destination="pfA-QQ-8KV" id="7Ge-Pm-MW3"/>
+                        <outlet property="errorLabel" destination="qSH-o7-YpE" id="RZy-7K-EBX"/>
+                        <outlet property="firstNameTextField" destination="ALe-3Z-mnt" id="ziM-M2-CBF"/>
+                        <outlet property="haveAccount" destination="dcz-ar-xOo" id="YxH-gf-aEj"/>
+                        <outlet property="hospitalNameTextField" destination="cUC-im-tvv" id="gRf-Dj-dEY"/>
+                        <outlet property="lastNameTextField" destination="Zet-Pc-ikj" id="AaG-hW-tpI"/>
+                        <outlet property="loginButton" destination="xQX-yf-3mG" id="D05-iz-eVa"/>
+                        <outlet property="passwordTextField" destination="9sd-xP-Hxg" id="gD4-id-843"/>
+                        <outlet property="phoneNumberTextField" destination="7vt-ln-AmO" id="jAu-qW-Vln"/>
+                        <outlet property="registerButton" destination="qio-Yh-kev" id="pdf-I2-kgB"/>
+                        <segue destination="D19-PG-Bu2" kind="presentation" identifier="toStartSlp" id="kCM-Yb-1Yt"/>
+                        <segue destination="xtt-j7-JDD" kind="presentation" identifier="ToLoginSlp" id="XH4-A3-MkK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XdR-wL-gOW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2849" y="3310"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Close button" width="28" height="28"/>
@@ -5356,6 +5526,8 @@
         <segue reference="9vo-be-7w8"/>
         <segue reference="fwg-4s-mo0"/>
         <segue reference="O3L-zy-Hiu"/>
+        <segue reference="kCM-Yb-1Yt"/>
+        <segue reference="XH4-A3-MkK"/>
         <segue reference="iPO-VJ-F8U"/>
         <segue reference="8a4-0V-Erh"/>
         <segue reference="9n5-NE-UmG"/>

@@ -1,8 +1,8 @@
 //
-//  RegisterViewController.swift
-//  Login
+//  SlpRegisterViewController.swift
+//  Talaqah
 //
-//  Created by Haneen Abdullah on 12/02/2020.
+//  Created by Haneen Abdullah on 03/03/2020.
 //  Copyright © 2020 Gary Tokman. All rights reserved.
 //
 
@@ -10,34 +10,27 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class RegisterController: UIViewController, UITextFieldDelegate {
+class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
     
     var validation = Validation()
     var gender = "male"
     
-    //    var isValidId = true
-    
-    
-    
-    
-    
+ 
     @IBOutlet weak var firstNameTextField: UITextField!
-    
+
     @IBOutlet weak var lastNameTextField: UITextField!
     
-    @IBOutlet weak var nIDTextField: UITextField!
+    @IBOutlet weak var hospitalNameTextField: UITextField!
     
-    @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    
     
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
-    
-    @IBOutlet weak var genderSegmented: UISegmentedControl!
-    
+    @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -46,31 +39,20 @@ class RegisterController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var haveAccount: UILabel!
     
     @IBOutlet weak var loginButton: UIButton!
-    @IBAction func genderSegmented(_ sender: Any) {
-        let getIndex = genderSegmented.selectedSegmentIndex
-        if getIndex == 0 {
-            gender = "male"
-        }
-        else {
-            gender = "female"
-        }
-        
-        
-    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         SetUpElements()
-    }
+    }//end viewDidLoad()
     
+    
+    //may not needed
     override func awakeFromNib() {
         self.view.layoutIfNeeded()
         
-    }
-    
+    }//end awakeFromNib()
     
     
     func SetUpElements() {
@@ -81,7 +63,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         // Style the elements
         Utilities.styleTextField(textfield: firstNameTextField)
         Utilities.styleTextField(textfield: lastNameTextField)
-        Utilities.styleTextField(textfield: nIDTextField)
+        Utilities.styleTextField(textfield: hospitalNameTextField)
         Utilities.styleTextField(textfield: emailTextField)
         Utilities.styleTextField(textfield: phoneNumberTextField)
         Utilities.styleTextField(textfield: passwordTextField)
@@ -91,15 +73,22 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         Utilities.styleLabel(label: haveAccount)
         Utilities.styleSecondaryButton(button: loginButton)
         //setup limit inputs length
-        nIDTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        
         phoneNumberTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
-        nIDTextField.delegate = self
         phoneNumberTextField.delegate = self
         
         
         //todo set up genderSegmented Style
         
-    }
+    }//end SetUpElements()
+    
+    
+    
+    
+    
+    @IBAction func loginTapped(_ sender: Any) {
+   self.performSegue(withIdentifier: "ToLoginSlp", sender: nil)
+    }//end loginTapped()
     
     // Check the fields and validate that the data is correct. If everything is correct, this method returns nil. Otherwise, it returns the error message
     func validateFields() -> String? {
@@ -116,7 +105,6 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         // Check that all fields are filled in
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            nIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             phoneNumberTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -124,29 +112,15 @@ class RegisterController: UIViewController, UITextFieldDelegate {
             
             //            return "Please fill in all fields."
             return "الرجاء التحقق من تعبئة جميع الحقول"
-        }
+        } //end if
         
-        
-        // how to use
-        //                                do {
-        //                                    let resutl = try ValidateSAID.check(nIDTextField.text!)
-        //
-        //                                    // this will print NationaltyType description
-        //                                    print(resutl)
-        //                                } catch {
-        //                                    // this will print error description
-        //                                    isValidId=false
-        //                                    print(error)
-        ////                                    self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        ////                                                  idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        //                                }
         
         
         
         // Check if the password is secure
         let isValidatePass = self.validation.validatePassword( password: password)
         let isMatchedPass=(password==confirmPassword)
-        let isValidateId=self.validation.isValidateId(id: nIDTextField.text!)
+        
         let isValidPhone=self.validation.isValidPhoneNumber(phoneNumber: phoneNumberTextField.text!)
         
         
@@ -155,23 +129,21 @@ class RegisterController: UIViewController, UITextFieldDelegate {
             // Password isn't secure enough
             return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
             //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
-        }
+        } //end if
         if isMatchedPass==false{
             return "تأكيد كلمة المرور يجب أن تتطابق مع كلمة المرور المدخلة"
             //            return "Please make sure your password and its confirm are both same."
-        }
+            
+        } //end if
         
-        if isValidateId==false{
-            return "رقم الهوية/الإقامة غير صحيح"
-        }
         
         if isValidPhone==false {
             return "الرجاء التحقق من إدخال رقم صحيح : ********05"
-//            return "Please enter valid phone: 05********"
+            //            return "Please enter valid phone: 05********"
         }
         
         return nil
-    }
+    } //end validateFields()
     
     
     
@@ -180,34 +152,29 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         
         errorLabel.text = message
         errorLabel.alpha = 1
-    }
+    } //end showError()
     
     
     
+
     @IBAction func RegisterTapped(_ sender: Any) {
-        
-        // Validate the fields
+    // Validate the fields
         let error = validateFields()
         
         if error != nil {
             
             // There's something wrong with the fields, show error message
             showError(error!)
-        }
+        } //end if
         else {
             
             // Create cleaned versions of the data
             let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let nID = nIDTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let hospitalName = hospitalNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let phone = phoneNumberTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            //                                let gender="female"
-            
-            
-            
-            
             
             
             // Create the user
@@ -233,42 +200,35 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                     // There was an error creating the user
                     //                                        self.showError("Error creating user")
                     //                                        print("Error creating user")
-                }
+                } //end big if
                 else {
                     
-                    // User was created successfully, now store the first name and last name
-                    let db = Firestore.firestore()
-                    //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
-                    db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
-                    "cue4": true, "cue5": true, "cue6": true, "cue7": true]) { (error) in
-                        
-                        
+                    // store SLP on DB
+//                    let db = Firestore.firestore()
+//                    db.collection("slps").addDocument(data: [ "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "HospitalName": hospitalName, "uid": result!.user.uid ]) { (error) in
+//
+                        let db = Firestore.firestore()
+                        db.collection("slps").addDocument(data: [ "fname":firstName, "lname":lastName, "email":email, "phone": phone, "uid": result!.user.uid ]) { (error) in
+                            
                         
                         if error != nil {
                             // Show error message
                             self.showError("خطأ في حفظ بيانات المستخدم !")
                             //                             self.showError("Error saving user data")
                             print("Error saving user data")
-                        }
-                    }
+                        } //end inner if
+                    } //end addDocument
                     
                     // Transition to the home screen
-                    //                                  self.transitionToHome()
-                    self.performSegue(withIdentifier: "toStart", sender: nil)
-                }
+                    //
+                    self.performSegue(withIdentifier: "toStartSlp", sender: nil)
+                } //end else
                 
-            }
+            } //end createUser
             
             
-        }
-    }
-    
-    
-    
-    @IBAction func LoginTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "toLogin", sender: nil)
-    }
-    
+        } //end big else
+    } //end RegisterTapped()
     
     
     
@@ -277,33 +237,28 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         
         let maxLength : Int
         
-        if textField == nIDTextField {
-            maxLength = 10
-        }
-        else if textField == phoneNumberTextField {
+        if textField == phoneNumberTextField {
             maxLength = 10
         }
         else {
-            maxLength = 50
+            maxLength = 100
         }
         
         let currentString: NSString = textField.text! as NSString
         
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         return newString.length <= maxLength
-    }
+    } //end textField()
     
     // ------------for disable rotate > portrait view only
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           
-       }
-       
-       override open var shouldAutorotate: Bool {
-           return false
-       }
+        super.viewWillAppear(animated)
+        
+    } //end viewWillAppear()
+    
+    override open var shouldAutorotate: Bool {
+        return false
+    } //end shouldAutorotate()
     
     
-}
-
-
+}//end controller
