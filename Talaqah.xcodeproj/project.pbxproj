@@ -18,6 +18,9 @@
 		37E6C0782429921A009CA456 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0772429921A009CA456 /* SettingsViewController.swift */; };
 		37E6C07A24299C07009CA456 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C07924299C07009CA456 /* CategoriesViewController.swift */; };
 		37E6C07C24299DEC009CA456 /* ComplixityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C07B24299DEC009CA456 /* ComplixityViewController.swift */; };
+		37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C07F2429B423009CA456 /* SLPSettingsViewController.swift */; };
+		37E6C0822429B7DF009CA456 /* CatSLpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0812429B7DF009CA456 /* CatSLpViewController.swift */; };
+		37E6C0842429C172009CA456 /* ComSLpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0832429C172009CA456 /* ComSLpViewController.swift */; };
 		45B21C8D2403177900184DBC /* canYouNaming.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45B21C8C2403177900184DBC /* canYouNaming.mp3 */; };
 		45D136B923F405A700ADEA97 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136B823F405A700ADEA97 /* Utilities.swift */; };
 		45D136C323F428BC00ADEA97 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136C223F428BC00ADEA97 /* RegisterController.swift */; };
@@ -69,6 +72,9 @@
 		37E6C0772429921A009CA456 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		37E6C07924299C07009CA456 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		37E6C07B24299DEC009CA456 /* ComplixityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplixityViewController.swift; sourceTree = "<group>"; };
+		37E6C07F2429B423009CA456 /* SLPSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPSettingsViewController.swift; sourceTree = "<group>"; };
+		37E6C0812429B7DF009CA456 /* CatSLpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatSLpViewController.swift; sourceTree = "<group>"; };
+		37E6C0832429C172009CA456 /* ComSLpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComSLpViewController.swift; sourceTree = "<group>"; };
 		45B21C8C2403177900184DBC /* canYouNaming.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = canYouNaming.mp3; sourceTree = "<group>"; };
 		45D136B823F405A700ADEA97 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		45D136C223F428BC00ADEA97 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
@@ -191,6 +197,9 @@
 				37E6C0772429921A009CA456 /* SettingsViewController.swift */,
 				37E6C07924299C07009CA456 /* CategoriesViewController.swift */,
 				37E6C07B24299DEC009CA456 /* ComplixityViewController.swift */,
+				37E6C07F2429B423009CA456 /* SLPSettingsViewController.swift */,
+				37E6C0812429B7DF009CA456 /* CatSLpViewController.swift */,
+				37E6C0832429C172009CA456 /* ComSLpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -372,6 +381,7 @@
 				F5E1735F241A52DB00DA5967 /* SLPEditProfileViewController.swift in Sources */,
 				45D136B923F405A700ADEA97 /* Utilities.swift in Sources */,
 				208F16792235EAAB002CF75F /* LoginViewController.swift in Sources */,
+				37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */,
 				88CB23A6240405E40099A3C2 /* ResultController.swift in Sources */,
 				F518A58523ED4CE500A41AC8 /* Authorization.swift in Sources */,
 				208F16772235EAAB002CF75F /* AppDelegate.swift in Sources */,
@@ -393,6 +403,8 @@
 				377764E62411BB0C008D045B /* BaseViewController.swift in Sources */,
 				F5221A44240E173500CBC7B2 /* DetailViewController.swift in Sources */,
 				F5B7BF1023EB43E70033B094 /* Validation.swift in Sources */,
+				37E6C0822429B7DF009CA456 /* CatSLpViewController.swift in Sources */,
+				37E6C0842429C172009CA456 /* ComSLpViewController.swift in Sources */,
 				F518A58323ED4CD400A41AC8 /* LanguageToSpeak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

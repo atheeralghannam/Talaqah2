@@ -12,9 +12,16 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet var addButton: UIButton!
-    
+   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    override var shouldAutorotate: Bool {
+           return true
+       }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
         tableView.dataSource = self
         tableView.delegate = self
         db = Firestore.firestore()
@@ -99,9 +106,9 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
            
        }
        
-       override open var shouldAutorotate: Bool {
-           return false
-       }
+//       override open var shouldAutorotate: Bool {
+//           return false
+//       }
     
     @IBAction func addButtonTapped(_ sender: Any) {
         let refreshAlert = UIAlertController(title: "إضافة مريض", message: "ادخل رقم هوية/إقامة المريض الذي تود إضافته", preferredStyle: UIAlertController.Style.alert)

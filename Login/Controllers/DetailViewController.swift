@@ -14,6 +14,7 @@ import Firebase
 class DetailViewController: UIViewController, UITextFieldDelegate {
 
 var patient: Patient?
+
     let db = Firestore.firestore()
 
 
@@ -33,10 +34,18 @@ var patient: Patient?
     @IBOutlet var patientEmail: UITextField!
     @IBOutlet var patientPhone: UITextField!
     @IBOutlet var patientGender: UITextField!
-    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    override var shouldAutorotate: Bool {
+           return true
+       }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
         
+
         //selectedPatient
         UserDefaults.standard.set(patient?.uid, forKey: Constants.selectedPatient)
 
@@ -164,6 +173,22 @@ var patient: Patient?
         
         
 
+    }
+    @IBAction func Settings(_ sender: UIButton) {
+        if patient != nil {
+            self.performSegue(withIdentifier: "patientSettings", sender: self)
+        } else{
+            //alert
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "patientSettings"{
+            let destnationVC = segue.destination as! SLPSettingsViewController
+            destnationVC.settings = patient!.settings
+            destnationVC.categories = patient!.categories
+            destnationVC.uid = patient!.uid
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
     }
 }
 
