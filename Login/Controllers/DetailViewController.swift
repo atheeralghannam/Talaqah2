@@ -191,5 +191,6 @@ var patient: Patient?
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }
+    
 }
 
