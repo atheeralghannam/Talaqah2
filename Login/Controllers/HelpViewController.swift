@@ -9,6 +9,8 @@
 import UIKit
 
 class HelpViewController: UIViewController {
+    
+    var trials = [Trial]()
 
        override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .landscapeLeft
@@ -23,7 +25,15 @@ class HelpViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    @IBAction func back(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "back", sender: self)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+          let destnationVC = segue.destination as! TrialController
+          destnationVC.trials = trials
+      destnationVC.modalPresentationStyle = .fullScreen
+      }
 
     /*
     // MARK: - Navigation

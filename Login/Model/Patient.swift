@@ -17,6 +17,8 @@ struct Patient {
     var PhoneNumber:String
     var Email:String
     var uid:String
+    var categories : [String]
+    var settings: [Int]
     
     func printName() {
         print("\(self.FirstName) \(self.LastName)")

@@ -11,7 +11,11 @@ import Firebase
 
 
 class BaseViewController: UIViewController {
-    
+    var fcheck = false
+    var scheck = false
+    var tcheck = false
+    var lcheck = false
+    var patientsArray = [Patient]()
     let db = Firestore.firestore()
     var trials = [Trial]()
     var categories = ["male","female", "adj", "animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
@@ -24,7 +28,8 @@ class BaseViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-//        super.viewDidLoad()
+        //        super.viewDidLoad()
+        getCurrentPatient()
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         let tal = UIColor(named: "Tala")
@@ -32,33 +37,6 @@ class BaseViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
-        print(trials.isEmpty)
-        if (trials.isEmpty){
-        for document in documents{
-        let docRef = db.collection("trials").document(document)
-        for category in categories {
-            let doc = docRef.collection(category)
-            doc.getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        let data = document.data()
-                        if !data.isEmpty{
-                        self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
-                            , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
-                                Array<String>, settings: data["settings"] as! Array<Int>, category: category))
-                        }
-                       // print("\(document.documentID) => \(document.data())")
-                    }
-                    
-                    }
-                //print(self.trials)
-                }
-            }
-        }
-        }
-        print(trials)
         // Do any additional setup after loading the view.
     }
     
@@ -66,12 +44,19 @@ class BaseViewController: UIViewController {
         if segue.identifier == "startTrial" {
             let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
+            destnationVC.patient = patientsArray
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "ViewProfile" {
             let destnationVC = segue.destination as! AccountViewController
-                    
-                       destnationVC.modalPresentationStyle = .fullScreen
+            
+            destnationVC.modalPresentationStyle = .fullScreen
+        }else if segue.identifier == "toSettings"{ let destnationVC = segue.destination as! SettingsViewController
+            destnationVC.categories = patientsArray[0].categories
+            destnationVC.settings = patientsArray[0].settings
+            destnationVC.patinet = patientsArray
+            destnationVC.modalPresentationStyle = .fullScreen
+            
         }
     }
     
@@ -79,60 +64,307 @@ class BaseViewController: UIViewController {
         self.performSegue(withIdentifier: "ViewProfile", sender: self)
     }
     @IBAction func Start(_ sender: UIButton) {
+        if (trials.isEmpty){
+            getTrials()
+        }
         if trials.isEmpty {
             let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                           "يتم تحميل البيانات", preferredStyle: .alert)
-                       alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-                       
-                       self.present(alertController, animated: true, completion: nil)
+                "يتم تحميل البيانات", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+            
+            self.present(alertController, animated: true, completion: nil)
         }else{
-        self.performSegue(withIdentifier: "startTrial", sender: self)
+            self.performSegue(withIdentifier: "startTrial", sender: self)
+        }
+    }
+
+    @IBAction func Settings(_ sender: UIButton) {
+        if patientsArray.isEmpty {
+                   let alertController = UIAlertController(title: "فضلًا انتظر", message:
+                       "يتم تحميل البيانات", preferredStyle: .alert)
+                   alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                   
+                   self.present(alertController, animated: true, completion: nil)
+               }else{
+                    self.performSegue(withIdentifier: "toSettings", sender: self)
+               }
+       
+    }
+    
+    @IBAction func logout(_ sender: UIButton) {
+        
+        
+        let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+                print ("signing out DONE")
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            
+            print("Handle Ok logic here")
+            UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
+            
+            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            appDel.window?.rootViewController = loginVC
+            
+            
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Handle Cancel Logic here")
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func getCurrentPatient()  {
+        var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String(), puid = String(), pcateg = [String](),psettings = [Int]()
+        let db = Firestore.firestore()
+        db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if querySnapshot!.documents.count != 1 {
+                print("More than one documents or none")
+            }
+                
+            else {
+                
+                let document = querySnapshot!.documents.first
+                let data = document!.data()
+                
+                //self.pEmail = data["Email"] as? String ?? ""
+                pEmail = data["Email"] as! String
+                fName = data["FirstName"] as! String
+                lName = data["LastName"] as! String
+                pGender = data["Gender"] as! String
+                pnID = data["NID"] as! String
+                phoneNumber = data["PhoneNumber"] as! String
+                puid = data["uid"] as! String
+                pcateg = data["categories"] as! [String]
+                psettings = data["settings"] as! [Int]
+                
+                let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings)
+                self.patientsArray.append(patient)
+            }
+            
+        }
+        
+    }
+    func getTrials(){
+        for document in documents{
+            let docRef = db.collection("trials").document(document)
+            if document == "names"{
+                categories = ["animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
+                for ctegory in categories {
+                    let ix = categories.firstIndex(of: ctegory)
+                    if !patientsArray.isEmpty{
+                        let patient = patientsArray[0]
+                        if !patient.categories.contains(ctegory){
+                            categories.remove(at: ix!)
+                        }
+                    }
+                }
+            }
+            else if document == "verbs"{
+                if !patientsArray.isEmpty{
+                    let patient = patientsArray[0]
+                    categories = [patient.Gender]
+                    print(categories)
+                }
+            } else {
+                categories = ["adj"]
+            }
+            for category in categories {
+                let doc = docRef.collection(category)
+                doc.getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            let data = document.data()
+                            if !data.isEmpty   {
+                                let s = data["settings"] as! Array<Int>
+                                if !self.patientsArray.isEmpty{
+                                    let patient = self.patientsArray[0]
+                                    print("Settings: " +  String(s.elementsEqual(patient.settings)))
+                                    var i = 0
+                                    for set in patient.settings {
+                                        self.settings(a: set, b: s[i], index : i)
+                                        i += 1
+                                    }
+                                    if !self.fcheck && !self.scheck && !self.tcheck && !self.lcheck{
+                                        self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                            , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                Array<String>, settings: data["settings"] as! Array<Int>, category: category, type: data["type"] as! String))
+                                    } //end of if no one need check
+                                    else if self.fcheck{
+                                        if s[0] == patient.settings[0]{
+                                            if !self.scheck && !self.tcheck && !self.lcheck {
+                                                self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                    , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                        Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                            }// end of if just first one need check
+                                            else if self.scheck {
+                                                if s[1] == patient.settings[1]{
+                                                    if  !self.tcheck && !self.lcheck {
+                                                        self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                            , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                    }// end of just second and one need check
+                                                    else if self.tcheck {
+                                                        if s[2] == patient.settings [2] || s[2] == -1{
+                                                            if !self.lcheck {
+                                                                self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                                    , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                        Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                            }// just first 3 needs check
+                                                            else if self.lcheck {
+                                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                                    self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                                        , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                            Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                                }// all right
+                                                            }// all needs check
+                                                        }// if third and 2nd and 1st are right
+                                                    }// end of third and second and first needs check
+                                                    else if self.lcheck {
+                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                            self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                                , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                    Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                        }//end of last are right
+                                                    }// end of 1st and 2nd and 4th need check
+                                                    
+                                                }// end of if second and first are right
+                                            }// end of second and one need check
+                                            else if self.tcheck {
+                                                if s[2] == patient.settings[2] || s[2] == -1{
+                                                    if !self.lcheck{
+                                                        self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                            , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                    }// end of 4th and 2nd dont need check
+                                                    else if self.lcheck{
+                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                            self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                                , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                    Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                        }// end of 4th is right
+                                                    }/// end of all need check exept 2nd
+                                                }//end of  3rd check is right
+                                            }// end of 1st and 3rd need check 2nd dont need
+                                            else if self.lcheck {
+                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                    self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                        , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                            Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                }// end of 4th is right
+                                            }// end of 4th and 1st just need check
+                                        }// end of if first is right
+                                    }//end of if first one need check
+                                    else if self.scheck {
+                                        if s[1] == patient.settings[1]{
+                                            if  !self.tcheck && !self.lcheck {
+                                                self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                    , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                        Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                            }// end of just second need check
+                                            else if self.tcheck {
+                                                if s[2] == patient.settings [2] || s[2] == -1 {
+                                                    if !self.lcheck {
+                                                        self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                            , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                    }// just 2nd and 3rd needs check
+                                                    else if self.lcheck {
+                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                            self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                                , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                                    Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                        }// all right
+                                                    }// all needs check
+                                                }// if third and 2nd are right
+                                            }// end of third and second needs check
+                                            else if self.lcheck {
+                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                    self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                        , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                            Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                }//end of last are right
+                                            }// end of 2nd and 4th need check
+                                        }// end of if second is right
+                                    }// end of second check first not
+                                    else if self.tcheck {
+                                        if s[2] == patient.settings [2] || s[2] == -1{
+                                            if !self.lcheck {
+                                                self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                    , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                        Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                            }// just 2nd and 3rd needs check
+                                            else if self.lcheck {
+                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                    self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                        , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                            Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                                }// all right
+                                            }// all needs check
+                                        }// if third and 2nd are right
+                                    }// end of third and second needs check
+                                    else if self.lcheck {
+                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                            self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
+                                                , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
+                                                    Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
+                                        }//end of last are right
+                                    }// end of 2nd and 4th need check
+                                } // end of if succesfull read patint
+                            }// end of if data not empty
+                        }// end of read snapshpt
+                    }// end pf each trial
+                }//end of each doucemnt
+            }// end of categories
+        }// end document (verbs, names, adj)
+    }// end trials
+    
+    func settings(a : Int , b: Int, index : Int){
+        // a == 3 at index 0 (all syllable)
+        if a == 3 && index == 0 {
+            fcheck = false
+        }
+            //a == 2 at index != 0
+        else if a == 2 && index != 0 {
+            switch index {
+            case 1:
+                scheck = false
+            case 2:
+                tcheck = false
+            default:
+                lcheck = false
+            }
+        }
+            //a != 3 at index 0 (spesfice)
+        else if index == 0 && a != 3 {
+            fcheck = true
+        }
+            // a!=2 at index != 0
+        else if index != 0 && a != 2 {
+            switch index {
+            case 1:
+                scheck = true
+            case 2:
+                tcheck = true
+            default:
+                lcheck = true
+            }
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    @IBAction func logout(_ sender: UIButton) {
-        
-            
-            let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
-            
-            refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
-                let firebaseAuth = Auth.auth()
-                do {
-                    try firebaseAuth.signOut()
-                    print ("signing out DONE")
-                } catch let signOutError as NSError {
-                    print ("Error signing out: %@", signOutError)
-                }
-                
-                print("Handle Ok logic here")
-                UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
-                UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-                
-                let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
-                
-                let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                
-                appDel.window?.rootViewController = loginVC
-                
-                
-            }))
-            
-            refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-                print("Handle Cancel Logic here")
-            }))
-            
-            present(refreshAlert, animated: true, completion: nil)
-    }
-    
- 
-
 }

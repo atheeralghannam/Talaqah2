@@ -11,6 +11,9 @@ import Firebase
 
 class SelsectWordsController: UIViewController {
     var adj = false
+    var name = false
+    var isthere = [false,false,false]
+    var patient = [Patient]()
     let db = Firestore.firestore()
     var trials = [Trial]()
     var array = [Trial]()
@@ -22,6 +25,8 @@ class SelsectWordsController: UIViewController {
         return .landscapeLeft
     }
     override func viewDidLoad() {
+       // patint = getCurrentPatient()
+        isThere()
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         let tal = UIColor(named: "Tala")
@@ -40,51 +45,103 @@ class SelsectWordsController: UIViewController {
         Utilities.styleFilledButton(button: AdjButton)
     }
     @IBAction func wordButtonPressed(_ sender: UIButton) {
-        if sender.currentTitle! == "الصفات"{
-            adj = true
-            self.performSegue(withIdentifier: "fromWordsToTrials", sender: self)
-        }
-        else if sender.currentTitle! == "الأفعال"{
-            adj = false
-            self.performSegue(withIdentifier: "fromWordsToTrials", sender: self)
-        }else if sender.currentTitle! == "الأسماء"{
-            self.performSegue(withIdentifier: "fromWtoC", sender: self)
-        }
+         if sender.currentTitle! == "الصفات"{
+                   if !isthere[1]{
+                       let alertController = UIAlertController(title: "نأسف", message:
+                                                 "حسب إعداداتك لا يوجد تمرين مناسب هنا", preferredStyle: .alert)
+                                             alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                                             
+                                             self.present(alertController, animated: true, completion: nil)
+                   }
+                   else{
+                   adj = true
+                   self.performSegue(withIdentifier: "fromWordsToTrials", sender: self)
+                   }
+               }
+               else if sender.currentTitle! == "الأفعال"{
+                   if !isthere[2]{
+                       let alertController = UIAlertController(title: "نأسف", message:
+                                                                "حسب إعداداتك لا يوجد تمرين مناسب هنا", preferredStyle: .alert)
+                                                            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                                                            
+                                                            self.present(alertController, animated: true, completion: nil)
+                   }else{
+                   adj = false
+                   self.performSegue(withIdentifier: "fromWordsToTrials", sender: self)
+                   }
+               }else if sender.currentTitle! == "الأسماء"{
+                   if !isthere[0]{
+                       let alertController = UIAlertController(title: "نأسف", message:
+                                                                "حسب إعداداتك لا يوجد تمرين مناسب هنا", preferredStyle: .alert)
+                                                            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                                                            
+                                                            self.present(alertController, animated: true, completion: nil)
+                   }
+                   else if patient[0].categories.isEmpty {
+                       self.performSegue(withIdentifier: "fromWtoC", sender: self)}
+                   else {
+                       name = true
+                       self.performSegue(withIdentifier: "fromWordsToTrials", sender: self)
+                   }
+                   
+               }
+           }
+           func isThere(){
+               for trial in trials {
+                   if trial.type == "name"{
+                       isthere[0] = true
+                   }else if trial.type == "adj"{
+                       isthere[1] = true
+                   } else if trial.type == "verb" {
+                       isthere[2] = true
+                   }
+               }
     }
     
     @IBAction func Home(_ sender: UIButton) {
         self.performSegue(withIdentifier: "Home", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(trials)
-        if segue.identifier == "fromWordsToTrials" {
-            let destnationVC = segue.destination as! TrialController
-            if adj{
-                for trial in trials{
-                    if trial.category == "adj"{
-                        array.append(trial)
-                    }
-                }
-                destnationVC.trials = array
-                destnationVC.modalPresentationStyle = .fullScreen
-            } else{
-                for trial in trials{
-                    if trial.category == "male" {
-                        array.append(trial)
-                    }
-                }
-                destnationVC.trials = array
-                destnationVC.modalPresentationStyle = .fullScreen
-            }
-        }
-        else if segue.identifier == "fromWtoC"{
-            let destnationVC = segue.destination as! SelectCategoriesController
-            destnationVC.trials = trials
-        }
-        else if segue.identifier == "Home" {
-            let destnationVC = segue.destination as! BaseViewController
-            destnationVC.trials = trials
-            destnationVC.modalPresentationStyle = .fullScreen
-        }
+         if segue.identifier == "fromWordsToTrials" {
+                   let destnationVC = segue.destination as! TrialController
+                   if adj{
+                       for trial in trials{
+                           if trial.category == "adj"{
+                               array.append(trial)
+                           }
+                       }
+                       destnationVC.trials = array
+                       destnationVC.modalPresentationStyle = .fullScreen
+                   } else if !adj && !name {
+                       for trial in trials{
+                        if trial.category == patient[0].Gender {
+                               array.append(trial)
+                           }
+                       }
+                       destnationVC.trials = array
+                       destnationVC.modalPresentationStyle = .fullScreen
+                   } else{
+                       for trial in trials {
+                           print(patient[0].categories)
+                           for category in patient[0].categories {
+                               if trial.category == category {
+                                   print("category, trial")
+                                   array.append(trial)
+                           }
+                       }
+                       }
+                       print(array)
+                       destnationVC.trials = array
+                   }
+               }
+               else if segue.identifier == "fromWtoC"{
+                   let destnationVC = segue.destination as! SelectCategoriesController
+                   destnationVC.trials = trials
+               }
+               else if segue.identifier == "Home" {
+                   let destnationVC = segue.destination as! BaseViewController
+                   destnationVC.trials = trials
+                   destnationVC.modalPresentationStyle = .fullScreen
+               }
     }
 }

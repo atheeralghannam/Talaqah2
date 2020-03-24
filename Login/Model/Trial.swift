@@ -9,12 +9,13 @@
 import Foundation
 struct Trial {
     
-    //var ID:String
     var answer:String
     var name:String
     var writtenCues:Array<String>
     var audiosNames:Array<String>
     var settings:Array<Int>
     var category : String
+    var type : String
+
 
 }
