@@ -18,6 +18,9 @@ class SLPCuesViewController: UIViewController {
     @IBOutlet var cue5: UISwitch!
     @IBOutlet var cue6: UISwitch!
     @IBOutlet var cue7: UISwitch!
+    var settings = [0]
+    var cat = [""]
+    var uid = ""
     
     let db = Firestore.firestore()
 
@@ -28,17 +31,11 @@ class SLPCuesViewController: UIViewController {
         setupSwitches()
         // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    @IBAction func back(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "back", sender: self)
     }
-    */
+    
     func setupSwitches(){
         
         db.collection("patients").whereField("uid", isEqualTo:UserDefaults.standard.string(forKey: Constants.selectedPatient)).getDocuments {(snapshot, error) in
@@ -375,5 +372,14 @@ class SLPCuesViewController: UIViewController {
 
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+              if segue.identifier == "back"{
+                  let destnationVC = segue.destination as! SLPSettingsViewController
+                     destnationVC.settings = settings
+                  destnationVC.categories = cat
+                  destnationVC.uid = uid
+                  print(settings)
+                     destnationVC.modalPresentationStyle = .fullScreen
+              }
+    }
 }

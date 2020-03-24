@@ -79,6 +79,13 @@ class BaseViewController: UIViewController {
     }
 
     @IBAction func Settings(_ sender: UIButton) {
+        if patientsArray[0].slpUid != ""{
+            let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
+                "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }else {
         if patientsArray.isEmpty {
                    let alertController = UIAlertController(title: "فضلًا انتظر", message:
                        "يتم تحميل البيانات", preferredStyle: .alert)
@@ -88,7 +95,7 @@ class BaseViewController: UIViewController {
                }else{
                     self.performSegue(withIdentifier: "toSettings", sender: self)
                }
-       
+        }
     }
     
     @IBAction func logout(_ sender: UIButton) {
@@ -126,7 +133,7 @@ class BaseViewController: UIViewController {
     }
     
     func getCurrentPatient()  {
-        var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String(), puid = String(), pcateg = [String](),psettings = [Int]()
+        var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String(), puid = String(), pcateg = [String](),psettings = [Int](), pslpuid = String()
         let db = Firestore.firestore()
         db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -150,8 +157,9 @@ class BaseViewController: UIViewController {
                 puid = data["uid"] as! String
                 pcateg = data["categories"] as! [String]
                 psettings = data["settings"] as! [Int]
+                pslpuid = data["slpUid"] as! String
                 
-                let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings)
+                let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings, slpUid: pslpuid)
                 self.patientsArray.append(patient)
             }
             

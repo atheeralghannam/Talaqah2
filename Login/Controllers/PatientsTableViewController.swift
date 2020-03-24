@@ -34,7 +34,7 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
 
         
 
-            var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String(), puid = String() ,pcateg = [String](),psettings = [Int]()
+            var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String(), puid = String() ,pcateg = [String](),psettings = [Int](), pslpuid = String()
             let db = Firestore.firestore()
 
 
@@ -57,8 +57,9 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
                                             puid = data["uid"] as! String
                                             pcateg = data["categories"] as! [String]
                                             psettings = data["settings"] as! [Int]
-
-                                            let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings)
+                                            pslpuid = data["slpUid"] as! String
+                                            
+                                            let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings, slpUid: pslpuid)
 
                                             self.patientsArray.append(patient)
 

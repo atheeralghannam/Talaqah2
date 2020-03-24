@@ -174,12 +174,12 @@ var patient: Patient?
         
 
     }
-    @IBAction func Settings(_ sender: UIButton) {
+    @IBAction func pSettings(_ sender: UIButton) {
         if patient != nil {
-            self.performSegue(withIdentifier: "patientSettings", sender: self)
-        } else{
-            //alert
-        }
+                   self.performSegue(withIdentifier: "patientSettings", sender: self)
+               } else{
+                  //
+               }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "patientSettings"{

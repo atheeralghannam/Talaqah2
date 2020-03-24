@@ -44,10 +44,13 @@ class SLPSettingsViewController: UIViewController {
                }
         if sender.currentTitle! == "تفعيل/ إيقاف المحفزات"{
             //cues
-            // self.performSegue(withIdentifier: "cues", sender: self)
+             self.performSegue(withIdentifier: "cues", sender: self)
         }
     }
     
+    @IBAction func back(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "back", sender: self)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "back"{
                let destnationVC = segue.destination as! DetailViewController
@@ -69,6 +72,15 @@ class SLPSettingsViewController: UIViewController {
             print(settings)
                destnationVC.modalPresentationStyle = .fullScreen
            }
+        if segue.identifier == "cues"{
+            let destnationVC = segue.destination as! SLPCuesViewController
+                          destnationVC.settings = settings
+                       destnationVC.cat = categories
+                       destnationVC.uid = uid
+
+                       print(settings)
+                          destnationVC.modalPresentationStyle = .fullScreen
+        }
     }
 
 }

@@ -19,6 +19,7 @@ struct Patient {
     var uid:String
     var categories : [String]
     var settings: [Int]
+    var slpUid : String
     
     func printName() {
         print("\(self.FirstName) \(self.LastName)")
