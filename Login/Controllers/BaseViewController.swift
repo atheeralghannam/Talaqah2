@@ -163,6 +163,7 @@ class BaseViewController: UIViewController {
             let docRef = db.collection("trials").document(document)
             if document == "names"{
                 categories = ["animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
+                if !patientsArray[0].categories.isEmpty{
                 for ctegory in categories {
                     let ix = categories.firstIndex(of: ctegory)
                     if !patientsArray.isEmpty{
@@ -172,6 +173,7 @@ class BaseViewController: UIViewController {
                         }
                     }
                 }
+            }
             }
             else if document == "verbs"{
                 if !patientsArray.isEmpty{
