@@ -240,7 +240,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                     let db = Firestore.firestore()
                     //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
                     db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
-                    "cue4": true, "cue5": true, "cue6": true, "cue7": true]) { (error) in
+                                                                 "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":""]) { (error) in
                         
                         
                         
