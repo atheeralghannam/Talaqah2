@@ -21,16 +21,21 @@ class AccountViewController: UIViewController {
     var cue = String.self
     
     
+    @IBOutlet var PatientName: UITextField!
     
-    @IBOutlet var patientName: UILabel!
+    @IBOutlet var PatientGender: UITextField!
+    
    
-    @IBOutlet var patientGender: UILabel!
+    @IBOutlet var NID: UITextField!
+    
+    @IBOutlet var PatientPhone: UITextField!
+    
+    @IBOutlet var PatientEmail: UITextField!
     
     
-    @IBOutlet var nID: UILabel!
     
     
-    @IBOutlet var patientPhone: UILabel!
+   
     
     @IBOutlet var sendProgress: UIButton!
     
@@ -39,7 +44,6 @@ class AccountViewController: UIViewController {
 
    
     
-    @IBOutlet var patientEmail: UILabel!
     
     let db = Firestore.firestore()
     
@@ -59,6 +63,11 @@ class AccountViewController: UIViewController {
             UIDevice.current.setValue(value, forKey: "orientation")
 
             Utilities.styleSecondaryButton(button: viewProgress)
+            Utilities.styleTextField(textfield: PatientName)
+            Utilities.styleTextField(textfield: PatientEmail)
+            Utilities.styleTextField(textfield: PatientPhone)
+            Utilities.styleTextField(textfield: PatientGender)
+            Utilities.styleTextField(textfield: NID)
 
         loadData()
        
@@ -136,11 +145,11 @@ class AccountViewController: UIViewController {
                         self.pnID = data["NID"] as! String
                         self.phoneNumber = data["PhoneNumber"] as! String
                         
-                        self.patientName.text = name
-                        self.nID.text=self.pnID
-                        self.patientGender.text = self.pGender
-                        self.patientPhone.text = self.phoneNumber
-                        self.patientEmail.text = self.pEmail
+                        self.PatientName.text = name
+                        self.NID.text=self.pnID
+                        self.PatientGender.text = self.pGender
+                        self.PatientPhone.text = self.phoneNumber
+                        self.PatientEmail.text = self.pEmail
                         
 
                         self.newPatient = ["NID": self.pnID, "FirstName": self.fName, "LastName": self.lName, "Gender": self.pGender, "PhoneNumber": self.phoneNumber, "Email":self.pEmail]
