@@ -36,6 +36,7 @@ class Utilities {
    
     
           static  let primaryColor=hexStringToUIColor(hex: "#F2A490")
+              static  let secondaryColor=hexStringToUIColor(hex: "#F5F5F5")
     
 //    let primaryColor = UIColor(rgb: 0xF2A490)
     static func styleTextField( textfield:UITextField) {
@@ -55,13 +56,34 @@ class Utilities {
                textfield.layer.addSublayer(bottomLine)
         
     }
+    static func styleSecondaryTextField( textfield:UITextField) {
+     
+          
+      // Create the bottom line
+                  let bottomLine = CALayer()
+                  
+                  bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 2)
+                  
+                  bottomLine.backgroundColor = primaryColor.cgColor
+                  
+        textfield.backgroundColor = secondaryColor
+        textfield.layer.cornerRadius = 20.0
+
+                  // Remove border on text field
+                  textfield.borderStyle = .none
+                  
+        //set text font style
+        textfield.font = UIFont(name: "Times Roman", size: 17)
+        
+           
+       }
     
     static func styleFilledButton( button:UIButton) {
        
         // Filled rounded corner style
         button.backgroundColor = primaryColor
         button.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
-        button.layer.cornerRadius = 20.0
+//        button.layer.cornerRadius = 20.0
         button.tintColor = UIColor.white
     }
     
