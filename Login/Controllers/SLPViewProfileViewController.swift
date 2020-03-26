@@ -47,7 +47,7 @@ class SLPViewProfileViewController:  UIViewController, UITableViewDelegate, UITe
         slpFname.delegate = self
         slpPhone.delegate = self
         slpEmail.delegate = self
-        
+        slpHospital.delegate = self
         
     }
     

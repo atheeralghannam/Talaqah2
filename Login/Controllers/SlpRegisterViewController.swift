@@ -208,7 +208,7 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
 //                    db.collection("slps").addDocument(data: [ "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "HospitalName": hospitalName, "uid": result!.user.uid ]) { (error) in
 //
                         let db = Firestore.firestore()
-                        db.collection("slps").addDocument(data: [ "fname":firstName, "lname":lastName, "email":email, "phone": phone, "uid": result!.user.uid ]) { (error) in
+                    db.collection("slps").addDocument(data: [ "fname":firstName, "lname":lastName, "email":email, "phone": phone, "uid": result!.user.uid, "hospital": hospitalName ]) { (error) in
                             
                         
                         if error != nil {

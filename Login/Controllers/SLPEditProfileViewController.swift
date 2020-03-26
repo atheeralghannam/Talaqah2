@@ -42,7 +42,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         slpFname.delegate = self
         slpPhone.delegate = self
         slpEmail.delegate = self
-        
+        slpHospital.delegate = self
         
     }
     
@@ -81,7 +81,9 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         if slpLname.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             slpFname.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             slpPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            slpEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            slpEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            slpHospital.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
+            {
             
             //            return "Please fill in all fields."
             return "الرجاء التحقق من تعبئة جميع الحقول"
@@ -314,10 +316,11 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                             ])
                             
                             
-//                            Auth.auth().currentUser?.updateEmail(to: newemail) { (error) in
-//                                // ...
-//                                print(error?.localizedDescription)
-//                            }
+                            Auth.auth().currentUser?.updateEmail(to: newemail) { (error) in
+                                // ...
+                                print("HERE!!!")
+                                print(error?.localizedDescription)
+                            }
                             
                             
                             
@@ -325,10 +328,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                             
                         }
                 }
-                
-                
-                
-                
+     
                 var refreshAlert = UIAlertController(title: "تم حفظ التغييرات بنجاح", message: "", preferredStyle: UIAlertController.Style.alert)
                 
                 refreshAlert.addAction(UIAlertAction(title: "حسنًا", style: .default, handler: { (action: UIAlertAction!) in
@@ -349,24 +349,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
             }))
             
             self.present(refreshAlert, animated: true, completion: nil)
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+     
         }
         
         
@@ -380,23 +363,6 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         slpPhone.resignFirstResponder()
         
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        
-        let maxLength : Int
-        
-        if textField == slpPhone {
-            maxLength = 10
-        }
-        else {
-            maxLength = 100
-        }
-        
-        let currentString: NSString = textField.text! as NSString
-        
-        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-        return newString.length <= maxLength
-    } //end textField()
+
     
 }
