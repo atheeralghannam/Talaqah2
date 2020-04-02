@@ -908,16 +908,6 @@
                                                         </button>
                                                     </barButtonItem>
                                                 </leftBarButtonItems>
-                                                <barButtonItem key="rightBarButtonItem" style="plain" id="umd-ze-jXU">
-                                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="leX-6x-ozQ">
-                                                        <rect key="frame" x="664" y="7" width="208" height="30"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <state key="normal" title="المحفزات"/>
-                                                        <connections>
-                                                            <segue destination="Psh-HT-bGm" kind="show" id="Npq-MX-3kz"/>
-                                                        </connections>
-                                                    </button>
-                                                </barButtonItem>
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
@@ -4182,12 +4172,13 @@
                                     <action selector="cue1pressed:" destination="Psh-HT-bGm" eventType="touchUpInside" id="FNo-HA-59q"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRv-JW-uKF">
-                                <rect key="frame" x="64" y="33" width="113" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRv-JW-uKF">
+                                <rect key="frame" x="87" y="52" width="67" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <color key="tintColor" red="0.99607843139999996" green="0.68306756020000003" blue="0.61213427779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button" image="chevron.left" catalog="system"/>
                                 <connections>
-                                    <segue destination="9PA-PF-LeY" kind="show" id="GMg-3M-Hja"/>
+                                    <action selector="back:" destination="Psh-HT-bGm" eventType="touchUpInside" id="JWk-6O-xrf"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="الجملة" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edf-9z-Cb9">
@@ -4294,6 +4285,7 @@
                         <outlet property="cue5" destination="6Do-WX-SZ8" id="wXt-dT-jki"/>
                         <outlet property="cue6" destination="1aA-W4-dDq" id="yil-G7-VEY"/>
                         <outlet property="cue7" destination="WI2-H0-Gyy" id="MF5-qc-2kz"/>
+                        <segue destination="QED-0i-7uU" kind="presentation" identifier="back" id="dun-ai-NeB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFX-Lc-a4W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5711,20 +5703,20 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="PQ0-sW-gcw"/>
         <segue reference="UKL-SM-RdG"/>
         <segue reference="HUq-mY-vg4"/>
         <segue reference="Och-3h-sc3"/>
-        <segue reference="YCu-e2-P1I"/>
-        <segue reference="Npq-MX-3kz"/>
+        <segue reference="dun-ai-NeB"/>
         <segue reference="z6R-lJ-UVT"/>
         <segue reference="Svt-Lf-Wfs"/>
         <segue reference="dvF-0E-dcH"/>
-        <segue reference="CAg-7V-jH6"/>
+        <segue reference="bfG-7T-3tC"/>
         <segue reference="fwg-4s-mo0"/>
         <segue reference="O3L-zy-Hiu"/>
         <segue reference="oOH-gk-RZj"/>
         <segue reference="XH4-A3-MkK"/>
-        <segue reference="UeN-ul-rpa"/>
+        <segue reference="y0e-Pc-RST"/>
         <segue reference="Zow-ph-TWF"/>
         <segue reference="9n5-NE-UmG"/>
         <segue reference="yEk-2w-QSD"/>

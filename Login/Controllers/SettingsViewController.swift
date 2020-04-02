@@ -73,6 +73,15 @@ class SettingsViewController: UIViewController {
             print(settings)
             destnationVC.modalPresentationStyle = .fullScreen
         }
+        if segue.identifier == "cues"{
+            let destnationVC = segue.destination as! patientCuesViewController
+            destnationVC.settings = settings
+            destnationVC.categories = categories
+            destnationVC.patient = patinet
+            
+            print(settings)
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
     }
     
     /*
