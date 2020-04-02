@@ -77,9 +77,6 @@ class CategoriesViewController: UIViewController {
             removeCatiegory(categ: sender.currentTitle!)
         } else {
             sender.isSelected = true
-            if !first && !categories.isEmpty{
-                categories.remove(at: 0)
-            }
             fillCatiegory(categ: sender.currentTitle!)
         }
         

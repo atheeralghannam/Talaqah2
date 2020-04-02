@@ -30,31 +30,32 @@ class CatSLpViewController: UIViewController {
     @IBOutlet weak var drinks: UIButton!
     
     var categories = [""]
-       var settings = [0]
-       var first = false
-       let db = Firestore.firestore()
-       var isSave = false
+    var settings = [0]
+    var first = false
+    let db = Firestore.firestore()
+    var isSave = false
+    var patient : Patient?
     var uid = ""
-       //    var activityIndecator: UIActivityIndicatorView = UIActivityIndicatorView()
-        override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-              return .landscapeLeft
-          }
-          override var shouldAutorotate: Bool {
-              return true
-          }
-          override func viewDidLoad() {
-              super.viewDidLoad()
-              
-              // Do any additional setup after loading the view.
-              let value = UIInterfaceOrientation.landscapeLeft.rawValue
-              UIDevice.current.setValue(value, forKey: "orientation")
-              let tal = UIColor(named: "Tala")
-              let gradientLayer = CAGradientLayer()
-              gradientLayer.frame = self.view.bounds
-              gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
-              self.view.layer.insertSublayer(gradientLayer, at: 0)
-              //removeCatiegory(categ: "")
-              initCheckedBoxes()
+    //    var activityIndecator: UIActivityIndicatorView = UIActivityIndicatorView()
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeLeft
+    }
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        let tal = UIColor(named: "Tala")
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        //removeCatiegory(categ: "")
+        initCheckedBoxes()
     }
     @IBAction func Selected(_ sender: UIButton) {
         if sender.isSelected {
@@ -62,9 +63,6 @@ class CatSLpViewController: UIViewController {
             removeCatiegory(categ: sender.currentTitle!)
         } else {
             sender.isSelected = true
-            if !first && !categories.isEmpty{
-                categories.remove(at: 0)
-            }
             fillCatiegory(categ: sender.currentTitle!)
         }
     }
@@ -72,15 +70,15 @@ class CatSLpViewController: UIViewController {
     @IBAction func goToSet(_ sender: UIButton) {
         //Segue
         if isSave {
-                  //preform segue full screen to set
-                  self.performSegue(withIdentifier: "toCom", sender: self)
-                  
-              } else{
-                  let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
-                      "انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
-                  alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-                  self.present(alertController, animated: true, completion: nil)
-              }
+            //preform segue full screen to set
+            self.performSegue(withIdentifier: "toCom", sender: self)
+            
+        } else{
+            let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
+                "انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     @IBAction func Save(_ sender: UIButton) {
         patientCate()
@@ -90,54 +88,54 @@ class CatSLpViewController: UIViewController {
         self.performSegue(withIdentifier: "back", sender: self)
     }
     
-   func initCheckedBoxes(){
-                  //how
-                  //complexity incresed here change code
-                  for cat in categories {
-                      if cat == "body"{
-                          body.isSelected = true
-                      }
-                      else if cat == "personal"{
-                          personal.isSelected = true
-                      }
-                      else if cat == "family"{
-                          family.isSelected = true
-                      }
-                      else if cat == "food"{
-                          food.isSelected = true
-                      }
-                      else if cat == "cloths"{
-                          cloths.isSelected = true
-                      }
-                      else if cat == "drinks"{
-                          drinks.isSelected = true
-                      }else if cat == "vegetables"{
-                          vegetables.isSelected = true
-                      }else if cat == "fruits"{
-                          fruits.isSelected = true
-                      }else if cat == "pots"{
-                          pots.isSelected = true
-                      }else if cat == "house"{
-                          house.isSelected = true
-                      }else if cat == "furniture"{
-                          furniture.isSelected = true
-                      }else if cat == "devices"{
-                          devices.isSelected = true
-                      }else if cat == "public"{
-                          `public`.isSelected = true
-                      }else if cat == "transportation"{
-                          transportation.isSelected = true
-                      }else if cat == "jobs"{
-                          jobs.isSelected = true
-                      }else if cat == "animal"{
-                          animal.isSelected = true
-                      }else if cat == "shapes"{
-                          shapes.isSelected = true
-                      }else if cat == "colors"{
-                          colors.isSelected = true
-                      }
-                  }
-              }
+    func initCheckedBoxes(){
+        //how
+        //complexity incresed here change code
+        for cat in categories {
+            if cat == "body"{
+                body.isSelected = true
+            }
+            else if cat == "personal"{
+                personal.isSelected = true
+            }
+            else if cat == "family"{
+                family.isSelected = true
+            }
+            else if cat == "food"{
+                food.isSelected = true
+            }
+            else if cat == "cloths"{
+                cloths.isSelected = true
+            }
+            else if cat == "drinks"{
+                drinks.isSelected = true
+            }else if cat == "vegetables"{
+                vegetables.isSelected = true
+            }else if cat == "fruits"{
+                fruits.isSelected = true
+            }else if cat == "pots"{
+                pots.isSelected = true
+            }else if cat == "house"{
+                house.isSelected = true
+            }else if cat == "furniture"{
+                furniture.isSelected = true
+            }else if cat == "devices"{
+                devices.isSelected = true
+            }else if cat == "public"{
+                `public`.isSelected = true
+            }else if cat == "transportation"{
+                transportation.isSelected = true
+            }else if cat == "jobs"{
+                jobs.isSelected = true
+            }else if cat == "animal"{
+                animal.isSelected = true
+            }else if cat == "shapes"{
+                shapes.isSelected = true
+            }else if cat == "colors"{
+                colors.isSelected = true
+            }
+        }
+    }
     func fillCatiegory(categ : String){
         if categories.isEmpty{
             first = true
@@ -180,9 +178,10 @@ class CatSLpViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "back"{
             let destnationVC = segue.destination as! SLPSettingsViewController
-          destnationVC.settings = settings
+            destnationVC.settings = settings
             destnationVC.uid = uid
-          destnationVC.categories = categories
+            destnationVC.patient = patient
+            destnationVC.categories = categories
             destnationVC.modalPresentationStyle = .fullScreen
         }
         if segue.identifier == "toCom"{
@@ -190,7 +189,8 @@ class CatSLpViewController: UIViewController {
             destnationVC.isCat = true
             destnationVC.Settings = settings
             destnationVC.uid = uid
-              destnationVC.categories = categories
+            destnationVC.patient = patient
+            destnationVC.categories = categories
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }

@@ -21,7 +21,7 @@ class SLPCuesViewController: UIViewController {
     var settings = [0]
     var cat = [""]
     var uid = ""
-    
+    var patient : Patient?
     let db = Firestore.firestore()
 
     
@@ -378,6 +378,7 @@ class SLPCuesViewController: UIViewController {
                      destnationVC.settings = settings
                   destnationVC.categories = cat
                   destnationVC.uid = uid
+                destnationVC.patient = patient
                   print(settings)
                      destnationVC.modalPresentationStyle = .fullScreen
               }
