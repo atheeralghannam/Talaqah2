@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     let db = Firestore.firestore()
     var categories = [""]
     var settings = [3,2,2,2]
-    var patinet = [Patient]()
+    var patinet : Patient?
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .landscapeLeft
     }
@@ -53,19 +53,23 @@ class SettingsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            if segue.identifier == "toHome"{
                let destnationVC = segue.destination as! BaseViewController
-            destnationVC.patientsArray = patinet
+                destnationVC.patient = patinet
                destnationVC.modalPresentationStyle = .fullScreen
            }
            if segue.identifier == "toCat"{
                let destnationVC = segue.destination as! CategoriesViewController
                destnationVC.categories = categories
                 destnationVC.settings = settings
+                destnationVC.patient = patinet
+
                destnationVC.modalPresentationStyle = .fullScreen
            }
            if segue.identifier == "toCom"{
                let destnationVC = segue.destination as! ComplixityViewController
                destnationVC.Settings = settings
             destnationVC.categories = categories
+            destnationVC.patient = patinet
+
             print(settings)
                destnationVC.modalPresentationStyle = .fullScreen
            }

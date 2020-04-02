@@ -11,7 +11,7 @@ import UIKit
 class HelpViewController: UIViewController {
     
     var trials = [Trial]()
-
+    var patient : Patient?
        override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .landscapeLeft
     }
@@ -32,6 +32,7 @@ class HelpViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
           let destnationVC = segue.destination as! TrialController
           destnationVC.trials = trials
+            destnationVC.patient = patient
       destnationVC.modalPresentationStyle = .fullScreen
       }
 

@@ -13,7 +13,7 @@ class SelsectWordsController: UIViewController {
     var adj = false
     var name = false
     var isthere = [false,false,false]
-    var patient = [Patient]()
+    var patient : Patient?
     let db = Firestore.firestore()
     var trials = [Trial]()
     var array = [Trial]()
@@ -77,7 +77,7 @@ class SelsectWordsController: UIViewController {
                                                             
                                                             self.present(alertController, animated: true, completion: nil)
                    }
-                   else if patient[0].categories.isEmpty {
+                   else if patient!.categories.isEmpty {
                        self.performSegue(withIdentifier: "fromWtoC", sender: self)}
                    else {
                        name = true
@@ -114,16 +114,20 @@ class SelsectWordsController: UIViewController {
                        destnationVC.modalPresentationStyle = .fullScreen
                    } else if !adj && !name {
                        for trial in trials{
-                        if trial.category == patient[0].Gender {
+                        if let pat = patient {
+                        if trial.category == pat.Gender {
                                array.append(trial)
                            }
+                       }else{
+                           array.append(trial)
                        }
+                    }
                        destnationVC.trials = array
                        destnationVC.modalPresentationStyle = .fullScreen
                    } else{
                        for trial in trials {
-                           print(patient[0].categories)
-                           for category in patient[0].categories {
+                        print(patient!.categories)
+                        for category in patient!.categories {
                                if trial.category == category {
                                    print("category, trial")
                                    array.append(trial)
@@ -132,15 +136,18 @@ class SelsectWordsController: UIViewController {
                        }
                        print(array)
                        destnationVC.trials = array
+                    destnationVC.patient = patient
                    }
                }
                else if segue.identifier == "fromWtoC"{
                    let destnationVC = segue.destination as! SelectCategoriesController
                    destnationVC.trials = trials
+                   destnationVC.patient = patient
                }
                else if segue.identifier == "Home" {
                    let destnationVC = segue.destination as! BaseViewController
                    destnationVC.trials = trials
+                   destnationVC.patient = patient
                    destnationVC.modalPresentationStyle = .fullScreen
                }
     }

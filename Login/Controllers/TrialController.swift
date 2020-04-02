@@ -54,13 +54,20 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     var countCoResult = 0
     var countFaResult = 0
     var pressed = false
+    var patient : Patient?
     
     //Outlet
     @IBOutlet weak var writtenCue: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var prevButton: UIButton!
-    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var cue1: UIButton!
+    @IBOutlet weak var cue2: UIButton!
+    @IBOutlet weak var cue3: UIButton!
+    @IBOutlet weak var cue4: UIButton!
+    @IBOutlet weak var cue5: UIButton!
+    @IBOutlet weak var cue6: UIButton!
+    @IBOutlet weak var cue7: UIButton!
     
     
     
@@ -76,11 +83,13 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         if segue.identifier == "toHome"{
             let destnationVC = segue.destination as! BaseViewController
             destnationVC.trials = trials
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "help"{
             let destnationVC = segue.destination as! HelpViewController
             destnationVC.trials = trials
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
         
@@ -208,14 +217,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         //if nill ..... no answer
         if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
             
-            if #available(iOS 13.0, *) {
-                let validateImage = UIImage(systemName:"exclamationmark")
-                validateButton.setImage(validateImage, for: [])
-                
-            } else {
-                // Fallback on earlier versions
-            }
-            
             // create the alert
             let alert = UIAlertController(title: "لا توجد إجابة", message: "حاول مجددًا", preferredStyle: UIAlertController.Style.alert)
             
@@ -249,13 +250,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             
             
         else{
-            if #available(iOS 13.0, *) {
-                let validateImage = UIImage(systemName:"xmark")
-                validateButton.setImage(validateImage, for: [])
-                
-            } else {
-                // Fallback on earlier versions
-            }
             // create the alert
             let alert = UIAlertController(title: "إجابة خاطئة", message: "حظ أوفر", preferredStyle: UIAlertController.Style.alert)
             
@@ -332,7 +326,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             // Fallback on earlier versions
         }
         playButton.isHidden = false
-        validateButton.isHidden=false
+//        validateButton.isHidden=false
         
         audioEngine.stop()
         
@@ -346,7 +340,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             playButton.setTitle("", for: .normal)
             
             playButton.isHidden = false
-            validateButton.isHidden=false
+            //validateButton.isHidden=false
             
             
             
@@ -391,6 +385,20 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     @objc func showCurrentTrial(){
         //image
         print(trials, count)
+        cue2.isEnabled = false
+        cue2.alpha = 0.54
+        cue3.isEnabled = false
+        cue3.alpha = 0.54
+        cue4.isEnabled = false
+        cue4.alpha = 0.54
+        cue5.isEnabled = false
+        cue5.alpha = 0.54
+        cue6.isEnabled = false
+        cue6.alpha = 0.54
+        cue7.isEnabled = false
+        cue7.alpha = 0.54
+        validateButton.isHidden = true
+        playButton.isHidden = true
         writtenCue.text = ""
         let url = "images/"+trials[count].name+".jpg"
         let reference = storageRef.child(url)
@@ -447,7 +455,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     @IBAction func cuesPressed(_ sender: UIButton) {
         if sender.currentTitle == "المعنى" {
-            // let url = "audios/"+trials[count].audiosNames[0]+"mp3"
             let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
             let starsRef = storageRef.child(audPath)
             starsRef.downloadURL { url, error in
@@ -462,9 +469,13 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                 }
                 
             }
+            cue2.isEnabled = true
+            cue2.alpha = 1
         } else if sender.currentTitle == "جملة"{
             let text = trials[count].writtenCues[0]
             writtenCue.text = text
+            cue3.isEnabled = true
+            cue3.alpha = 1
         } else if sender.currentTitle == "الصوت الأول" {
             let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
             let starsRef = storageRef.child(audPath)
@@ -479,6 +490,9 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                 }
                 
             }
+            writtenCue.text = ""
+            cue4.isEnabled = true
+            cue4.alpha = 1
         } else if sender.currentTitle == "المقطع الأول"{
             let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
             let starsRef = storageRef.child(audPath)
@@ -492,13 +506,18 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     self.playerAt.play()
                 }
             }
-            
+            cue5.isEnabled = true
+            cue5.alpha = 1
         } else if sender.currentTitle == "الحرف الأول"{
             let text = trials[count].writtenCues[1]
             writtenCue.text = text
+            cue6.isEnabled = true
+            cue6.alpha = 1
         } else if sender.currentTitle == "الكلمة مكتوبة" {
             let text = trials[count].answer
             writtenCue.text = text
+            cue7.isEnabled = true
+            cue7.alpha = 1
         } else if sender.currentTitle == "الكلمة منطوقة"{
             let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
             let starsRef = storageRef.child(audPath)
@@ -512,8 +531,8 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     self.playerAt.play()
                 }
             }
+            writtenCue.text = ""
         }
-        
     }
     
     //Utility functions

@@ -32,6 +32,7 @@ class CategoriesViewController: UIViewController {
       @IBOutlet weak var colors: UIButton!
     var categories = [""]
     var settings = [0]
+    var patient : Patient?
     var first = false
     let db = Firestore.firestore()
     var isSave = false
@@ -183,6 +184,7 @@ class CategoriesViewController: UIViewController {
               let destnationVC = segue.destination as! SettingsViewController
             destnationVC.settings = settings
             destnationVC.categories = categories
+            destnationVC.patinet = patient
               destnationVC.modalPresentationStyle = .fullScreen
           }
           if segue.identifier == "toCom"{
@@ -190,6 +192,7 @@ class CategoriesViewController: UIViewController {
               destnationVC.isCat = true
               destnationVC.Settings = settings
                 destnationVC.categories = categories
+            destnationVC.patient = patient
               destnationVC.modalPresentationStyle = .fullScreen
           }
       }

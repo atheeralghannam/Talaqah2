@@ -15,6 +15,7 @@ class SelectCategoriesController: UIViewController {
     var isSelect = false
     var trials = [Trial]()
     var array = [Trial]()
+    var patient : Patient?
 
     @IBOutlet weak var NextButton: UIButton!
     
@@ -79,11 +80,13 @@ class SelectCategoriesController: UIViewController {
             }
             print(array)
             destnationVC.trials = array
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "goToWords" {
              let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }
