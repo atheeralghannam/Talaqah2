@@ -11,6 +11,7 @@ import Firebase
 
 
 class BaseViewController: UIViewController {
+    var isLoad = false// to avoid redudnet trials
     var fcheck = false
     var scheck = false
     var tcheck = false
@@ -64,9 +65,10 @@ class BaseViewController: UIViewController {
         self.performSegue(withIdentifier: "ViewProfile", sender: self)
     }
     @IBAction func Start(_ sender: UIButton) {
-        if (trials.isEmpty){
-            getTrials()
-        }
+        if (trials.isEmpty && !isLoad){
+                   getTrials()
+                   isLoad = true
+               }
         if trials.isEmpty {
             let alertController = UIAlertController(title: "فضلًا انتظر", message:
                 "يتم تحميل البيانات", preferredStyle: .alert)
@@ -79,22 +81,23 @@ class BaseViewController: UIViewController {
     }
 
     @IBAction func Settings(_ sender: UIButton) {
-        if patientsArray[0].slpUid != ""{
+   if patientsArray.isEmpty{
+            getCurrentPatient()
+            let alertController = UIAlertController(title: "فضلًا انتظر", message:
+                       "يتم تحميل البيانات", preferredStyle: .alert)
+                   alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                   
+                   self.present(alertController, animated: true, completion: nil)
+               }
+        
+        else if patientsArray[0].slpUid != ""{
             let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
                 "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
             
             self.present(alertController, animated: true, completion: nil)
-        }else {
-        if patientsArray.isEmpty {
-                   let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                       "يتم تحميل البيانات", preferredStyle: .alert)
-                   alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-                   
-                   self.present(alertController, animated: true, completion: nil)
-               }else{
-                    self.performSegue(withIdentifier: "toSettings", sender: self)
-               }
+        }else{
+             self.performSegue(withIdentifier: "toSettings", sender: self)
         }
     }
     
@@ -171,7 +174,7 @@ class BaseViewController: UIViewController {
             let docRef = db.collection("trials").document(document)
             if document == "names"{
                 categories = ["animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
-                if !patientsArray[0].categories.isEmpty{
+               if !patientsArray.isEmpty && !patientsArray[0].categories.isEmpty{
                 for ctegory in categories {
                     let ix = categories.firstIndex(of: ctegory)
                     if !patientsArray.isEmpty{
