@@ -254,6 +254,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                     
                     // Transition to the home screen
                     //                                  self.transitionToHome()
+                    UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
                     self.performSegue(withIdentifier: "toStart", sender: nil)
                 }
                 

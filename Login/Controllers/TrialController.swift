@@ -30,7 +30,8 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     let audioEngine = AVAudioEngine()
     @IBOutlet weak var recordButton: UIButton!
     
-    
+    var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
+
     
     @IBOutlet var playButton: UIButton!
     
@@ -383,6 +384,70 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     
     @objc func showCurrentTrial(){
+        
+        
+          db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
+                 .getDocuments {(snapshot, error) in
+        
+                      if let error = error{print(error.localizedDescription)}
+                      else {
+                            if let snapshot = snapshot {
+                           for document in snapshot.documents{
+                                     let data = document.data()
+        
+        
+                         self.mcue = data["cue1"] as! Bool
+                            self.scue = data["cue2"] as! Bool
+                                self.tcue = data["cue3"] as! Bool
+                                    self.frcue = data["cue4"] as! Bool
+                                        self.fvcue = data["cue5"] as! Bool
+                                              self.sxcue = data["cue6"] as! Bool
+                                                    self.svcue = data["cue7"] as! Bool
+        
+        if self.mcue == false
+        { self.cue1.isUserInteractionEnabled = false
+            self.cue1.setTitleColor(.gray, for: .normal)}
+                           
+                            
+                            if self.scue == false
+                              { self.cue2.isUserInteractionEnabled = false
+                              self.cue2.setTitleColor(.gray, for: .normal)}
+                                  
+                                          
+                                          
+                              if self.tcue == false
+                              { self.cue3.isUserInteractionEnabled = false
+                              self.cue3.setTitleColor(.gray, for: .normal)}
+                            
+                                          
+                              if self.frcue == false
+                                  { self.cue4.isUserInteractionEnabled = false
+                                  self.cue4.setTitleColor(.gray, for: .normal)}
+                              
+                                          
+                             if self.fvcue == false
+                                { self.cue5.isUserInteractionEnabled = false
+                                self.cue5.setTitleColor(.gray, for: .normal)}
+                                          
+                                  if self.sxcue == false
+                                   { self.cue6.isUserInteractionEnabled = false
+                                   self.cue6.setTitleColor(.gray, for: .normal)}
+                                    
+                                          
+                            if self.svcue == false
+                              { self.cue7.isUserInteractionEnabled = false
+                              self.cue7.setTitleColor(.gray, for: .normal)}
+                                
+                            
+                            
+                                }}}
+                     
+          
+        }
+        
+        
+        
+        
         //image
         print(trials, count)
         cue2.isEnabled = false

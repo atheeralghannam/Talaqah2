@@ -221,6 +221,7 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     // Transition to the home screen
                     //
+                    UserDefaults.standard.set(true, forKey:Constants.isSlpLoggedIn)
                     self.performSegue(withIdentifier: "toStartSlp", sender: nil)
                 } //end else
                 
