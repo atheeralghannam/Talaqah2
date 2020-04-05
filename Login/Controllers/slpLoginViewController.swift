@@ -49,33 +49,56 @@ class slpLoginViewController: UIViewController {
         } //end if
         else {
                         
-                        
-                        Auth.auth().signIn(withEmail:email , password:password){ (user, error) in
+            
+            
+            Firestore.firestore().collection("slps").whereField("email", isEqualTo:emailTextfield.text!).getDocuments {
+                                         (snapshot, error) in
+                                                 if let error = error {
+                                    print(error.localizedDescription)
+                                                           }
+                                                 else if snapshot!.documents.count == 0 {
 
-                              
-                              
-                              if user != nil {
-                                  // Couldn't sign in
-                                  //                self.errorLabel.text = error!.localizedDescription
-                                  //                self.errorLabel.alpha = 1
-                                  print("user has signed in")
-                                  UserDefaults.standard.set(true, forKey:Constants.isSlpLoggedIn)
-                                  UserDefaults.standard.set(Auth.auth().currentUser!.uid, forKey: Constants.userUid)
-                                
-                                self.errorLabel.alpha = 0
+                                                 self.showError("البريد الإلكتروني أو كلمة المرور غير صحيحة")
 
-                                  //                                        UserDefaults.standard.synchronize()
-                                  self.performSegue(withIdentifier: "toSLPhome", sender: nil)
-                              }
-                              else {
-                                  if error != nil{
-                                      print(error.debugDescription)
-                                    self.showError("البريد الإلكتروني أو كلمة المرور غير صحيحة")
-                                      
-                                  }
-                              }
-                              
-                          }
+                                                                           }
+                                                 else{
+                                             
+                                                    Auth.auth().signIn(withEmail:email , password:password){ (user, error) in
+
+                                                          
+                                                          
+                                                          if user != nil {
+                                                              // Couldn't sign in
+                                                              //                self.errorLabel.text = error!.localizedDescription
+                                                              //                self.errorLabel.alpha = 1
+                                                              print("user has signed in")
+                                                              UserDefaults.standard.set(true, forKey:Constants.isSlpLoggedIn)
+                                                              UserDefaults.standard.set(Auth.auth().currentUser!.uid, forKey: Constants.userUid)
+                                                            
+                                                            self.errorLabel.alpha = 0
+
+                                                              //                                        UserDefaults.standard.synchronize()
+                                                              self.performSegue(withIdentifier: "toSLPhome", sender: nil)
+                                                          }
+                                                          else {
+                                                              if error != nil{
+                                                                  print(error.debugDescription)
+                                                                self.showError("البريد الإلكتروني أو كلمة المرور غير صحيحة")
+                                                                  
+                                                              }
+                                                          }
+                                                          
+                                                      }
+
+
+                                                    
+                         }
+                                         }
+            
+            
+            
+            
+
                           
                           //}
                       }

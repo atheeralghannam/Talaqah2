@@ -49,14 +49,15 @@ class ResetPasswordViewController: UIViewController {
             print("Incorrect Email")
 //            self.showToast(message: "Incorrect Email", font: UIFont(name: "Times New Roman", size: 12.0)!)
 //            resetTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-            showError("تحقق من إدخال بريد إلكتروني صحيح")
-            
+                showError("لا يوجد مستخدم بهذا البريد الإلكتروني") 
             return
         }
         Auth.auth().sendPasswordReset(withEmail: self.resetTextField.text!) { error in
             if error != nil {
                 print("email is wrong")
-                self.showToast(message: "email is wrong.", font: UIFont(name: "Times New Roman", size: 12.0)!)
+//                self.showToast(message: "email is wrong.", font: UIFont(name: "Times New Roman", size: 12.0)!)
+                self.showError("تحقق من إدخال بريد إلكتروني صحيح")
+
             } else {
                 print("Password reset email sent.")
 //                self.showToast(message: "Password reset email sent.", font: UIFont(name: "Times New Roman", size: 12.0)!)
