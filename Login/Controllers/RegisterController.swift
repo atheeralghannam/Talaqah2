@@ -153,7 +153,8 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         
         if isValidatePass == false {
             // Password isn't secure enough
-            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
+                         return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+//            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
             //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
         }
         if isMatchedPass==false{

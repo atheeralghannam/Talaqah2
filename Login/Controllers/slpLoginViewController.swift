@@ -15,6 +15,7 @@ class slpLoginViewController: UIViewController {
     @IBOutlet var forgetPassword: UIButton!
     @IBOutlet var haveAccount: UILabel!
     
+    @IBOutlet var errorLabel: UILabel!
     @IBOutlet weak var slpregisterButton: UIButton!
     @IBOutlet var slploginButton: UIButton!
     var validation = Validation()
@@ -30,7 +31,7 @@ class slpLoginViewController: UIViewController {
     
     @IBAction func loginTapped(_ sender: Any) {
         
-        
+//
               guard
                   let email = emailTextfield.text,
                   let password = passwordTextfield.text
@@ -38,28 +39,15 @@ class slpLoginViewController: UIViewController {
                   else {
                       return
               }
-   
-                             let isValidateEmail = self.validation.validateEmailId(emailID: email)
-                             if (isValidateEmail == false) {
-                                print("Incorrect Email")
-                              self.showToast(message: "Incorrect Email", font: UIFont(name: "Times New Roman", size: 12.0)!)
-                              emailTextfield.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-              
-                                return
-                             }
-              
-        let isValidatePass = self.validation.validatePassword(password: password)
-        if (isValidatePass == false) {
-            print("Incorrect Pass")
-            self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
-            passwordTextfield.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-            
-            return
-        }
 
+        let error = validateFields()
         
-                       if (isValidateEmail == true || isValidatePass == true) {
-                              print("All fields are correct")
+        if error != nil {
+            
+            // There's something wrong with the fields, show error message
+            showError(error!)
+        } //end if
+        else {
                         
                         
                         Auth.auth().signIn(withEmail:email , password:password){ (user, error) in
@@ -73,13 +61,16 @@ class slpLoginViewController: UIViewController {
                                   print("user has signed in")
                                   UserDefaults.standard.set(true, forKey:Constants.isSlpLoggedIn)
                                   UserDefaults.standard.set(Auth.auth().currentUser!.uid, forKey: Constants.userUid)
-                                  
+                                
+                                self.errorLabel.alpha = 0
+
                                   //                                        UserDefaults.standard.synchronize()
                                   self.performSegue(withIdentifier: "toSLPhome", sender: nil)
                               }
                               else {
                                   if error != nil{
                                       print(error.debugDescription)
+                                    self.showError("البريد الإلكتروني أو كلمة المرور غير صحيحة")
                                       
                                   }
                               }
@@ -88,8 +79,8 @@ class slpLoginViewController: UIViewController {
                           
                           //}
                       }
-              }
               
+    }
               
               
               // Signing in the user
@@ -108,11 +99,6 @@ class slpLoginViewController: UIViewController {
         
     }
     
-//    @IBAction func forgetPasswordTapped(_ sender: Any) {
-//               self.performSegue(withIdentifier: "toResetPassword", sender: nil)
-//      }
-
-
     /*
     // MARK: - Navigation
 
@@ -126,22 +112,18 @@ class slpLoginViewController: UIViewController {
         
         // Hide the error label
         //           errorLabel.alpha = 0
-        
+        errorLabel.alpha = 0
+
         // Style the elements
         Utilities.styleTextField(textfield: emailTextfield)
         Utilities.styleTextField(textfield: passwordTextfield)
         Utilities.styleFilledButton(button: slploginButton)
-        
+        Utilities.styleErrorLabel(label: errorLabel)
         Utilities.styleLabel(label: haveAccount)
         Utilities.styleSecondaryButton(button: forgetPassword)
         Utilities.styleSecondaryButton(button: slpregisterButton)
         
-        
-        
-//        // limit input length of id
-//        idTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
-//        idTextField.delegate = self
-        
+ 
     }
     @IBAction func slploginTapped(_ sender: Any) {
               self.performSegue(withIdentifier: "toRegisterSlp", sender: nil)
@@ -155,4 +137,53 @@ class slpLoginViewController: UIViewController {
        override open var shouldAutorotate: Bool {
            return false
        }
+    
+    
+    
+    func validateFields() -> String? {
+
+        
+        if emailTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
+            {
+            
+            //            return "Please fill in all fields."
+            return "الرجاء التحقق من تعبئة جميع الحقول"
+        }
+        
+        
+        
+        let isValidEmail=self.validation.validateEmailId(emailID: emailTextfield.text!)
+        
+
+        
+        if isValidEmail==false {
+//            return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
+            return "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+            //            return "Please enter valid phone: 05********"
+        }
+        
+                // Check if the password is secure
+                let isValidatePass = self.validation.validatePassword( password:  passwordTextfield.text!)
+                
+            
+                if isValidatePass == false {
+                    // Password isn't secure enough
+                    return "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+
+//                    return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+        //            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
+                    //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
+                } //end if
+
+        return nil
+    }
+    
+    func showError(_ message:String) {
+        
+        errorLabel.text = message
+        errorLabel.alpha = 1
+        print(message)
+    }
+    
 }

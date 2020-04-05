@@ -21,6 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
     @IBOutlet weak var registerButton: UIButton!
 
      
+    @IBOutlet var errorLabel: UILabel!
     
     var validation = Validation()
     
@@ -28,7 +29,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ////       defaults.set(true, forKey:"userLogin")
         
         print("what???")
         isLogin()
@@ -61,57 +61,43 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
             else {
                 return
         }
-        //               let isValidateName = self.validation.validateName(name: name)
-        //               if (isValidateName == false) {
-        //                  print("Incorrect Name")
-        //                  return
-        //               }
-        //               let isValidateEmail = self.validation.validateEmailId(emailID: email)
-        //               if (isValidateEmail == false) {
-        //                  print("Incorrect Email")
-        //                self.showToast(message: "Incorrect Email", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        //                emailTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        //
-        //                  return
-        //               }
-        
-        //               let isValidatePhone = self.validation.validaPhoneNumber(phoneNumber: id)
-        //               if (isValidatePhone == false) {
-        //                  print("Incorrect id")
-        //                  return
-        //               }
-        //               if (isValidateName == true || isValidateEmail == true || isValidatePass == true || isValidatePhone == true) {
-        //                  print("All fields are correct")
-        
-        
-        
-        // how to use
-        do {
-            let resutl = try ValidateSAID.check(id)
+
+//        // how to use
+//        do {
+//            let resutl = try ValidateSAID.check(id)
+//
+//            // this will print NationaltyType description
+//            print(resutl)
+//        } catch {
+//            // this will print error description
+//            print(error)
+//            self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
+//            idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
+//        }
+//
+//
+//
+//        let isValidatePass = self.validation.validatePassword(password: password)
+//        if (isValidatePass == false) {
+//            print("Incorrect Pass")
+////            self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
+//                        self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
+//            passwordTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
+//
+//            return
+//        }
+//
+//        if (isValidatePass == true ) {
+//            print("All fields are correct")
+//        }
+        let error = validateFields()
             
-            // this will print NationaltyType description
-            print(resutl)
-        } catch {
-            // this will print error description
-            print(error)
-            self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
-            idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        }
-        
-        
-        
-        let isValidatePass = self.validation.validatePassword(password: password)
-        if (isValidatePass == false) {
-            print("Incorrect Pass")
-            self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
-            passwordTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-            
-            return
-        }
-        
-        if (isValidatePass == true ) {
-            print("All fields are correct")
-        }
+            if error != nil {
+                
+                // There's something wrong with the fields, show error message
+                showError(error!)
+            } //end if
+            else {
         
         let db = Firestore.firestore()
         
@@ -120,6 +106,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                 //                 if let err = err {
                 //                     print("Error getting documents: \(err)")
                 //                 } else {
+                
+                
+                if let err = err {
+                                        print(err.localizedDescription)
+                                    } else if querySnapshot!.documents.count != 1 {
+                    self.showError("رقم الهوية/ الإقامة أو كلمة المرور غير صحيحة")
+                    return
+                                        print("More than one documents or none")
+                                    } else {
+                    
                 for document in querySnapshot!.documents {
                     //                         print("\(document.documentID) => \(document.data())")
                     
@@ -129,8 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                     print( self.mail)
                     
                     Auth.auth().signIn(withEmail: self.mail.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!) { (user, error) in
-                        
-                        //        Auth.auth().signIn(withEmail: idTextField.text!, password: passwordTextField.text!) { (user, error) in
+
                         
                         
                         if user != nil {
@@ -138,6 +133,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                             //                self.errorLabel.text = error!.localizedDescription
                             //                self.errorLabel.alpha = 1
                             print("user has signed in")
+                            self.errorLabel.alpha = 0
                             UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
                             UserDefaults.standard.set(Auth.auth().currentUser!.uid, forKey: Constants.userUid)
                             
@@ -145,10 +141,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                             self.performSegue(withIdentifier: "toHome", sender: nil)
                         }
                         else {
-                            if error != nil{
-                                print(error.debugDescription)
-                                
-                            }
+//
+//                            if error != nil{
+//                                print(error.debugDescription)
+//
+//                            }
                         }
                         
                     }
@@ -159,65 +156,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
         
         
         
-        // Signing in the user
+        }   // Signing in the user
         
+    }
     }
     
     
-    
-//    @IBAction func signOut(_ sender: Any) {
-//
-//
-//
-//        let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
-//
-//        refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
-//            let firebaseAuth = Auth.auth()
-//            do {
-//                try firebaseAuth.signOut()
-//                print ("signing out DONE")
-//            } catch let signOutError as NSError {
-//                print ("Error signing out: %@", signOutError)
-//            }
-//
-//            print("Handle Ok logic here")
-//            UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
-//            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-//
-//            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//
-//            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//
-//            appDel.window?.rootViewController = loginVC
-//
-//
-//        }))
-//
-//        refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-//            print("Handle Cancel Logic here")
-//        }))
-//
-//        present(refreshAlert, animated: true, completion: nil)
-//
-//
-//
-//    }
-    
-//    @IBAction func forgetPasswordTapped(_ sender: Any) {
-//             self.performSegue(withIdentifier: "toResetPassword", sender: nil)
-//    }
-    
+
    
     func setUpElements() {
         
         // Hide the error label
-        //           errorLabel.alpha = 0
+                   errorLabel.alpha = 0
         
         // Style the elements
         Utilities.styleTextField(textfield: idTextField)
         Utilities.styleTextField(textfield: passwordTextField)
         Utilities.styleFilledButton(button: loginButton)
-        
+        Utilities.styleErrorLabel(label: errorLabel)
         Utilities.styleLabel(label: haveAccount)
         Utilities.styleSecondaryButton(button: forgetPasswordLabel)
         Utilities.styleSecondaryButton(button: registerButton)
@@ -254,6 +210,59 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
     
     override open var shouldAutorotate: Bool {
         return false
+    }
+    
+    func validateFields() -> String? {
+
+        
+        if idTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
+            {
+            
+            //            return "Please fill in all fields."
+            return "الرجاء التحقق من تعبئة جميع الحقول"
+        }
+        
+        
+        
+        // how to use
+        do {
+            let resutl = try ValidateSAID.check(idTextField.text!)
+            
+            // this will print NationaltyType description
+            print(resutl)
+        } catch {
+            // this will print error description
+            print(error)
+//            self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
+//            return "رقم الهوية/الإقامة غير صالح"
+            return "رقم الهوية/ الإقامة أو كلمة المرور غير صحيحة"
+//            idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
+        }
+
+        
+
+                // Check if the password is secure
+                let isValidatePass = self.validation.validatePassword( password:  passwordTextField.text!)
+                
+            
+                if isValidatePass == false {
+                    // Password isn't secure enough
+//                    return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+                    return "رقم الهوية/ الإقامة أو كلمة المرور غير صحيحة"
+
+        //            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
+                    //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
+                } //end if
+
+        return nil
+    }
+    
+    func showError(_ message:String) {
+        
+        errorLabel.text = message
+        errorLabel.alpha = 1
+        print(message)
     }
     
 }
