@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GAL-MZ-naG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GAL-MZ-naG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2557,7 +2557,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HFO-eD-zne" kind="show" id="9Rw-ap-rI2"/>
+                                    <segue destination="ZII-3d-kF2" kind="presentation" id="mA0-lz-WPY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2626,46 +2626,80 @@
             </objects>
             <point key="canvasLocation" x="-2191" y="4096"/>
         </scene>
-        <!--View Progress Controller-->
-        <scene sceneID="ifG-Le-rgV">
+        <!--حالة التقدم-->
+        <scene sceneID="WfV-11-cXz">
             <objects>
-                <viewController id="HFO-eD-zne" customClass="SLPViewProgressController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jsb-To-Jp1">
+                <tableViewController title="حالة التقدم" id="hm6-ug-yVJ" customClass="ProgressViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="c8d-mZ-32a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvF-pp-XfN">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="حالة التقدم" id="4XB-xJ-9Dx">
-                                        <barButtonItem key="leftBarButtonItem" title="إرسال" id="pB6-nK-JFw">
-                                            <color key="tintColor" red="0.99602228400000004" green="0.68306756020000003" blue="0.61213427779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="sendPressed:" destination="HFO-eD-zne" id="iMb-Od-qVM"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="arrowshape.turn.up.right.circle" catalog="system" id="V27-24-f4p">
-                                            <color key="tintColor" red="0.99602228400000004" green="0.68306756020000003" blue="0.61213427779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <segue destination="NxM-Jp-Fpu" kind="show" id="fwg-4s-mo0"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="fhs-OR-iyb"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="hHH-Sb-lLZ"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="progressCell" id="eaL-TK-hj6" customClass="ProgressCell" customModule="Talaqah" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eaL-TK-hj6" id="7FW-1J-eVh">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="الإجابة" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av8-Tc-Tr0">
+                                            <rect key="frame" x="264" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DD/MM/YYYY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFM-UE-8Us">
+                                            <rect key="frame" x="40" y="14" width="78" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aHC-ao-Cih">
+                                            <rect key="frame" x="333" y="11.5" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="0.83326017860000001" green="0.26729285720000001" blue="0.39646655320000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="answerLabel" destination="Av8-Tc-Tr0" id="w9M-k6-deT"/>
+                                    <outlet property="dateLabel" destination="zFM-UE-8Us" id="TlM-FD-TAI"/>
+                                    <outlet property="resultImageView" destination="aHC-ao-Cih" id="wJN-Iw-ge1"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hm6-ug-yVJ" id="5fp-5m-qx0"/>
+                            <outlet property="delegate" destination="hm6-ug-yVJ" id="Vsc-ZM-KdY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="حالة التقدم" id="96U-v4-net" userLabel="حالة التقدم">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="cnx-If-NJd">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Uc2-C5-oAH">
+                                <rect key="frame" x="20" y="13" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="إرسال">
+                                    <color key="titleColor" red="0.99959415200000001" green="0.68419504170000001" blue="0.61143869159999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="chevron.right" catalog="system" id="GPY-D8-EPW">
+                            <color key="tintColor" red="0.99959415200000001" green="0.68419504170000001" blue="0.61143869159999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="NxM-Jp-Fpu" kind="presentation" id="Wnm-e5-tFR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="send" destination="pB6-nK-JFw" id="bqy-G8-ubu"/>
+                        <outlet property="sendButton" destination="cnx-If-NJd" id="V52-6s-rig"/>
+                        <outlet property="tableView" destination="c8d-mZ-32a" id="nCu-8R-vrm"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vQ4-bi-uZl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJA-DT-We6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1385" y="4096"/>
+            <point key="canvasLocation" x="-557.97101449275362" y="4095.5357142857142"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Sbc-VY-26q">
@@ -5727,17 +5761,69 @@
             </objects>
             <point key="canvasLocation" x="-3104" y="3062"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6lE-Iz-V0c">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="ZII-3d-kF2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dHc-wm-gF3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aya-PU-1vs">
+                        <rect key="frame" x="0.0" y="759" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="hm6-ug-yVJ" kind="relationship" relationship="rootViewController" id="5Sa-0Y-xjg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zUS-p5-Buv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1468.1159420289857" y="4095.5357142857142"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Close button" width="28" height="28"/>
+        <image name="Header" width="434" height="382"/>
+        <image name="Score" width="185.5" height="197.5"/>
+        <image name="Talaqah" width="142" height="125"/>
+        <image name="arrowshape.turn.up.right.circle" catalog="system" width="64" height="60"/>
+        <image name="checkmark.rectangle" catalog="system" width="64" height="46"/>
+        <image name="chevron.compact.left" catalog="system" width="32" height="64"/>
+        <image name="chevron.left" catalog="system" width="48" height="64"/>
+        <image name="chevron.right" catalog="system" width="48" height="64"/>
+        <image name="circle" catalog="system" width="64" height="60"/>
+        <image name="circle.fill" catalog="system" width="64" height="60"/>
+        <image name="custom – 1" width="2571" height="1176"/>
+        <image name="disclousre" width="552" height="981"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
+        <image name="house.fill" catalog="system" width="64" height="52"/>
+        <image name="logout (1)" width="512" height="512"/>
+        <image name="mic.fill" catalog="system" width="54" height="64"/>
+        <image name="multiply.square.fill" catalog="system" width="64" height="56"/>
+        <image name="play-button" width="256" height="256"/>
+        <image name="play.fill" catalog="system" width="58" height="64"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="questionmark" catalog="system" width="48" height="64"/>
+        <image name="rectangle" catalog="system" width="64" height="46"/>
+        <image name="settings" width="512" height="512"/>
+        <image name="trash.fill" catalog="system" width="60" height="64"/>
+        <image name="user (3)" width="256" height="256"/>
+        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UKL-SM-RdG"/>
         <segue reference="HUq-mY-vg4"/>
         <segue reference="Och-3h-sc3"/>
         <segue reference="dun-ai-NeB"/>
         <segue reference="z6R-lJ-UVT"/>
-        <segue reference="Svt-Lf-Wfs"/>
+        <segue reference="nbJ-OH-k3Q"/>
         <segue reference="dvF-0E-dcH"/>
         <segue reference="Uvf-Oa-D7a"/>
-        <segue reference="fwg-4s-mo0"/>
+        <segue reference="Wnm-e5-tFR"/>
         <segue reference="O3L-zy-Hiu"/>
         <segue reference="kCM-Yb-1Yt"/>
         <segue reference="XH4-A3-MkK"/>
@@ -5747,33 +5833,4 @@
         <segue reference="yEk-2w-QSD"/>
         <segue reference="G5z-Ln-Bva"/>
     </inferredMetricsTieBreakers>
-    <resources>
-        <image name="Close button" width="28" height="28"/>
-        <image name="Header" width="434" height="382"/>
-        <image name="Score" width="185.5" height="197.5"/>
-        <image name="Talaqah" width="142" height="125"/>
-        <image name="arrowshape.turn.up.right.circle" catalog="system" width="128" height="121"/>
-        <image name="checkmark.rectangle" catalog="system" width="128" height="93"/>
-        <image name="chevron.compact.left" catalog="system" width="64" height="128"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="custom – 1" width="2571" height="1176"/>
-        <image name="disclousre" width="552" height="981"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="logout (1)" width="512" height="512"/>
-        <image name="mic.fill" catalog="system" width="108" height="128"/>
-        <image name="multiply.square.fill" catalog="system" width="128" height="114"/>
-        <image name="play-button" width="256" height="256"/>
-        <image name="play.fill" catalog="system" width="116" height="128"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="questionmark" catalog="system" width="96" height="128"/>
-        <image name="rectangle" catalog="system" width="128" height="93"/>
-        <image name="settings" width="512" height="512"/>
-        <image name="trash.fill" catalog="system" width="121" height="128"/>
-        <image name="user (3)" width="256" height="256"/>
-        <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
-    </resources>
 </document>
