@@ -77,6 +77,9 @@ class AccountViewController: UIViewController {
         
     }
     
+    @IBAction func toHome(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "toHome", sender: nil)
+    }
     
     @IBAction func viewProgressPressed(_ sender: UIViewController) {
         
@@ -239,4 +242,11 @@ class AccountViewController: UIViewController {
 //       override open var shouldAutorotate: Bool {
 //           return false
 //       }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toHome"{
+            let destnationVC = segue.destination as! BaseViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
+    }
 }

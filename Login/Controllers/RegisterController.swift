@@ -153,7 +153,8 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         
         if isValidatePass == false {
             // Password isn't secure enough
-            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
+                         return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+//            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
             //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
         }
         if isMatchedPass==false{
@@ -240,7 +241,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                     let db = Firestore.firestore()
                     //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
                     db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
-                                                                 "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":""]) { (error) in
+                                                                 "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":"", "settings": [3,2,2,2],"categories": []]) { (error) in
                         
                         
                         
@@ -254,6 +255,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                     
                     // Transition to the home screen
                     //                                  self.transitionToHome()
+                    UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
                     self.performSegue(withIdentifier: "toStart", sender: nil)
                 }
                 

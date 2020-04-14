@@ -29,6 +29,7 @@ class ComplixityViewController: UIViewController {
     let db = Firestore.firestore()
     var isCat = false
     var categories = [""]
+    var patient : Patient?
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
               return .landscapeLeft
@@ -218,12 +219,14 @@ class ComplixityViewController: UIViewController {
            let destnationVC = segue.destination as! SettingsViewController
                     destnationVC.settings = Settings
                       destnationVC.categories = categories
+        destnationVC.patinet = patient
            destnationVC.modalPresentationStyle = .fullScreen
        }
        if segue.identifier == "toCat"{
            let destnationVC = segue.destination as! CategoriesViewController
                 destnationVC.settings = Settings
                 destnationVC.categories = categories
+        destnationVC.patient = patient
            destnationVC.modalPresentationStyle = .fullScreen
        }
    }

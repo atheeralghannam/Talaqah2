@@ -42,7 +42,7 @@ extension TrialController{
                 DispatchQueue.main.async {
                     
                     //todo textView speech
-//                    self.textView.text =  (result?.bestTranscription.formattedString)!
+                    //                    self.textView.text =  (result?.bestTranscription.formattedString)!
                     
                 }
                 
@@ -55,41 +55,48 @@ extension TrialController{
                 let command = result?.bestTranscription.formattedString
                 
                 //here
-
                 if command==nil{
                     UserDefaults.standard.set(nil, forKey: Constants.currentAnswer)
+                    if #available(iOS 13.0, *) {
+                        let validateImage = UIImage(systemName:"exclamationmark")
+                        self.validateButton.setImage(validateImage, for: [])
+                        self.validateButton.tintColor = UIColor.gray
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    self.validateButton.isHidden=false
                     return}
                 
                 if command != nil {
                     
-                      let w1 = UserDefaults.standard.string(forKey: Constants.correcAnswer)
+                    let w1 = UserDefaults.standard.string(forKey: Constants.correcAnswer)
                     
-                      let w2 = command
-                      
-                             UserDefaults.standard.set(command, forKey: Constants.currentAnswer)
+                    let w2 = command
                     
-                      print(w1)
+                    UserDefaults.standard.set(command, forKey: Constants.currentAnswer)
+                    
+                    print(w1)
                     print(w1?.count)
                     for char in w1! {
-                                          print("Found character: \(char)")
-                                      }
-
-                      print(w2)
+                        print("Found character: \(char)")
+                    }
+                    
+                    print(w2)
                     print(w2?.count)
                     for char in w2! {
-                                          print("Found character: \(char)")
-                                      }
-
-                      let substring = w2?.dropFirst(1)
+                        print("Found character: \(char)")
+                    }
                     
-
+                    let substring = w2?.dropFirst(1)
+                    
+                    
                     let realword = String(substring!)
                     print(realword.count)
-
+                    
                     for char in realword {
                         print("Found character: \(char)")
                     }
-                      print(w1==realword)
+                    print(w1==realword)
                     if (w1==realword){
                         self.pressed = true
                         print(self.pressed)
@@ -108,7 +115,26 @@ extension TrialController{
                     
                     
                     UserDefaults.standard.set(w1==realword, forKey:Constants.isAnswerCorrect)
-
+                    if w1 == realword  {
+                        if #available(iOS 13.0, *) {
+                            let validateImage = UIImage(systemName:"checkmark")
+                            self.validateButton.setImage(validateImage, for: [])
+                            self.validateButton.tintColor = UIColor.green
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        self.validateButton.isHidden=false
+                    }
+                    else if w1 != realword {
+                        if #available(iOS 13.0, *) {
+                            let validateImage = UIImage(systemName:"xmark")
+                            self.validateButton.setImage(validateImage, for: [])
+                            self.validateButton.tintColor = UIColor.red
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        self.validateButton.isHidden=false
+                    }
                     self.audioEngine.inputNode.removeTap(onBus: 0)
                     
                     self.audioEngine.stop()
@@ -137,8 +163,8 @@ extension TrialController{
         if available {
             recordButton.isEnabled = true
             recordButton.setTitle("", for: [])
-//            recordButton.setTitle("Start Recording", for: [])
-
+            //            recordButton.setTitle("Start Recording", for: [])
+            
         } else {
             recordButton.isEnabled = false
             recordButton.setTitle("Recognition not available", for: .disabled)

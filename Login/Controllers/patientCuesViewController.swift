@@ -19,14 +19,27 @@ class patientCuesViewController: UIViewController {
     @IBOutlet var cue7: UISwitch!
     
     let db = Firestore.firestore()
-
+    var patient : Patient?
+    var categories = [""]
+    var settings = [3,2,2,2]
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSwitches()
 
         // Do any additional setup after loading the view.
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "back" {
+            let destnationVC = segue.destination as! SettingsViewController
+            destnationVC.patinet = patient
+            destnationVC.settings = settings
+            destnationVC.categories = categories
+        }
+    }
     
+    @IBAction func back(_ sender: UIButton) {
+    performSegue(withIdentifier: "back", sender: nil)
+    }
     func setupSwitches(){
         
         db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments {(snapshot, error) in

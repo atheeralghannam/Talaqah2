@@ -127,7 +127,8 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
         
         if isValidatePass == false {
             // Password isn't secure enough
-            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
+            return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+//            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
             //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
         } //end if
         if isMatchedPass==false{
@@ -221,6 +222,7 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     // Transition to the home screen
                     //
+                    UserDefaults.standard.set(true, forKey:Constants.isSlpLoggedIn)
                     self.performSegue(withIdentifier: "toStartSlp", sender: nil)
                 } //end else
                 

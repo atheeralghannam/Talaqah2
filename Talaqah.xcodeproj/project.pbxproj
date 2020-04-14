@@ -29,6 +29,8 @@
 		45D136C523F42CFE00ADEA97 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136C423F42CFE00ADEA97 /* Patient.swift */; };
 		45D136C723F42D3500ADEA97 /* Trial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D136C623F42D3500ADEA97 /* Trial.swift */; };
 		45E32E8E24004F4000F2E4F0 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E32E8D24004F4000F2E4F0 /* ResetPasswordViewController.swift */; };
+		45F8A82F24428A6800BAB3D6 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F8A82E24428A6800BAB3D6 /* Progress.swift */; };
+		45F8A83124428A8400BAB3D6 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F8A83024428A8400BAB3D6 /* ProgressCell.swift */; };
 		8853FEEF2428D19100170B23 /* SLPViewProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853FEEE2428D19100170B23 /* SLPViewProgressController.swift */; };
 		88925F4423F48B2000425C75 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88925F4323F48B2000425C75 /* AccountViewController.swift */; };
 		88925F4623F48C1C00425C75 /* getTrial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88925F4523F48C1C00425C75 /* getTrial.swift */; };
@@ -104,6 +106,8 @@
 		45D136C423F42CFE00ADEA97 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		45D136C623F42D3500ADEA97 /* Trial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial.swift; sourceTree = "<group>"; };
 		45E32E8D24004F4000F2E4F0 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		45F8A82E24428A6800BAB3D6 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
+		45F8A83024428A8400BAB3D6 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		6C7D32D6A7CD1276522B9440 /* Pods-Talaqah.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Talaqah.release.xcconfig"; path = "Target Support Files/Pods-Talaqah/Pods-Talaqah.release.xcconfig"; sourceTree = "<group>"; };
 		8853FEEE2428D19100170B23 /* SLPViewProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPViewProgressController.swift; sourceTree = "<group>"; };
 		88925F4323F48B2000425C75 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 				45D136C623F42D3500ADEA97 /* Trial.swift */,
 				F5FC8AB623F6AF9500BC8F63 /* validateSAID.swift */,
 				F523F83F240D47A300B003CF /* TableCell.swift */,
+				45F8A82E24428A6800BAB3D6 /* Progress.swift */,
+				45F8A83024428A8400BAB3D6 /* ProgressCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				208F16792235EAAB002CF75F /* LoginViewController.swift in Sources */,
 				37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */,
 				88CB23A6240405E40099A3C2 /* ResultController.swift in Sources */,
+				45F8A83124428A8400BAB3D6 /* ProgressCell.swift in Sources */,
 				F518A58523ED4CE500A41AC8 /* Authorization.swift in Sources */,
 				208F16772235EAAB002CF75F /* AppDelegate.swift in Sources */,
 				208F16892235F109002CF75F /* DesignableView.swift in Sources */,
@@ -527,6 +534,7 @@
 				45D136C523F42CFE00ADEA97 /* Patient.swift in Sources */,
 				F5DA5C6C2427F62400B02F7C /* SLPCuesViewController.swift in Sources */,
 				45731F0B242BF0810096C7FF /* SLPViewProfileViewController.swift in Sources */,
+				45F8A82F24428A6800BAB3D6 /* Progress.swift in Sources */,
 				37E6C07C24299DEC009CA456 /* ComplixityViewController.swift in Sources */,
 				F523F836240D314700B003CF /* BaseSLPViewController.swift in Sources */,
 				377764E62411BB0C008D045B /* BaseViewController.swift in Sources */,

@@ -37,6 +37,8 @@ class Utilities {
     
           static  let primaryColor=hexStringToUIColor(hex: "#F2A490")
               static  let secondaryColor=hexStringToUIColor(hex: "#F5F5F5")
+                 static  let greenColor=hexStringToUIColor(hex: "#228B22")
+
     
 //    let primaryColor = UIColor(rgb: 0xF2A490)
     static func styleTextField( textfield:UITextField) {

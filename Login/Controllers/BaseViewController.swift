@@ -11,11 +11,12 @@ import Firebase
 
 
 class BaseViewController: UIViewController {
+    var isLoad = false// to avoid redudnet trials
     var fcheck = false
     var scheck = false
     var tcheck = false
     var lcheck = false
-    var patientsArray = [Patient]()
+    var patient : Patient?
     let db = Firestore.firestore()
     var trials = [Trial]()
     var categories = ["male","female", "adj", "animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
@@ -29,7 +30,13 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         //        super.viewDidLoad()
-        getCurrentPatient()
+        if let pat = patient {
+            //goood
+            print("good", pat.FirstName)
+        }else{
+            getCurrentPatient()
+        }
+        //getCurrentPatient()
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         let tal = UIColor(named: "Tala")
@@ -44,7 +51,7 @@ class BaseViewController: UIViewController {
         if segue.identifier == "startTrial" {
             let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
-            destnationVC.patient = patientsArray
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "ViewProfile" {
@@ -52,9 +59,9 @@ class BaseViewController: UIViewController {
             
             destnationVC.modalPresentationStyle = .fullScreen
         }else if segue.identifier == "toSettings"{ let destnationVC = segue.destination as! SettingsViewController
-            destnationVC.categories = patientsArray[0].categories
-            destnationVC.settings = patientsArray[0].settings
-            destnationVC.patinet = patientsArray
+            destnationVC.categories = patient!.categories
+            destnationVC.settings = patient!.settings
+            destnationVC.patinet = patient
             destnationVC.modalPresentationStyle = .fullScreen
             
         }
@@ -64,9 +71,10 @@ class BaseViewController: UIViewController {
         self.performSegue(withIdentifier: "ViewProfile", sender: self)
     }
     @IBAction func Start(_ sender: UIButton) {
-        if (trials.isEmpty){
-            getTrials()
-        }
+        if (trials.isEmpty && !isLoad){
+                   getTrials()
+                   isLoad = true
+               }
         if trials.isEmpty {
             let alertController = UIAlertController(title: "فضلًا انتظر", message:
                 "يتم تحميل البيانات", preferredStyle: .alert)
@@ -79,23 +87,34 @@ class BaseViewController: UIViewController {
     }
 
     @IBAction func Settings(_ sender: UIButton) {
-        if patientsArray[0].slpUid != ""{
-            let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
-                "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-            
-            self.present(alertController, animated: true, completion: nil)
-        }else {
-        if patientsArray.isEmpty {
-                   let alertController = UIAlertController(title: "فضلًا انتظر", message:
+   if let pat = patient{
+    
+    if pat.slpUid != ""{
+        let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
+            "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }else{
+         self.performSegue(withIdentifier: "toSettings", sender: self)
+    }
+   }else {
+            getCurrentPatient()
+            let alertController = UIAlertController(title: "فضلًا انتظر", message:
                        "يتم تحميل البيانات", preferredStyle: .alert)
                    alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
                    
                    self.present(alertController, animated: true, completion: nil)
-               }else{
-                    self.performSegue(withIdentifier: "toSettings", sender: self)
                }
-        }
+//        else if patient!.slpUid != ""{
+//            let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
+//                "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+//
+//            self.present(alertController, animated: true, completion: nil)
+//        }else{
+//             self.performSegue(withIdentifier: "toSettings", sender: self)
+//        }
     }
     
     @IBAction func logout(_ sender: UIButton) {
@@ -160,7 +179,7 @@ class BaseViewController: UIViewController {
                 pslpuid = data["slpUid"] as! String
                 
                 let patient = Patient(NID: pnID, FirstName: fName, LastName: lName, Gender: pGender, PhoneNumber: phoneNumber, Email: pEmail, uid: puid, categories: pcateg, settings: psettings, slpUid: pslpuid)
-                self.patientsArray.append(patient)
+                self.patient = patient
             }
             
         }
@@ -171,22 +190,20 @@ class BaseViewController: UIViewController {
             let docRef = db.collection("trials").document(document)
             if document == "names"{
                 categories = ["animal", "body","personal", "family", "cloths", "food", "drinks", "vegetables", "fruits", "pots", "house", "furniture", "devices", "public", "transportation", "jobs", "shapes","colors"]
-                if !patientsArray[0].categories.isEmpty{
+                if let pat = patient {
+                    if !pat.categories.isEmpty {
                 for ctegory in categories {
                     let ix = categories.firstIndex(of: ctegory)
-                    if !patientsArray.isEmpty{
-                        let patient = patientsArray[0]
-                        if !patient.categories.contains(ctegory){
+                        if !pat.categories.contains(ctegory){
                             categories.remove(at: ix!)
                         }
-                    }
                 }
             }
+                }
             }
             else if document == "verbs"{
-                if !patientsArray.isEmpty{
-                    let patient = patientsArray[0]
-                    categories = [patient.Gender]
+                if let pat = patient{
+                    categories = [pat.Gender]
                     print(categories)
                 }
             } else {
@@ -202,11 +219,10 @@ class BaseViewController: UIViewController {
                             let data = document.data()
                             if !data.isEmpty   {
                                 let s = data["settings"] as! Array<Int>
-                                if !self.patientsArray.isEmpty{
-                                    let patient = self.patientsArray[0]
-                                    print("Settings: " +  String(s.elementsEqual(patient.settings)))
+                                if let pat = self.patient{
+//                                    print("Settings: " +  String(s.elementsEqual(patient.settings)))
                                     var i = 0
-                                    for set in patient.settings {
+                                    for set in pat.settings {
                                         self.settings(a: set, b: s[i], index : i)
                                         i += 1
                                     }
@@ -216,28 +232,28 @@ class BaseViewController: UIViewController {
                                                 Array<String>, settings: data["settings"] as! Array<Int>, category: category, type: data["type"] as! String))
                                     } //end of if no one need check
                                     else if self.fcheck{
-                                        if s[0] == patient.settings[0]{
+                                        if s[0] == pat.settings[0]{
                                             if !self.scheck && !self.tcheck && !self.lcheck {
                                                 self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                     , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                         Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                             }// end of if just first one need check
                                             else if self.scheck {
-                                                if s[1] == patient.settings[1]{
+                                                if s[1] == pat.settings[1]{
                                                     if  !self.tcheck && !self.lcheck {
                                                         self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                             , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                 Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                                     }// end of just second and one need check
                                                     else if self.tcheck {
-                                                        if s[2] == patient.settings [2] || s[2] == -1{
+                                                        if s[2] == pat.settings [2] || s[2] == -1{
                                                             if !self.lcheck {
                                                                 self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                                     , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                         Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                                             }// just first 3 needs check
                                                             else if self.lcheck {
-                                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                                if s[3] == pat.settings[3] || s[3] == -1{
                                                                     self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                                         , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                             Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -246,7 +262,7 @@ class BaseViewController: UIViewController {
                                                         }// if third and 2nd and 1st are right
                                                     }// end of third and second and first needs check
                                                     else if self.lcheck {
-                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                        if s[3] == pat.settings[3] || s[3] == -1{
                                                             self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                                 , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                     Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -256,14 +272,14 @@ class BaseViewController: UIViewController {
                                                 }// end of if second and first are right
                                             }// end of second and one need check
                                             else if self.tcheck {
-                                                if s[2] == patient.settings[2] || s[2] == -1{
+                                                if s[2] == pat.settings[2] || s[2] == -1{
                                                     if !self.lcheck{
                                                         self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                             , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                 Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                                     }// end of 4th and 2nd dont need check
                                                     else if self.lcheck{
-                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                        if s[3] == pat.settings[3] || s[3] == -1{
                                                             self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                                 , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                     Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -272,7 +288,7 @@ class BaseViewController: UIViewController {
                                                 }//end of  3rd check is right
                                             }// end of 1st and 3rd need check 2nd dont need
                                             else if self.lcheck {
-                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                if s[3] == pat.settings[3] || s[3] == -1{
                                                     self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                         , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                             Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -281,21 +297,21 @@ class BaseViewController: UIViewController {
                                         }// end of if first is right
                                     }//end of if first one need check
                                     else if self.scheck {
-                                        if s[1] == patient.settings[1]{
+                                        if s[1] == pat.settings[1]{
                                             if  !self.tcheck && !self.lcheck {
                                                 self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                     , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                         Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                             }// end of just second need check
                                             else if self.tcheck {
-                                                if s[2] == patient.settings [2] || s[2] == -1 {
+                                                if s[2] == pat.settings [2] || s[2] == -1 {
                                                     if !self.lcheck {
                                                         self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                             , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                 Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                                     }// just 2nd and 3rd needs check
                                                     else if self.lcheck {
-                                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                                        if s[3] == pat.settings[3] || s[3] == -1{
                                                             self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                                 , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                                     Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -304,7 +320,7 @@ class BaseViewController: UIViewController {
                                                 }// if third and 2nd are right
                                             }// end of third and second needs check
                                             else if self.lcheck {
-                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                if s[3] == pat.settings[3] || s[3] == -1{
                                                     self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                         , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                             Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -313,14 +329,14 @@ class BaseViewController: UIViewController {
                                         }// end of if second is right
                                     }// end of second check first not
                                     else if self.tcheck {
-                                        if s[2] == patient.settings [2] || s[2] == -1{
+                                        if s[2] == pat.settings [2] || s[2] == -1{
                                             if !self.lcheck {
                                                 self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                     , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                         Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
                                             }// just 2nd and 3rd needs check
                                             else if self.lcheck {
-                                                if s[3] == patient.settings[3] || s[3] == -1{
+                                                if s[3] == pat.settings[3] || s[3] == -1{
                                                     self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                         , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                             Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))
@@ -329,7 +345,7 @@ class BaseViewController: UIViewController {
                                         }// if third and 2nd are right
                                     }// end of third and second needs check
                                     else if self.lcheck {
-                                        if s[3] == patient.settings[3] || s[3] == -1{
+                                        if s[3] == pat.settings[3] || s[3] == -1{
                                             self.trials.append(Trial(answer: data["answer"] as! String , name: data["name"] as! String
                                                 , writtenCues: data["writtenCues"] as! Array<String>, audiosNames: data["audiosNames"] as!
                                                     Array<String>, settings: data["settings"] as! Array<Int>, category: category , type: data["type"] as! String))

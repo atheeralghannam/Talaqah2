@@ -15,7 +15,8 @@ class SelectCategoriesController: UIViewController {
     var isSelect = false
     var trials = [Trial]()
     var array = [Trial]()
-
+    var patient : Patient?
+    
     @IBOutlet weak var NextButton: UIButton!
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -72,18 +73,20 @@ class SelectCategoriesController: UIViewController {
             let destnationVC = segue.destination as! TrialController
             for trial in trials {
                 for category in categories{
-                if trial.category == category {
-                    array.append(trial)
+                    if trial.category == category {
+                        array.append(trial)
+                    }
                 }
-            }
             }
             print(array)
             destnationVC.trials = array
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "goToWords" {
-             let destnationVC = segue.destination as! SelsectWordsController
+            let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
+            destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }
