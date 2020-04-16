@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Firebase
 import Speech
 
 extension TrialController{
+    
+    
+    
     
     func startRecordingFirst() throws {
         
@@ -105,11 +109,12 @@ extension TrialController{
                     if (self.pressed && true){
                         self.countCoResult = self.countCoResult + 1
                         self.pressed = false
+//                        self.updateProgress(answer: realword,result: "t")
                     } else {
                         
                         self.countFaResult = self.countFaResult + 1
                         self.pressed = false
-                        
+//                        self.updateProgress(answer: realword,result: "f")
                     }
                     
                     
@@ -170,5 +175,58 @@ extension TrialController{
             recordButton.setTitle("Recognition not available", for: .disabled)
         }
     }
+    
+    
+//
+//    func updateProgress(answer: String,result: String)  {
+////        var date=getDate()
+//        var date="13/3/2020"
+//
+//        var db = Firestore.firestore()
+//
+//        progress = new Progress(answer: answer,result: result,date: date)
+//
+//        progesses.append(progress)
+//        //----
+//
+//           db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
+//                  .getDocuments {(snapshot, error) in
+//
+//                       if let error = error{print(error.localizedDescription)}
+//                       else {
+//                             if let snapshot = snapshot {
+//                            for document in snapshot.documents{
+//                                      let data = document.data()
+//
+//
+//                          self.mcue = data["cue1"] as! Bool
+//
+//                                 }}}
+//
+//
+//         }
+//
+//
+////        let washingtonRef = db.collection("cities").document("DC")
+////
+////        // Atomically add a new region to the "regions" array field.
+////        washingtonRef.updateData([
+////            "regions": FieldValue.arrayUnion(["greater_virginia"])
+////        ])
+////
+////         db.collection("cities").document("DC").update( {
+////           array : firebase.firestore.FieldValue.arrayUnion(progress)
+////        });
+//
+////
+////        var washingtonRef =  db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid).doc("DC");
+////
+////        // Atomically add a new region to the "regions" array field.
+////        washingtonRef.update({
+////            regions: firebase.firestore.FieldValue.arrayUnion("greater_virginia")
+////        });
+//
+//        //----
+//    }
     
 }

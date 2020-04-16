@@ -20,6 +20,9 @@ func getDocumentsDirectory() -> URL {
 
 class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
+   
+    
+    
     //speech vaars
     var speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: Language.instance.setlanguage()))!
     
@@ -56,6 +59,10 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     var countFaResult = 0
     var pressed = false
     var patient : Patient?
+//    var answers: String? = nil
+//    var results: String? = nil
+    var progresses = [Progress]()
+    
     
     //Outlet
     @IBOutlet weak var writtenCue: UILabel!
@@ -174,7 +181,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         // show the alert
         self.present(alert, animated: true, completion: nil)
         
-        
+        updateProgress()
         
         
     }
@@ -247,6 +254,8 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            
+            setProgress( answer: trials[count].answer ,result: "t")
         }
             
             
@@ -259,6 +268,8 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            
+        setProgress( answer: trials[count].answer ,result: "f")
         }
     }
     
@@ -639,5 +650,118 @@ extension TrialController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         finishPlayback()
     }
+    
+    
+    // MARK: - Progess
+    
+        func setProgress(answer: String,result: String)  {
+        //---
+//            var progress : Progress
+//
+        var date=Date.getCurrentDate()
+//            let date="13/3/2020"
+//
+//
+//           progress = Progress ( answer: answer , result: result , date: date )
+//
+//            self.progresses.append( progress)
+            
+        //---
+            
+//            var answers: String? = nil
+//            var results: String? = nil
+//
+//          //        var date=getDate()
+//            if(answers ?? "").isEmpty{
+//                       answers=answer
+//            }
+//            else   {
+//                       answers = "\(answers)-\(answer)"
+//            }
+//
+//             if(results ?? "").isEmpty{
+//                                       results=result
+//                      }
+//                      else   {
+//
+//                      results = "\(results)-\(result)"
+//                      }
+//           //print for test
+//            print("\(answers)")
+            
+            //-------
+//            if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
+//            db.collection("patients")
+//                      .whereField("uid", isEqualTo :Auth.auth().currentUser!.uid)
+//                      .getDocuments() { (querySnapshot, error) in
+//                          if let error = error {
+//                                  print(error.localizedDescription)
+//                          } else if querySnapshot!.documents.count != 1 {
+//                                  print("More than one documents or none")
+//                          } else {
+//                              let document = querySnapshot!.documents.first
+//                              document!.reference.updateData([
+//                                "progress": FieldValue.arrayUnion(["\(UserDefaults.standard.string(forKey: Constants.correcAnswer)),\(UserDefaults.standard.string(forKey: Constants.isAnswerCorrect))"])
+//
+//                              ])
+//
+//
+//
+//                        }}
+            
+            
+            db.collection("patients")
+                      .whereField("uid", isEqualTo :Auth.auth().currentUser!.uid)
+                      .getDocuments() { (querySnapshot, error) in
+                          if let error = error {
+                                  print(error.localizedDescription)
+                          } else if querySnapshot!.documents.count != 1 {
+                                  print("More than one documents or none")
+                          } else {
+                              let document = querySnapshot!.documents.first
+                              document!.reference.updateData([
+                                "progress": FieldValue.arrayUnion(["\(answer),\(result),\(date)"])
+                                 
+                              ])
+            
+            
+            
+                        }}
+            
+            
+    }
+    
+    
+    func updateProgress() {
+//       //----
+////             let db = Firestore.firestore()
+//
+//        //update progress in DB with "progresses"
+//                let uID = "SAYOVleHD3XWWMphbXTMtsPQaYg2"
+//
+//
+//        //        let uID = UserDefaults.standard.string(forKey: Constants.selectedPatient)
+//
+//
+//        let progressRef = db.collection("patients").document(uID)
+//
+//        // Atomically add a new region to the "regions" array field.
+//        progressRef.updateData([
+//            "progress": FieldValue.arrayUnion(["\(answers)"])
+//        ])
+//
+//        print("-------------\(answers)")
+//
+//
+//
+//
+////        var setWithMerge = progressRef.set({
+////            capital: true
+////        }, { merge: true });
+//
+//
+                   //----
+    }
+    
     
 }

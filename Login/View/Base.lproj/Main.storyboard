@@ -405,7 +405,6 @@
                                 </state>
                                 <connections>
                                     <action selector="viewProgressPressed:" destination="UiZ-8Y-TrN" eventType="touchUpInside" id="dmL-Fg-oYg"/>
-                                    <segue destination="2Ia-YX-tGl" kind="show" id="kJ2-s0-fbb"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Talaqah" translatesAutoresizingMaskIntoConstraints="NO" id="Ryt-F6-EXD">
@@ -538,6 +537,7 @@
                         <outlet property="PatientPhone" destination="yP3-FA-hbn" id="dpu-Rk-HbF"/>
                         <outlet property="viewProgress" destination="cLw-xP-NTo" id="rqe-7m-9l3"/>
                         <segue destination="6Mb-i4-cFF" kind="presentation" identifier="toHome" id="CAg-7V-jH6"/>
+                        <segue destination="ZII-3d-kF2" kind="presentation" identifier="toViewProgress" id="VoW-im-Ltr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmN-Wf-37i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1991,7 +1991,7 @@
             <objects>
                 <viewController id="2Ia-YX-tGl" customClass="ProgressViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PMq-RN-aCc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z6C-B4-qMV">
@@ -2557,7 +2557,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="ZII-3d-kF2" kind="presentation" id="mA0-lz-WPY"/>
+                                    <action selector="viewProgressClicked:" destination="NxM-Jp-Fpu" eventType="touchUpInside" id="Qy5-cE-RXX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2618,8 +2618,10 @@
                         <outlet property="patientID" destination="AlP-GF-Vu3" id="2Du-Yj-nHw"/>
                         <outlet property="patientPhone" destination="vTJ-BG-Q7Q" id="v3b-3L-t4n"/>
                         <outlet property="remove" destination="9Uj-6n-HCL" id="85B-WJ-OpI"/>
+                        <outlet property="viewProgressButton" destination="xCG-tu-ysO" id="bJC-Kg-Xgk"/>
                         <segue destination="yLK-nv-4Jn" kind="show" identifier="backToPatientsList" id="O3L-zy-Hiu"/>
                         <segue destination="yIg-9q-Cft" kind="presentation" identifier="patientSettings" id="nbJ-OH-k3Q"/>
+                        <segue destination="ZII-3d-kF2" kind="presentation" identifier="toSlpViewProgress" id="IWh-wz-V3J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3kd-pk-juf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5815,6 +5817,7 @@
         <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="VoW-im-Ltr"/>
         <segue reference="UKL-SM-RdG"/>
         <segue reference="HUq-mY-vg4"/>
         <segue reference="Och-3h-sc3"/>
@@ -5822,7 +5825,7 @@
         <segue reference="z6R-lJ-UVT"/>
         <segue reference="nbJ-OH-k3Q"/>
         <segue reference="dvF-0E-dcH"/>
-        <segue reference="Uvf-Oa-D7a"/>
+        <segue reference="CAg-7V-jH6"/>
         <segue reference="Wnm-e5-tFR"/>
         <segue reference="O3L-zy-Hiu"/>
         <segue reference="kCM-Yb-1Yt"/>

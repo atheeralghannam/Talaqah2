@@ -19,6 +19,7 @@ class AccountViewController: UIViewController {
     var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String()
     
     var cue = String.self
+    var array=[String]()
     
     
     @IBOutlet var PatientName: UITextField!
@@ -83,6 +84,40 @@ class AccountViewController: UIViewController {
     
     @IBAction func viewProgressPressed(_ sender: UIViewController) {
         
+               db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid ).getDocuments { (snapshot, error) in
+                   if let error = error {
+                       print(error.localizedDescription)
+                   } else {
+                       if let snapshot = snapshot {
+                           
+                           for document in snapshot.documents {
+                               
+                               let data = document.data()
+                               
+                             self.array = data["progress"] as! [String]
+                               
+                             if (self.array.isEmpty){
+                                   let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
+                                              
+                                              // add an action (button)
+                                              alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
+                                              
+                                              // show the alert
+                                              self.present(alert, animated: true, completion: nil)
+        
+                               } else{
+                                 self.performSegue(withIdentifier: "toViewProgress", sender: nil)
+                             }
+                             
+                            
+                           }
+                           
+                     
+                           
+                           
+                       }
+                   }
+               }
     }
     
     

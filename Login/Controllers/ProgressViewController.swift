@@ -36,6 +36,8 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
     //    var date = ""
     
     var pEmail = String()
+    var uID = String()
+
         
     
     
@@ -97,8 +99,13 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
         var progresses = [String()]
         
         let db = Firestore.firestore()
-        
-        let uID = "SAYOVleHD3XWWMphbXTMtsPQaYg2"
+//        let uID = "SAYOVleHD3XWWMphbXTMtsPQaYg2"
+   if (UserDefaults.standard.bool(forKey: Constants.isUserLoggedIn) == true) {
+    uID = Auth.auth().currentUser!.uid
+   }else {
+    uID = UserDefaults.standard.string(forKey: Constants.selectedPatient)!
+        }
+    
         
         db.collection("patients").whereField("uid", isEqualTo: uID ).getDocuments { (snapshot, error) in
             if let error = error {
@@ -111,7 +118,21 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                         let data = document.data()
                         
                         //set one progress
-                        progresses = data["progress"] as! [String]
+                                              progresses = data["progress"] as! [String]
+                        
+//                        if (progresses.isEmpty){
+//                            let alert = UIAlertController(title: "إجابة خاطئة", message: "حظ أوفر", preferredStyle: UIAlertController.Style.alert)
+//                                       
+//                                       // add an action (button)
+//                                       alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
+//                                       
+//                                       // show the alert
+//                                       self.present(alert, animated: true, completion: nil)
+//                                       
+//                         return
+//                        }
+                      
+                        
                         
                         
                         //                                                var progress =  setProgress(singleProgress: progresses)

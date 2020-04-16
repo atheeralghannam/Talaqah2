@@ -21,6 +21,7 @@
 		37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C07F2429B423009CA456 /* SLPSettingsViewController.swift */; };
 		37E6C0822429B7DF009CA456 /* CatSLpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0812429B7DF009CA456 /* CatSLpViewController.swift */; };
 		37E6C0842429C172009CA456 /* ComSLpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0832429C172009CA456 /* ComSLpViewController.swift */; };
+		45596D6D2448F2290007B65B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45596D6C2448F2290007B65B /* Date.swift */; };
 		456BC4B3242A74E300BB2912 /* SlpRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */; };
 		45731F0B242BF0810096C7FF /* SLPViewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */; };
 		45B21C8D2403177900184DBC /* canYouNaming.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45B21C8C2403177900184DBC /* canYouNaming.mp3 */; };
@@ -98,6 +99,7 @@
 		37E6C07F2429B423009CA456 /* SLPSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPSettingsViewController.swift; sourceTree = "<group>"; };
 		37E6C0812429B7DF009CA456 /* CatSLpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatSLpViewController.swift; sourceTree = "<group>"; };
 		37E6C0832429C172009CA456 /* ComSLpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComSLpViewController.swift; sourceTree = "<group>"; };
+		45596D6C2448F2290007B65B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlpRegisterViewController.swift; sourceTree = "<group>"; };
 		45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPViewProfileViewController.swift; sourceTree = "<group>"; };
 		45B21C8C2403177900184DBC /* canYouNaming.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = canYouNaming.mp3; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				F523F83F240D47A300B003CF /* TableCell.swift */,
 				45F8A82E24428A6800BAB3D6 /* Progress.swift */,
 				45F8A83024428A8400BAB3D6 /* ProgressCell.swift */,
+				45596D6C2448F2290007B65B /* Date.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				45E32E8E24004F4000F2E4F0 /* ResetPasswordViewController.swift in Sources */,
 				F5E1735F241A52DB00DA5967 /* SLPEditProfileViewController.swift in Sources */,
 				45D136B923F405A700ADEA97 /* Utilities.swift in Sources */,
+				45596D6D2448F2290007B65B /* Date.swift in Sources */,
 				456BC4B3242A74E300BB2912 /* SlpRegisterViewController.swift in Sources */,
 				208F16792235EAAB002CF75F /* LoginViewController.swift in Sources */,
 				37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */,
