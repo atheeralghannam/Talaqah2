@@ -2685,6 +2685,9 @@
                                 <state key="normal" title="إرسال">
                                     <color key="titleColor" red="0.99959415200000001" green="0.68419504170000001" blue="0.61143869159999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendEmailPressed1:" destination="hm6-ug-yVJ" eventType="touchUpInside" id="hms-ZX-WUV"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="chevron.right" catalog="system" id="GPY-D8-EPW">
@@ -5817,7 +5820,7 @@
         <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VoW-im-Ltr"/>
+        <segue reference="IWh-wz-V3J"/>
         <segue reference="UKL-SM-RdG"/>
         <segue reference="HUq-mY-vg4"/>
         <segue reference="Och-3h-sc3"/>
@@ -5832,7 +5835,7 @@
         <segue reference="XH4-A3-MkK"/>
         <segue reference="y0e-Pc-RST"/>
         <segue reference="Zow-ph-TWF"/>
-        <segue reference="9n5-NE-UmG"/>
+        <segue reference="yRV-OG-CkV"/>
         <segue reference="yEk-2w-QSD"/>
         <segue reference="G5z-Ln-Bva"/>
     </inferredMetricsTieBreakers>
