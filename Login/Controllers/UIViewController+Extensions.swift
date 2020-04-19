@@ -2,8 +2,8 @@
 //  UIViewController+Extensions.swift
 //  Login
 //
-//  Created by Gary Tokman on 3/24/19.
-//  Copyright © 2019 Gary Tokman. All rights reserved.
+//  Created by Talaqah on 3/24/19.
+//  Copyright © 2019 Talaqah. All rights reserved.
 //
 
 import UIKit

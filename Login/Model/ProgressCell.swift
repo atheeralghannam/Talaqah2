@@ -3,7 +3,7 @@
 //  Talaqah
 //
 //  Created by Haneen Abdullah on 26/03/2020.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import Foundation

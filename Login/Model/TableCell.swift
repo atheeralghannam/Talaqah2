@@ -3,7 +3,7 @@
 //  Talaqah
 //
 //  Created by Atheer Alghannam on 07/07/1441 AH.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  Validation.swift
 //  Login
 //  Created by Atheer Alghannam on 11/06/1441 AH.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import Foundation
