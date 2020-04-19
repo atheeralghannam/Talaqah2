@@ -16,6 +16,8 @@ class BaseViewController: UIViewController {
     var scheck = false
     var tcheck = false
     var lcheck = false
+    var cue = false
+    var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
     var patient : Patient?
     let db = Firestore.firestore()
     var trials = [Trial]()
@@ -36,7 +38,7 @@ class BaseViewController: UIViewController {
         }else{
             getCurrentPatient()
         }
-        //getCurrentPatient()
+        
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         let tal = UIColor(named: "Tala")
@@ -44,6 +46,7 @@ class BaseViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+        getCues()
         // Do any additional setup after loading the view.
     }
     
@@ -52,6 +55,13 @@ class BaseViewController: UIViewController {
             let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
             destnationVC.patient = patient
+            destnationVC.mcue = mcue
+            destnationVC.scue = scue
+            destnationVC.tcue = tcue
+            destnationVC.frcue = frcue
+            destnationVC.fvcue = fvcue
+            destnationVC.sxcue = sxcue
+            destnationVC.svcue = svcue
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "ViewProfile" {
@@ -73,6 +83,7 @@ class BaseViewController: UIViewController {
     @IBAction func Start(_ sender: UIButton) {
         if (trials.isEmpty && !isLoad){
                    getTrials()
+                   getCues()
                    isLoad = true
                }
         if trials.isEmpty {
@@ -359,6 +370,40 @@ class BaseViewController: UIViewController {
             }// end of categories
         }// end document (verbs, names, adj)
     }// end trials
+    
+    func getCues(){
+        print("hello")
+        db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if querySnapshot!.documents.count != 1 {
+                    print("More than one documents or none")
+                }
+                    
+                else {
+                    
+                    let document = querySnapshot!.documents.first
+                    let data = document!.data()
+                    
+                    
+                    self.mcue = data["cue1"] as! Bool
+                    self.scue = data["cue2"] as! Bool
+                    self.tcue = data["cue3"] as! Bool
+                    self.frcue = data["cue4"] as! Bool
+                    self.fvcue = data["cue5"] as! Bool
+                    self.sxcue = data["cue6"] as! Bool
+                    self.svcue = data["cue7"] as! Bool
+                    
+                    
+                }
+                
+                
+        }
+        print(mcue, scue, tcue, frcue,fvcue, sxcue, svcue)
+        print("done")
+        cue = true
+    }
     
     func settings(a : Int , b: Int, index : Int){
         // a == 3 at index 0 (all syllable)

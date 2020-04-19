@@ -62,6 +62,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
 //    var answers: String? = nil
 //    var results: String? = nil
     var progresses = [Progress]()
+    var isLoad = false
     
     
     //Outlet
@@ -394,85 +395,98 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     
-    @objc func showCurrentTrial(){
+      @objc func showCurrentTrial(){
         
-        
-          db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
-                 .getDocuments {(snapshot, error) in
-        
-                      if let error = error{print(error.localizedDescription)}
-                      else {
-                            if let snapshot = snapshot {
-                           for document in snapshot.documents{
-                                     let data = document.data()
-        
-        
-                         self.mcue = data["cue1"] as! Bool
-                            self.scue = data["cue2"] as! Bool
-                                self.tcue = data["cue3"] as! Bool
-                                    self.frcue = data["cue4"] as! Bool
-                                        self.fvcue = data["cue5"] as! Bool
-                                              self.sxcue = data["cue6"] as! Bool
-                                                    self.svcue = data["cue7"] as! Bool
-        
-        if self.mcue == false
+        if mcue == false
         { self.cue1.isUserInteractionEnabled = false
-            self.cue1.setTitleColor(.gray, for: .normal)}
-                           
-                            
-                            if self.scue == false
-                              { self.cue2.isUserInteractionEnabled = false
-                              self.cue2.setTitleColor(.gray, for: .normal)}
-                                  
-                                          
-                                          
-                              if self.tcue == false
-                              { self.cue3.isUserInteractionEnabled = false
-                              self.cue3.setTitleColor(.gray, for: .normal)}
-                            
-                                          
-                              if self.frcue == false
-                                  { self.cue4.isUserInteractionEnabled = false
-                                  self.cue4.setTitleColor(.gray, for: .normal)}
-                              
-                                          
-                             if self.fvcue == false
-                                { self.cue5.isUserInteractionEnabled = false
-                                self.cue5.setTitleColor(.gray, for: .normal)}
-                                          
-                                  if self.sxcue == false
-                                   { self.cue6.isUserInteractionEnabled = false
-                                   self.cue6.setTitleColor(.gray, for: .normal)}
-                                    
-                                          
-                            if self.svcue == false
-                              { self.cue7.isUserInteractionEnabled = false
-                              self.cue7.setTitleColor(.gray, for: .normal)}
-                                
-                            
-                            
-                                }}}
-                     
-          
+            self.cue1.setTitleColor(.gray, for: .normal)
+            self.cue1.alpha = 0.54
+        }
+        
+        
+        if scue == false
+        { self.cue2.isUserInteractionEnabled = false
+            self.cue2.setTitleColor(.gray, for: .normal)
+            self.cue2.alpha = 0.54
         }
         
         
         
+        if tcue == false
+        { self.cue3.isUserInteractionEnabled = false
+            self.cue3.setTitleColor(.gray, for: .normal)
+            self.cue3.alpha = 0.54
+        }
         
-        //image
+        
+        if frcue == false
+        { self.cue4.isUserInteractionEnabled = false
+            self.cue4.setTitleColor(.gray, for: .normal)
+            self.cue4.alpha = 0.54
+        }
+        
+        
+        if fvcue == false
+        { self.cue5.isUserInteractionEnabled = false
+            self.cue5.setTitleColor(.gray, for: .normal)
+            self.cue5.alpha = 0.54
+        }
+        
+        if sxcue == false
+        { self.cue6.isUserInteractionEnabled = false
+            self.cue6.setTitleColor(.gray, for: .normal)
+            self.cue6.alpha = 0.54
+        }
+        
+        
+        if svcue == false
+        { self.cue7.isUserInteractionEnabled = false
+            self.cue7.setTitleColor(.gray, for: .normal)
+            self.cue7.alpha = 0.54
+        }
+        
+        print(mcue, scue, tcue, frcue,fvcue, sxcue, svcue)
+        // if it not okay to disabled
+        var notOk2 = false
+        var notOk3 = false
+        var notOk4 = false
+        var notOk5 = false
+        var notOk6 = false
         print(trials, count)
-        cue2.isEnabled = false
-        cue2.alpha = 0.54
-        cue3.isEnabled = false
-        cue3.alpha = 0.54
-        cue4.isEnabled = false
-        cue4.alpha = 0.54
-        cue5.isEnabled = false
-        cue5.alpha = 0.54
-        cue6.isEnabled = false
-        cue6.alpha = 0.54
-        cue7.isEnabled = false
-        cue7.alpha = 0.54
+        if scue == true && mcue == true{
+            cue2.isEnabled = false
+            cue2.alpha = 0.54
+        }else if scue == false {
+            notOk2 = true
+        }
+        if tcue == true && notOk2 == false{
+            cue3.isEnabled = false
+            cue3.alpha = 0.54
+        }else if tcue == false {
+          notOk3 = true
+        }
+        if frcue == true && notOk3 == false {
+            cue4.isEnabled = false
+            cue4.alpha = 0.54
+        }else if frcue == false{
+            notOk4 = true
+        }
+        if fvcue == true && notOk4 == false {
+            cue5.isEnabled = false
+            cue5.alpha = 0.54
+        }else if fvcue == false {
+            notOk5 = true
+        }
+        if sxcue == true && notOk5 == false{
+            cue6.isEnabled = false
+            cue6.alpha = 0.54
+        }else if sxcue == false {
+            notOk6 = true
+        }
+        if svcue == true && notOk6 == false {
+            cue7.isEnabled = false
+            cue7.alpha = 0.54
+        }
         validateButton.isHidden = true
         playButton.isHidden = true
         writtenCue.text = ""
@@ -499,7 +513,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         UserDefaults.standard.set(trials[count].answer, forKey: Constants.correcAnswer)
         print(count)
     }
-    
     
     
     //Conection function
@@ -530,85 +543,142 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     @IBAction func cuesPressed(_ sender: UIButton) {
-        if sender.currentTitle == "المعنى" {
-            let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                    print("error")
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            if sender.currentTitle == "المعنى" {
+                let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                        print("error")
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                    
                 }
-                
-            }
-            cue2.isEnabled = true
-            cue2.alpha = 1
-        } else if sender.currentTitle == "جملة"{
-            let text = trials[count].writtenCues[0]
-            writtenCue.text = text
-            cue3.isEnabled = true
-            cue3.alpha = 1
-        } else if sender.currentTitle == "الصوت الأول" {
-            let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+                if scue{
+                    cue2.isEnabled = true
+                    cue2.alpha = 1
+                } else if tcue {
+                    cue3.isEnabled = true
+                    cue3.alpha = 1
+                } else if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
                 }
-                
-            }
-            writtenCue.text = ""
-            cue4.isEnabled = true
-            cue4.alpha = 1
-        } else if sender.currentTitle == "المقطع الأول"{
-            let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            } else if sender.currentTitle == "جملة"{
+                let text = trials[count].writtenCues[0]
+                writtenCue.text = text
+                if tcue {
+                    cue3.isEnabled = true
+                    cue3.alpha = 1
+                } else if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
                 }
-            }
-            cue5.isEnabled = true
-            cue5.alpha = 1
-        } else if sender.currentTitle == "الحرف الأول"{
-            let text = trials[count].writtenCues[1]
-            writtenCue.text = text
-            cue6.isEnabled = true
-            cue6.alpha = 1
-        } else if sender.currentTitle == "الكلمة مكتوبة" {
-            let text = trials[count].answer
-            writtenCue.text = text
-            cue7.isEnabled = true
-            cue7.alpha = 1
-        } else if sender.currentTitle == "الكلمة منطوقة"{
-            let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            } else if sender.currentTitle == "الصوت الأول" {
+                let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                    
                 }
+                writtenCue.text = ""
+                if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "المقطع الأول"{
+                let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                }
+                if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الحرف الأول"{
+                let text = trials[count].writtenCues[1]
+                writtenCue.text = text
+                if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الكلمة مكتوبة" {
+                let text = trials[count].answer
+                writtenCue.text = text
+                if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الكلمة منطوقة"{
+                let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                }
+                writtenCue.text = ""
             }
-            writtenCue.text = ""
-        }
     }
     
     //Utility functions
