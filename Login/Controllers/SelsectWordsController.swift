@@ -112,6 +112,14 @@ class SelsectWordsController: UIViewController {
                            }
                        }
                        destnationVC.trials = array
+                    destnationVC.patient = patient
+                    destnationVC.mcue = mcue
+                    destnationVC.scue = scue
+                    destnationVC.tcue = tcue
+                    destnationVC.frcue = frcue
+                    destnationVC.fvcue = fvcue
+                    destnationVC.sxcue = sxcue
+                    destnationVC.svcue = svcue
                        destnationVC.modalPresentationStyle = .fullScreen
                    } else if !adj && !name {
                        for trial in trials{
@@ -124,6 +132,14 @@ class SelsectWordsController: UIViewController {
                        }
                     }
                        destnationVC.trials = array
+                    destnationVC.patient = patient
+                    destnationVC.mcue = mcue
+                    destnationVC.scue = scue
+                    destnationVC.tcue = tcue
+                    destnationVC.frcue = frcue
+                    destnationVC.fvcue = fvcue
+                    destnationVC.sxcue = sxcue
+                    destnationVC.svcue = svcue
                        destnationVC.modalPresentationStyle = .fullScreen
                    } else{
                        for trial in trials {

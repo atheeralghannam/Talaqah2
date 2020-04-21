@@ -12,6 +12,7 @@ import Firebase
 
 class BaseViewController: UIViewController {
     var isLoad = false// to avoid redudnet trials
+    @IBOutlet weak var stackview: UIStackView!
     var fcheck = false
     var scheck = false
     var tcheck = false
@@ -35,6 +36,8 @@ class BaseViewController: UIViewController {
         if let pat = patient {
             //goood
             print("good", pat.FirstName)
+            patient = nil
+            getCurrentPatient()
         }else{
             getCurrentPatient()
         }
@@ -46,6 +49,7 @@ class BaseViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+//        stackview.layer.insertSublayer(gradientLayer, at: 0)
         getCues()
         // Do any additional setup after loading the view.
     }

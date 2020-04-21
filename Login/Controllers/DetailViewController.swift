@@ -107,7 +107,7 @@ var patient: Patient?
         
         
         
-        
+        print("Tapped")
 
                                                         
                                                         

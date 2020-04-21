@@ -91,7 +91,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toHome"{
             let destnationVC = segue.destination as! BaseViewController
-            destnationVC.trials = trials
             destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
@@ -99,6 +98,13 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             let destnationVC = segue.destination as! HelpViewController
             destnationVC.trials = trials
             destnationVC.patient = patient
+            destnationVC.mcue = mcue
+            destnationVC.scue = scue
+            destnationVC.tcue = tcue
+            destnationVC.frcue = frcue
+            destnationVC.fvcue = fvcue
+            destnationVC.sxcue = sxcue
+            destnationVC.svcue = svcue
             destnationVC.modalPresentationStyle = .fullScreen
         }
         

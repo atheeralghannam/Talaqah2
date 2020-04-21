@@ -9,7 +9,7 @@
 import UIKit
 
 class HelpViewController: UIViewController {
-    
+    var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
     var trials = [Trial]()
     var patient : Patient?
        override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -33,6 +33,13 @@ class HelpViewController: UIViewController {
           let destnationVC = segue.destination as! TrialController
           destnationVC.trials = trials
             destnationVC.patient = patient
+        destnationVC.mcue = mcue
+        destnationVC.scue = scue
+        destnationVC.tcue = tcue
+        destnationVC.frcue = frcue
+        destnationVC.fvcue = fvcue
+        destnationVC.sxcue = sxcue
+        destnationVC.svcue = svcue
       destnationVC.modalPresentationStyle = .fullScreen
       }
 

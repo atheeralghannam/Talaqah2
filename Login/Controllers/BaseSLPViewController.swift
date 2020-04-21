@@ -19,7 +19,13 @@ class BaseSLPViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "pateint"{
+            let nav = segue.destination as! UINavigationController
+            let destnationVC = nav.topViewController as! PatientsTableViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
+    }
 
     @IBAction func signOut(_ sender: Any) {
         let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
