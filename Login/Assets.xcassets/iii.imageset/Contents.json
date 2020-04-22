@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Talaqah.png",
+      "filename" : "iii.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Talaqah@2x.png",
+      "filename" : "iii@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Talaqah@3x.png",
+      "filename" : "iii@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

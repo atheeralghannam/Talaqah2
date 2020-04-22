@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Talaqah.png",
+      "filename" : "patinet.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Talaqah@2x.png",
+      "filename" : "patinet@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Talaqah@3x.png",
+      "filename" : "patinet@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

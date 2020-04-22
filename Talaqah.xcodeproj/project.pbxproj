@@ -13,6 +13,7 @@
 		208F167E2235EAAC002CF75F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 208F167D2235EAAC002CF75F /* Assets.xcassets */; };
 		208F16892235F109002CF75F /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208F16882235F109002CF75F /* DesignableView.swift */; };
 		20B1568022480ADC00A70D9F /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */; };
+		371C00DC244FC3AB00D56B5C /* jf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 371C00DB244FBF9A00D56B5C /* jf.ttf */; };
 		377764E62411BB0C008D045B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E52411BB0C008D045B /* BaseViewController.swift */; };
 		377764E82411D462008D045B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E72411D462008D045B /* HelpViewController.swift */; };
 		37E6C0782429921A009CA456 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0772429921A009CA456 /* SettingsViewController.swift */; };
@@ -91,6 +92,7 @@
 		208F16822235EAAC002CF75F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		208F16882235F109002CF75F /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		371C00DB244FBF9A00D56B5C /* jf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jf.ttf; sourceTree = "<group>"; };
 		377764E52411BB0C008D045B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		377764E72411D462008D045B /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		37E6C0772429921A009CA456 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		208F16752235EAAB002CF75F /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				371C00DA244FBF9900D56B5C /* fonts */,
 				459FA39D2402FA2900EA3255 /* Sounds */,
 				37D3037E23EC813B00DD3E0C /* Model */,
 				37D3037F23EC814B00DD3E0C /* View */,
@@ -217,6 +220,14 @@
 				208F167D2235EAAC002CF75F /* Assets.xcassets */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		371C00DA244FBF9900D56B5C /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				371C00DB244FBF9A00D56B5C /* jf.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		37D3037D23EC812600DD3E0C /* Controllers */ = {
@@ -429,6 +440,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371C00DC244FC3AB00D56B5C /* jf.ttf in Resources */,
 				F5DCFFEC23E5A453005B2D38 /* GoogleService-Info.plist in Resources */,
 				F5B7BF0E23EB3AE40033B094 /* LaunchScreen.storyboard in Resources */,
 				45B21C8D2403177900184DBC /* canYouNaming.mp3 in Resources */,

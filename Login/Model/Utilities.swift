@@ -35,7 +35,7 @@ class Utilities {
     }
    
     
-          static  let primaryColor=hexStringToUIColor(hex: "#F2A490")
+          static  let primaryColor=hexStringToUIColor(hex: "#F1D1CA")
               static  let secondaryColor=hexStringToUIColor(hex: "#F5F5F5")
                  static  let greenColor=hexStringToUIColor(hex: "#228B22")
 
@@ -75,7 +75,7 @@ class Utilities {
                   textfield.borderStyle = .none
                   
         //set text font style
-        textfield.font = UIFont(name: "Times Roman", size: 17)
+        textfield.font = UIFont(name: "jf flat", size: 17)
         
            
        }
