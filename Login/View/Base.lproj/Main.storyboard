@@ -142,13 +142,13 @@
                                         <rect key="frame" x="0.0" y="438" width="414" height="314"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ليس لديك حساب؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-wT-aof">
-                                                <rect key="frame" x="228" y="102" width="127" height="18"/>
+                                                <rect key="frame" x="251" y="98" width="104" height="20"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efd-le-7vq">
-                                                <rect key="frame" x="228" y="50" width="131" height="29"/>
+                                                <rect key="frame" x="260" y="51.5" width="99" height="31"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="16"/>
                                                 <state key="normal" title="نسيت كلمة المرور؟">
                                                     <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -158,13 +158,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="هناك خطأ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VF-qO-WE4">
-                                                <rect key="frame" x="325.5" y="13" width="58.5" height="15"/>
+                                                <rect key="frame" x="335.5" y="13" width="48.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="14"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRB-KP-XDa">
-                                                <rect key="frame" x="115" y="96" width="90" height="30"/>
+                                                <rect key="frame" x="122" y="94" width="76" height="32"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <state key="normal" title="تسجيل جديد">
                                                     <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -262,13 +262,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="TIh-TL-seq">
-                                        <rect key="frame" x="16" y="66" width="382" height="103.5"/>
+                                        <rect key="frame" x="16" y="66" width="382" height="107"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="0G0-YE-bQO">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="29.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نسيت كلمة المرور؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsW-EG-CTp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="29.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="33"/>
                                                         <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="28"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -276,7 +276,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0UL-6g-Lqx" customClass="DesignableView" customModule="Talaqah" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="53.5" width="382" height="50"/>
+                                                <rect key="frame" x="0.0" y="57" width="382" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="البريد الإلكتروني" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XDC-tC-ZHy">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
@@ -312,7 +312,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srj-Kr-i34">
-                                        <rect key="frame" x="16" y="199.5" width="382" height="50"/>
+                                        <rect key="frame" x="16" y="203" width="382" height="50"/>
                                         <color key="backgroundColor" red="0.94509803920000002" green="0.81960784310000001" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="1ip-DW-6r9"/>
@@ -331,10 +331,10 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="7dG-0c-h6k">
-                                        <rect key="frame" x="16" y="279.5" width="382" height="520.5"/>
+                                        <rect key="frame" x="16" y="283" width="382" height="517"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="هناك خطأ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcA-Vu-GFg">
-                                                <rect key="frame" x="283.5" y="0.0" width="70.5" height="18"/>
+                                                <rect key="frame" x="295.5" y="0.0" width="58.5" height="20"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -827,7 +827,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="يسعدنا انضمامك لنا" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-5z-TeM">
-                                <rect key="frame" x="233" y="41" width="164" height="21"/>
+                                <rect key="frame" x="255.5" y="38.5" width="141.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -936,11 +936,6 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="البريد الإلكتروني" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oVv-q9-ouH">
-                                                        <rect key="frame" x="53" y="72" width="312" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="رقم الجوال" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRR-nw-EpY">
                                                         <rect key="frame" x="53" y="122" width="312" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -984,8 +979,6 @@
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="trailing" secondItem="1e1-YN-wIe" secondAttribute="trailing" id="K0d-Ew-Qnh"/>
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="trailing" secondItem="xPo-yl-7LP" secondAttribute="trailing" id="Rvy-Ce-p1g"/>
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="top" secondItem="1e1-YN-wIe" secondAttribute="bottom" constant="23" id="UQ9-ED-u63"/>
-                                                    <constraint firstItem="mM2-yE-s3t" firstAttribute="trailing" secondItem="oVv-q9-ouH" secondAttribute="trailing" id="Uy0-xP-csF"/>
-                                                    <constraint firstItem="mM2-yE-s3t" firstAttribute="leading" secondItem="oVv-q9-ouH" secondAttribute="leading" id="W62-sw-qJ2"/>
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="leading" secondItem="gQf-xj-6tp" secondAttribute="leading" id="bF3-WX-DqT"/>
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="trailing" secondItem="Yw2-z0-QeV" secondAttribute="trailing" id="db8-Qx-glt"/>
                                                     <constraint firstItem="dVE-5S-hf8" firstAttribute="centerX" secondItem="9yG-GP-EgD" secondAttribute="centerX" constant="-1" id="fAY-nW-2md"/>
@@ -999,7 +992,6 @@
                                                     <constraint firstItem="gQf-xj-6tp" firstAttribute="top" secondItem="xPo-yl-7LP" secondAttribute="bottom" constant="19" id="rk2-yZ-gtc"/>
                                                     <constraint firstItem="uxw-Hb-9hR" firstAttribute="top" secondItem="gQf-xj-6tp" secondAttribute="bottom" constant="19" id="syO-MC-ltr"/>
                                                     <constraint firstItem="mM2-yE-s3t" firstAttribute="leading" secondItem="9yG-GP-EgD" secondAttribute="leading" constant="53" id="vHv-t9-2lK"/>
-                                                    <constraint firstItem="oVv-q9-ouH" firstAttribute="top" secondItem="Yw2-z0-QeV" secondAttribute="bottom" constant="8" id="xzD-R0-RuR"/>
                                                     <constraint firstItem="xPo-yl-7LP" firstAttribute="top" secondItem="gRR-nw-EpY" secondAttribute="bottom" constant="18" id="zel-NU-Vxm"/>
                                                 </constraints>
                                             </view>
@@ -1039,7 +1031,6 @@
                         <outlet property="funame" destination="uxw-Hb-9hR" id="0gT-19-fiF"/>
                         <outlet property="luname" destination="1e1-YN-wIe" id="hGZ-qc-Zpe"/>
                         <outlet property="natId" destination="Yw2-z0-QeV" id="Kz2-MQ-lQZ"/>
-                        <outlet property="uemail" destination="oVv-q9-ouH" id="v56-uJ-323"/>
                         <outlet property="umobile" destination="gRR-nw-EpY" id="BSA-kE-Xxp"/>
                     </connections>
                 </viewController>
@@ -2224,13 +2215,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="تسجيل الدخول كـ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTD-0U-gEh">
-                                <rect key="frame" x="261" y="336.5" width="123" height="18"/>
+                                <rect key="frame" x="227" y="340" width="103" height="20"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="أهلا بك في طلاقة" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdb-n4-RP5">
-                                <rect key="frame" x="162" y="211" width="222" height="29.5"/>
+                                <rect key="frame" x="162" y="211" width="168" height="33"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2259,41 +2250,41 @@
         <scene sceneID="7Y9-e8-oQ0">
             <objects>
                 <viewController id="xtt-j7-JDD" customClass="slpLoginViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="0Nw-Cv-YuQ">
-                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                    <view key="view" contentMode="scaleToFill" id="0Nw-Cv-YuQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userGuides>
                             <userLayoutGuide location="16" affinity="minX"/>
                             <userLayoutGuide location="398" affinity="minX"/>
                         </userGuides>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kfh-E4-W8i">
-                                <rect key="frame" x="44" y="0.0" width="808" height="839"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kfh-E4-W8i">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="wKp-Kb-Dqq">
-                                        <rect key="frame" x="0.0" y="8" width="808" height="128"/>
+                                        <rect key="frame" x="0.0" y="8" width="414" height="128"/>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.8980392157" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="BoB-Lm-2P1"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="GLY-QV-pGb">
-                                        <rect key="frame" x="0.0" y="144" width="808" height="286"/>
+                                        <rect key="frame" x="0.0" y="144" width="414" height="286"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4L-gk-rAT">
-                                                <rect key="frame" x="16" y="8" width="776" height="50"/>
+                                                <rect key="frame" x="16" y="8" width="382" height="50"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-mW-sfa">
-                                                <rect key="frame" x="16" y="85" width="776" height="116"/>
+                                                <rect key="frame" x="16" y="85" width="382" height="116"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMa-07-zXG" customClass="DesignableView" customModule="Talaqah" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="776" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="البريد الإلكتروني" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gHz-El-v9T">
-                                                                <rect key="frame" x="20" y="0.0" width="736" height="50"/>
+                                                                <rect key="frame" x="20" y="0.0" width="342" height="50"/>
                                                                 <color key="tintColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="Dxc-Ac-dHU"/>
@@ -2325,10 +2316,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWx-j1-9xT" customClass="DesignableView" customModule="Talaqah" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="66" width="776" height="50"/>
+                                                        <rect key="frame" x="0.0" y="66" width="382" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="كلمة المرور" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WAw-gu-ahB">
-                                                                <rect key="frame" x="20" y="0.0" width="736" height="50"/>
+                                                                <rect key="frame" x="20" y="0.0" width="342" height="50"/>
                                                                 <color key="tintColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
@@ -2359,7 +2350,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-R0-HzY">
-                                                <rect key="frame" x="16" y="228" width="776" height="50"/>
+                                                <rect key="frame" x="16" y="228" width="382" height="50"/>
                                                 <color key="backgroundColor" red="0.94509803920000002" green="0.81960784310000001" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Vbu-Jm-egs"/>
@@ -2380,17 +2371,17 @@
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                     </stackView>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="200" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nx-9n-VGX">
-                                        <rect key="frame" x="0.0" y="438" width="808" height="314"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="7Nx-9n-VGX">
+                                        <rect key="frame" x="0.0" y="438" width="414" height="314"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ليس لديك حساب؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rla-uE-Hgp">
-                                                <rect key="frame" x="626" y="82" width="127" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ليس لديك حساب؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rla-uE-Hgp">
+                                                <rect key="frame" x="255" y="78" width="104" height="20"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="هناك خطأ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq7-Fb-JCx">
-                                                <rect key="frame" x="708.5" y="0.0" width="70.5" height="20.5"/>
+                                                <rect key="frame" x="326.5" y="0.0" width="58.5" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20.5" id="Icp-It-Sr8"/>
                                                 </constraints>
@@ -2399,7 +2390,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Th-7f-NMs">
-                                                <rect key="frame" x="614" y="30" width="139" height="30"/>
+                                                <rect key="frame" x="254" y="30" width="105" height="32"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <state key="normal" title="نسيت كلمة المرور؟">
                                                     <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -2408,8 +2399,8 @@
                                                     <segue destination="oxT-Zz-XbA" kind="show" id="yEk-2w-QSD"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-9w-Ade">
-                                                <rect key="frame" x="318" y="76" width="90" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-9w-Ade">
+                                                <rect key="frame" x="128" y="74" width="76" height="32"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <state key="normal" title="تسجيل جديد">
                                                     <color key="titleColor" red="1" green="0.60784313729999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -2434,11 +2425,11 @@
                                             <constraint firstItem="Rla-uE-Hgp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Nx-9n-VGX" secondAttribute="leadingMargin" id="mMb-fW-umt"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zC3-PL-N0y">
-                                        <rect key="frame" x="0.0" y="760" width="808" height="50"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zC3-PL-N0y">
+                                        <rect key="frame" x="0.0" y="760" width="414" height="40"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xI9-Aj-uSM">
-                                                <rect key="frame" x="168" y="0.0" width="472" height="50"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xI9-Aj-uSM">
+                                                <rect key="frame" x="168" y="0.0" width="78" height="40"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -2914,7 +2905,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ds7-K7-lAK">
-                                <rect key="frame" x="49" y="197" width="170" height="170"/>
+                                <rect key="frame" x="49" y="194.5" width="170" height="170"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="ufe-c2-Crn"/>
                                     <constraint firstAttribute="height" constant="170" id="urB-PG-2OY"/>
@@ -2925,7 +2916,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8U-eO-BQf">
-                                <rect key="frame" x="686" y="197" width="170" height="170"/>
+                                <rect key="frame" x="686" y="194.5" width="170" height="170"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="170" id="fqr-ET-BSr"/>
                                     <constraint firstAttribute="width" constant="170" id="on8-4E-PEL"/>
@@ -2933,7 +2924,7 @@
                                 <state key="normal" image="Progress"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zki-hU-YVa">
-                                <rect key="frame" x="806" y="13" width="50" height="50"/>
+                                <rect key="frame" x="806" y="15" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="bdz-45-dvm"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="qbE-7d-sq6"/>
@@ -2945,25 +2936,25 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="أهلا بك" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag8-qi-20a">
-                                <rect key="frame" x="744" y="31" width="54" height="18"/>
+                                <rect key="frame" x="744" y="31" width="54" height="20"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="تابع تقدمك" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZw-ch-nop">
-                                <rect key="frame" x="734" y="359" width="98" height="436"/>
+                                <rect key="frame" x="734" y="356.5" width="98" height="438.5"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="الإعدادات" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsn-L2-zjn">
-                                <rect key="frame" x="101" y="361" width="66" height="432"/>
+                                <rect key="frame" x="105.5" y="358.5" width="57" height="434.5"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="إبدا التمرين" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OsA-Rg-LQe">
-                                <rect key="frame" x="403" y="205" width="91.5" height="21"/>
+                                <rect key="frame" x="403" y="202.5" width="91.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
