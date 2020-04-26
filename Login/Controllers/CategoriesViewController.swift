@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 class CategoriesViewController: UIViewController {
     
       //Checkboxes outlets for save thier state (maybe not needed)
@@ -167,10 +167,7 @@ class CategoriesViewController: UIViewController {
                       ])
                   }
           }
-          let alertController = UIAlertController(title: "تم الحفظ", message:
-              "تم حفظ التغييرات بنجاح!", preferredStyle: .alert)
-          alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-          self.present(alertController, animated: true, completion: nil)
+         SCLAlertView().showCustom("تم الحفظ", subTitle: "تم حفظ تغييراتك بنجاح!", color: UIColor(named: "Done")! , icon: UIImage(named: "saved")!, closeButtonTitle: "حسنًا")
           isSave = true
           //    activityIndecator.stopAnimating()
           //    UIApplication.shared.endIgnoringInteractionEvents()

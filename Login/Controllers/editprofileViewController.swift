@@ -16,7 +16,7 @@
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 
 class editprofileViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate{
     
@@ -104,65 +104,17 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
                         
                     ])
                     
-                    //                 let user = Auth.auth().currentUser
-                    //                    let credential = EmailAuthProvider.credential(withEmail: "email", password: "password")
-                    //
-                    //                    user?.reauthenticate(with: credential)
-                    //                    { error in
-                    //                       if let error = error {
-                    //                          // An error happened.
-                    //                       } else {
-                    //                          // User re-authenticated.
-                    //                          user?.updateEmail(to: "newemail")
-                    //                          { error in
-                    //
-                    //                          }
-                    //                       }
-                    //                    }
-                    
-                    //             Auth.auth().currentUser?.updateEmail(to: newemail) { (error) in
-                    //                      // ...
-                    //                print(error?.localizedDescription)
-                    //                    }
-                    ////
-                    
                 }
         }
-        let alertController = UIAlertController(title: "تم الحفظ", message:
-            "تم حفظ التغييرات بنجاح!", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-        self.present(alertController, animated: true, completion: nil)
+        SCLAlertView().showCustom("تم الحفظ", subTitle: "تم حفظ تغييراتك بنجاح!", color: UIColor(named: "Done")! , icon: UIImage(named: "saved")!, closeButtonTitle: "حسنًا")
         isSave = true
     }
     
-    //  guard let patid = Auth.auth().currentUser?.uid; else { return }
-    //   guard let uid = Auth.auth().currentUser?.uid else { return }
-    //mm   guard let uId = Auth.auth().currentUser?.uid else { return }
-    //mmmm    let pofile = db.collection("patients").document(uId)//"6tQAB7vsPEjgyP6nrqwv")
-    //print(uId)
-    //print(pofile)
-    // Set the "capital" field of the city 'DC'
-    //mm  pofile.updateData([
-    //mm   "FirstName": newfname,
-    //   "LastName": newlname,
-    // "Email":newemail,
-    //"NID": newidnum,
-    //"PhoneNumber":newmobile
-    
-    //]) { err in
-    //  if let err = err {
-    //    print("Error updating document: \(err)")
-    //} else {
-    //  print("Document successfully updated")
-    //}
-    //}
-    //  }// end edit
-    
+
     
     //
     func loadProfileData(){
         //if the user is logged in get the profile data
-        // let db = Firestore.firestore()
         
         db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments {(snapshot, error) in
             if let error = error{print(error.localizedDescription)}
@@ -170,9 +122,6 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
                 if let snapshot = snapshot {
                     for document in snapshot.documents{
                         let data = document.data()
-                        
-                        //  if let userID = Auth.auth().currentUser?.uid{
-                        //  db.child("patients").child(userID).observe(.value, with: { (snapshot) in
                         
                         //create a dictionary of users profile data
                         //   let values = snapshot.value as? NSDictionary

@@ -170,7 +170,7 @@
                                                     <color key="titleColor" red="1" green="0.63137254899999995" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="e0U-Up-pQu" kind="presentation" identifier="toHome" id="3k3-4M-DS7"/>
+                                                    <segue destination="e0U-Up-pQu" kind="presentation" identifier="toReg" id="3k3-4M-DS7"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -5946,7 +5946,7 @@
         <segue reference="UeN-ul-rpa"/>
         <segue reference="8a4-0V-Erh"/>
         <segue reference="9n5-NE-UmG"/>
-        <segue reference="yEk-2w-QSD"/>
+        <segue reference="Yun-CK-0yW"/>
         <segue reference="Ycf-F4-Uyj"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -15,6 +15,7 @@
 		20B1568022480ADC00A70D9F /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */; };
 		371C00DC244FC3AB00D56B5C /* jf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 371C00DB244FBF9A00D56B5C /* jf.ttf */; };
 		375C68C6245531FB007A6F5D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C68C5245531FB007A6F5D /* StartViewController.swift */; };
+		375C68CF24555032007A6F5D /* Clapping.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 375C68CE24555032007A6F5D /* Clapping.mp3 */; };
 		377764E62411BB0C008D045B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E52411BB0C008D045B /* BaseViewController.swift */; };
 		377764E82411D462008D045B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E72411D462008D045B /* HelpViewController.swift */; };
 		37E6C0782429921A009CA456 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0772429921A009CA456 /* SettingsViewController.swift */; };
@@ -95,6 +96,7 @@
 		20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		371C00DB244FBF9A00D56B5C /* jf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jf.ttf; sourceTree = "<group>"; };
 		375C68C5245531FB007A6F5D /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		375C68CE24555032007A6F5D /* Clapping.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Clapping.mp3; sourceTree = "<group>"; };
 		377764E52411BB0C008D045B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		377764E72411D462008D045B /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		37E6C0772429921A009CA456 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,13 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		375C68D024555716007A6F5D /* TrialsSounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TrialsSounds;
+			sourceTree = "<group>";
+		};
 		37D3037D23EC812600DD3E0C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,6 +314,8 @@
 		459FA39D2402FA2900EA3255 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				375C68D024555716007A6F5D /* TrialsSounds */,
+				375C68CE24555032007A6F5D /* Clapping.mp3 */,
 				45B21C8C2403177900184DBC /* canYouNaming.mp3 */,
 			);
 			path = Sounds;
@@ -447,6 +458,7 @@
 				F5DCFFEC23E5A453005B2D38 /* GoogleService-Info.plist in Resources */,
 				F5B7BF0E23EB3AE40033B094 /* LaunchScreen.storyboard in Resources */,
 				45B21C8D2403177900184DBC /* canYouNaming.mp3 in Resources */,
+				375C68CF24555032007A6F5D /* Clapping.mp3 in Resources */,
 				208F167E2235EAAC002CF75F /* Assets.xcassets in Resources */,
 				208F167C2235EAAB002CF75F /* Main.storyboard in Resources */,
 			);

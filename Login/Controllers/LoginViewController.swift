@@ -265,8 +265,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
         print(message)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "back" {
-            let destnationVC = segue.destination as! StartViewController
+        if segue.identifier == "toHome" {
+            let destnationVC = segue.destination as! BaseViewController
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 class SelectCategoriesController: UIViewController {
     var categories = [String]()
     var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
@@ -59,11 +59,7 @@ class SelectCategoriesController: UIViewController {
             self.performSegue(withIdentifier: "fromCatiegoriesToTrial", sender: self)
         }
         else {
-            let alertController = UIAlertController(title: "لم تقم بإختيار التصنيفات", message:
-                "يجب عليك اختيار واحدة على الأقل", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            
-            self.present(alertController, animated: true, completion: nil)
+            SCLAlertView().showCustom( "لم تقم بإختيار التصنيفات", subTitle: "يجب عليك اختيار واحدة على الأقل", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
         }
     }
     @IBAction func back(_ sender: UIButton) {

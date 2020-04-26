@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 class patientCuesViewController: UIViewController {
     @IBOutlet var cue1: UISwitch!
     @IBOutlet var cue2: UISwitch!
@@ -151,10 +151,7 @@ class patientCuesViewController: UIViewController {
         self.db.collection("patients").whereField("uid", isEqualTo :Auth.auth().currentUser?.uid)
             .getDocuments() { (querySnapshot, error) in
                 if let error = error {
-                    let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
-                                             "تاكد من اتصالك ثم انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
-                                         alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-                                         self.present(alertController, animated: true, completion: nil)
+                          SCLAlertView().showCustom( "لم يتم حفظ التغييرات", subTitle: "تاكد من اتصالك ثم انقر حفظ ليتم حفظ التغييرات", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
                     print(error.localizedDescription)
                 } else if querySnapshot!.documents.count != 1 {
                     print("More than one documents or none")
@@ -171,10 +168,7 @@ class patientCuesViewController: UIViewController {
                     ])
                 }
         }
-        let alertController = UIAlertController(title: "تم الحفظ", message:
-            "تم حفظ التغييرات بنجاح!", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-        self.present(alertController, animated: true, completion: nil)
+        SCLAlertView().showCustom("تم الحفظ", subTitle: "تم حفظ تغييراتك بنجاح!", color: UIColor(named: "Done")! , icon: UIImage(named: "saved")!, closeButtonTitle: "حسنًا")
         isload = true
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 
 class BaseViewController: UIViewController {
     var isLoad = false// to avoid redudnet trials
@@ -102,13 +102,7 @@ class BaseViewController: UIViewController {
                                     self.array = data["progress"] as! [String]
                                       
                                     if (self.array.isEmpty){
-                                          let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
-                                                     
-                                                     // add an action (button)
-                                                     alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-                                                     
-                                                     // show the alert
-                                                     self.present(alert, animated: true, completion: nil)
+                                         SCLAlertView().showCustom( "عذرًا", subTitle: "لم يتم إجراء أي تمرين", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
                
                                       } else{
                                         self.performSegue(withIdentifier: "toViewProgress", sender: nil)
@@ -129,13 +123,8 @@ class BaseViewController: UIViewController {
              self.performSegue(withIdentifier: "ViewProfile", sender: self)
         }else {
              getCurrentPatient()
-            let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                "يتم تحميل البيانات", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-            
-            self.present(alertController, animated: true, completion: nil)
-
-        }
+ 
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")        }
        
     }
     @IBAction func Start(_ sender: UIButton) {
@@ -145,11 +134,7 @@ class BaseViewController: UIViewController {
                    isLoad = true
                }
         if trials.isEmpty {
-            let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                "يتم تحميل البيانات", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-            
-            self.present(alertController, animated: true, completion: nil)
+          SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
         }else{
             self.performSegue(withIdentifier: "startTrial", sender: self)
         }
@@ -159,21 +144,13 @@ class BaseViewController: UIViewController {
    if let pat = patient{
     
     if pat.slpUid != ""{
-        let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
-            "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-        
-        self.present(alertController, animated: true, completion: nil)
+        SCLAlertView().showInfo("عذرًا لا تستطيع تخصيص الإعدادات", subTitle: "أنت مرتبط بأخصائي لذا لا تستطيع تخصيص الإعدادات", closeButtonTitle: "حسنًا")
     }else{
          self.performSegue(withIdentifier: "toSettings", sender: self)
     }
    }else {
             getCurrentPatient()
-            let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                       "يتم تحميل البيانات", preferredStyle: .alert)
-                   alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-                   
-                   self.present(alertController, animated: true, completion: nil)
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
                }
     }
     

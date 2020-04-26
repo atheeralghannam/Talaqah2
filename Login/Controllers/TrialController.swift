@@ -12,6 +12,7 @@ import FirebaseUI
 import Speech
 import AVFoundation
 import AVKit
+import SCLAlertView
 
 func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -156,41 +157,17 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     @IBAction func viewResult(_ sender: UIButton) {
-        
-        print(pressed)
-        print (countCoResult)
-        print(countFaResult)
-        
-        func goToHomePage(alert: UIAlertAction){
-            print("go to home page")
-            
-            
-            let sampleStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            
-            let homeView  = sampleStoryBoard.instantiateViewController(withIdentifier: "HomeViewController") as! BaseViewController
-            self.present(homeView, animated: true, completion: nil)
-            
-            
-        }
-        
         // create the alert
         var result = String()
         result = "عدد الإجابات الصحيحة  " + String(countCoResult) + "\n" + "عدد الإجابات الخاطئة  " + String(countFaResult)
-        
-        let alert = UIAlertController(title: "النتيجة", message: result, preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        
-        alert.addAction(UIAlertAction(title: "رجوع", style: UIAlertAction.Style.default, handler: nil))
-        
-        alert.addAction(UIAlertAction(title: "إنهاء التمرين", style: UIAlertAction.Style.default, handler: goToHomePage))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-        
+        if countCoResult > countFaResult {
+        SCLAlertView().showCustom("احسنت", subTitle: "معظم الاجابات كانت صحيحه"+"\n" + result, color: UIColor(named: "Gold")! , icon: UIImage(named: "gold")!, closeButtonTitle: "حسنًا")
+        } else if countFaResult == countCoResult {
+        SCLAlertView().showCustom("كدت تصل", subTitle: "الاجابات الخاطئه والصحيحه متساويه"+"\n" + result, color: UIColor(named: "Silver")! , icon: UIImage(named: "silver")!, closeButtonTitle: "حسنًا")
+        } else {
+        SCLAlertView().showCustom("تمرن أكثر", subTitle: "معظم الاجابات كانت خاطئه"+"\n" + result, color: UIColor(named: "Bronze")! , icon: UIImage(named: "bronze")!, closeButtonTitle: "حسنًا")
+        }
         updateProgress()
-        
-        
     }
     
     
@@ -226,56 +203,18 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     
     @IBAction func validateButtonPressed(_ sender: UIButton) {
-        
-        //maybe move comparing code here
-        
         //if nill ..... no answer
         if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
-            
-            // create the alert
-            let alert = UIAlertController(title: "لا توجد إجابة", message: "حاول مجددًا", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
-            
-            
-            
-            
-            
+             SCLAlertView().showCustom("لا توجد إجابة", subTitle: "حاول مجددًا", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
             return;
         }
-        
-        
-        
-        if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
-            
-            // create the alert
-            let alert = UIAlertController(title: "إجابة صحيحة", message: "أحسنت!", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
+       else if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
+             SCLAlertView().showSuccess("إجابة صحيحة", subTitle: "أحسنت!", closeButtonTitle: "حسنًا")
+            playSound(filename: "clapping", ext : "mp3")
             setProgress( answer: trials[count].answer ,result: "t")
         }
-            
-            
         else{
-            // create the alert
-            let alert = UIAlertController(title: "إجابة خاطئة", message: "حظ أوفر", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
+            SCLAlertView().showError("إجابة خاطئة", subTitle: "حظ أوفر", closeButtonTitle: "حسنًا")
         setProgress( answer: trials[count].answer ,result: "f")
         }
     }
@@ -462,31 +401,31 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         if scue == true && mcue == true{
             cue2.isEnabled = false
             cue2.alpha = 0.54
-        }else if scue == false {
+        }else if scue == false && mcue == false{
             notOk2 = true
         }
         if tcue == true && notOk2 == false{
             cue3.isEnabled = false
             cue3.alpha = 0.54
-        }else if tcue == false {
+        }else if tcue == false && scue == false && mcue == false {
           notOk3 = true
         }
         if frcue == true && notOk3 == false {
             cue4.isEnabled = false
             cue4.alpha = 0.54
-        }else if frcue == false{
+        }else if frcue == false && tcue == false && scue == false && mcue == false{
             notOk4 = true
         }
         if fvcue == true && notOk4 == false {
             cue5.isEnabled = false
             cue5.alpha = 0.54
-        }else if fvcue == false {
+        }else if fvcue == false && frcue == false && tcue == false && scue == false && mcue == false {
             notOk5 = true
         }
         if sxcue == true && notOk5 == false{
             cue6.isEnabled = false
             cue6.alpha = 0.54
-        }else if sxcue == false {
+        }else if sxcue == false && fvcue == false && frcue == false && tcue == false && scue == false && mcue == false  {
             notOk6 = true
         }
         if svcue == true && notOk6 == false {
@@ -507,7 +446,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         
         // Load the image using SDWebImage
         imageView.sd_setImage(with: reference, placeholderImage: placeholderImage) { (image, error, cache, url) in
-            self.playSound(filename: "canYouNaming")
+            self.playSound(filename: "canYouNaming", ext: "mp3")
         }
         
         // Perform operation.
@@ -690,10 +629,10 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     //Utility functions
     
     
-    func playSound(filename:String) {
+    func playSound(filename:String, ext:String) {
         
         // Getting the url
-        let url = Bundle.main.url(forResource: filename, withExtension: "mp3")
+        let url = Bundle.main.url(forResource: filename, withExtension: ext)
         
         // Make sure that we've got the url, otherwise abord
         guard url != nil else {
