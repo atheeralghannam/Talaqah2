@@ -1,7 +1,7 @@
 
 import UIKit
 import Firebase
-
+// is it okay?
 class PatientsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var patientsArray = [Patient]()
