@@ -156,10 +156,8 @@ class BaseViewController: UIViewController {
     
     @IBAction func logout(_ sender: UIButton) {
         
-        
-        let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
+        let alertView = SCLAlertView()
+        alertView.addButton("نعم") {
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
@@ -167,26 +165,19 @@ class BaseViewController: UIViewController {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-            
             print("Handle Ok logic here")
-            UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            
-            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
-//            loginVC.modalPresentationStyle = .fullScreen
+                        UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
+                        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+                        
+                        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
+            //            loginVC.modalPresentationStyle = .fullScreen
 
-            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            appDel.window?.rootViewController = loginVC
-            
-            
-        }))
+                        let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        
+                        appDel.window?.rootViewController = loginVC
+        }
+        alertView.showWarning( "تسجيل الخروج", subTitle: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", closeButtonTitle: "لا")
         
-        refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Handle Cancel Logic here")
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
     }
     
     func getCurrentPatient()  {
