@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "excmark.png",
+      "filename" : "danger.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "excmark@2x.png",
+      "filename" : "danger@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "excmark@3x.png",
+      "filename" : "danger@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

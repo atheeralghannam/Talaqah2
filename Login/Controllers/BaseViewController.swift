@@ -124,7 +124,7 @@ class BaseViewController: UIViewController {
         }else {
              getCurrentPatient()
  
-            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")        }
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات",  closeButtonTitle: "حسنًا")        }
        
     }
     @IBAction func Start(_ sender: UIButton) {
