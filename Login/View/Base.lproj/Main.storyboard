@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GAL-MZ-naG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2450,7 +2450,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="patientsList" id="yLK-nv-4Jn" customClass="PatientsTableViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="J6B-Ar-Bmb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2557,7 +2557,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Wf4-rf-EDX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BB1-BW-Fvf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2N4-7k-jMc">
@@ -3721,7 +3721,7 @@
                                 <rect key="frame" x="1" y="0.0" width="412" height="719"/>
                                 <subviews>
                                     <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCx-7G-KsW">
-                                        <rect key="frame" x="0.0" y="0.0" width="412" height="127.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="412" height="60.5"/>
                                         <items>
                                             <navigationItem title="الإعدادات" id="Mde-nZ-zWy">
                                                 <barButtonItem key="leftBarButtonItem" title="Item" image="house.fill" catalog="system" style="plain" id="OsV-Kl-Bsz">
@@ -3741,43 +3741,24 @@
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="231" translatesAutoresizingMaskIntoConstraints="NO" id="dc4-7y-qo1">
-                                        <rect key="frame" x="0.0" y="227.5" width="412" height="68"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMB-yS-si0">
-                                                <rect key="frame" x="0.0" y="19" width="90.5" height="30"/>
-                                                <state key="normal" title="تعيين مستوى التعقيد"/>
-                                                <connections>
-                                                    <action selector="ChoiceSelected:" destination="yIg-9q-Cft" eventType="touchUpInside" id="Jso-dn-3C5"/>
-                                                    <action selector="ChoiceSelected:" destination="QED-0i-7uU" eventType="touchUpInside" id="X64-YX-xVK"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4F-OO-V3x">
-                                                <rect key="frame" x="321.5" y="19" width="90.5" height="30"/>
-                                                <state key="normal" title="تحديد التصنيفات"/>
-                                                <connections>
-                                                    <action selector="ChoiceSelected:" destination="yIg-9q-Cft" eventType="touchUpInside" id="2Tx-sE-GQ3"/>
-                                                    <action selector="ChoiceSelected:" destination="QED-0i-7uU" eventType="touchUpInside" id="xHe-aG-gBe"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mKm-PZ-01A">
-                                        <rect key="frame" x="0.0" y="395.5" width="412" height="323.5"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wf-Yd-Fvr">
-                                                <rect key="frame" x="0.0" y="0.0" width="412" height="323.5"/>
-                                                <state key="normal" title="تفعيل/ إيقاف المحفزات"/>
-                                                <connections>
-                                                    <action selector="ChoiceSelected:" destination="yIg-9q-Cft" eventType="touchUpInside" id="ykR-1Q-J9g"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                        <rect key="frame" x="0.0" y="160.5" width="412" height="0.0"/>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URh-O8-dso">
+                                        <rect key="frame" x="0.0" y="260.5" width="412" height="75.5"/>
+                                        <state key="normal" image="Complexity"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDW-k7-Zj0">
+                                        <rect key="frame" x="0.0" y="436" width="412" height="75"/>
+                                        <state key="normal" image="Categories"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nd0-Ia-uJO">
+                                        <rect key="frame" x="0.0" y="611" width="412" height="108"/>
+                                        <state key="normal" image="Cues">
+                                            <color key="titleColor" red="0.9683193564" green="0.917767942" blue="0.90981012579999998" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="mKm-PZ-01A" firstAttribute="top" secondItem="dc4-7y-qo1" secondAttribute="bottom" constant="100" id="NlN-JY-qZf"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -5933,17 +5914,17 @@
         <segue reference="Ksy-QI-i2b"/>
         <segue reference="K25-tT-djI"/>
         <segue reference="xEr-AT-kBi"/>
-        <segue reference="Och-3h-sc3"/>
+        <segue reference="O6Z-dN-HO5"/>
         <segue reference="kHP-yd-NFs"/>
-        <segue reference="z6R-lJ-UVT"/>
+        <segue reference="GLW-4g-p1V"/>
         <segue reference="nbJ-OH-k3Q"/>
-        <segue reference="dvF-0E-dcH"/>
-        <segue reference="Uvf-Oa-D7a"/>
-        <segue reference="lC3-FG-Va2"/>
+        <segue reference="WTF-b2-DVJ"/>
+        <segue reference="9vo-be-7w8"/>
+        <segue reference="c6e-VL-vUH"/>
         <segue reference="O3L-zy-Hiu"/>
-        <segue reference="zHK-9b-rot"/>
-        <segue reference="UU9-Pk-GaS"/>
-        <segue reference="UeN-ul-rpa"/>
+        <segue reference="kCM-Yb-1Yt"/>
+        <segue reference="XH4-A3-MkK"/>
+        <segue reference="y0e-Pc-RST"/>
         <segue reference="8a4-0V-Erh"/>
         <segue reference="9n5-NE-UmG"/>
         <segue reference="Yun-CK-0yW"/>
