@@ -206,15 +206,18 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         //if nill ..... no answer
         if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
              SCLAlertView().showCustom("لا توجد إجابة", subTitle: "حاول مجددًا", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
+            self.playSound(filename: "NoAnswer", ext: "mp3")
+
             return;
         }
        else if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
              SCLAlertView().showSuccess("إجابة صحيحة", subTitle: "أحسنت!", closeButtonTitle: "حسنًا")
-            playSound(filename: "clapping", ext : "mp3")
+            self.playSound(filename: "Correct", ext: "mp3")
             setProgress( answer: trials[count].answer ,result: "t")
         }
         else{
             SCLAlertView().showError("إجابة خاطئة", subTitle: "حظ أوفر", closeButtonTitle: "حسنًا")
+            self.playSound(filename: "Wrong", ext: "mp3")
         setProgress( answer: trials[count].answer ,result: "f")
         }
     }
