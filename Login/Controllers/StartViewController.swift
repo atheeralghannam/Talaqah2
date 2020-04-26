@@ -22,15 +22,15 @@ class StartViewController: UIViewController {
         UIDevice.current.setValue(value, forKey: "orientation")
         // Do any additional setup after loading the view.
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "loginPatient"{
-            let destnationVC = segue.destination as! LoginViewController
-            destnationVC.modalPresentationStyle = .fullScreen
-        }else if segue.identifier == "loginSLP"{
-            let destnationVC = segue.destination as! slpLoginViewController
-            destnationVC.modalPresentationStyle = .fullScreen
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "loginPatient"{
+//            let destnationVC = segue.destination as! LoginViewController
+//            destnationVC.modalPresentationStyle = .fullScreen
+//        }else if segue.identifier == "loginSLP"{
+//            let destnationVC = segue.destination as! slpLoginViewController
+//            destnationVC.modalPresentationStyle = .fullScreen
+//        }
+//    }
     
 
     /*
