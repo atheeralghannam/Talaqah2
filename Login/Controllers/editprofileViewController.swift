@@ -65,9 +65,8 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
     }
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        umobile.resignFirstResponder()
-        
+     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

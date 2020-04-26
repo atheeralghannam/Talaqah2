@@ -29,67 +29,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("what???")
         isLogin()
         setUpElements()
-        
     }
     
     func isLogin (){
         print(  UserDefaults.standard.bool(forKey: "userLogin"))
-        //        // Do any additional setup after loading the view, typically from a nib.
         if(UserDefaults.standard.bool(forKey: "userLogin") == true){
-            //           self.performSegue(withIdentifier: "toHome", sender: nil)
             print("Session is saved")
-            //
-            //
+     
         }
         
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     self.view.endEditing(true)
+ }
+      
     @IBAction func loginF(_ sender: Any) {
         
-        
+        idTextField.endEditing(true)
+        passwordTextField.endEditing(true)
         
         guard
             //            let name = validateNameTxtFld.text,
             let id = idTextField.text,
             let password = passwordTextField.text
-            //,
-            //        let phone = validatePhoneTxtFld.text
+        
             else {
                 return
         }
-        
-        //        // how to use
-        //        do {
-        //            let resutl = try ValidateSAID.check(id)
-        //
-        //            // this will print NationaltyType description
-        //            print(resutl)
-        //        } catch {
-        //            // this will print error description
-        //            print(error)
-        //            self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        //            idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        //        }
-        //
-        //
-        //
-        //        let isValidatePass = self.validation.validatePassword(password: password)
-        //        if (isValidatePass == false) {
-        //            print("Incorrect Pass")
-        ////            self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        //                        self.showToast(message: "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        //            passwordTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        //
-        //            return
-        //        }
-        //
-        //        if (isValidatePass == true ) {
-        //            print("All fields are correct")
-        //        }
+    
         let error = validateFields()
         
         if error != nil {
@@ -103,11 +72,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
             
             db.collection("patients").whereField("NID", isEqualTo: idTextField.text!)
                 .getDocuments() { (querySnapshot, err) in
-                    //                 if let err = err {
-                    //                     print("Error getting documents: \(err)")
-                    //                 } else {
-                    
-                    
                     if let err = err {
                         print(err.localizedDescription)
                     } else if querySnapshot!.documents.count != 1 {
@@ -117,21 +81,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                     } else {
                         
                         for document in querySnapshot!.documents {
-                            //                         print("\(document.documentID) => \(document.data())")
-                            
-                            
-                            //                        let data = document.data()
                             self.mail = document.data()["Email"] as! String
                             print( self.mail)
                             
                             Auth.auth().signIn(withEmail: self.mail.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!) { (user, error) in
-                                
-                                
-                                
                                 if user != nil {
-                                    // Couldn't sign in
-                                    //                self.errorLabel.text = error!.localizedDescription
-                                    //                self.errorLabel.alpha = 1
                                     print("user has signed in")
                                     self.errorLabel.alpha = 0
                                     UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
@@ -141,16 +95,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
                                     self.performSegue(withIdentifier: "toHome", sender: nil)
                                 }
                                 else {
-                                    //
-                                    //                            if error != nil{
-                                    //                                print(error.debugDescription)
-                                    //
-                                    //                            }
+                                
                                 }
                                 
                             }
-                            
-                            //}
+             
                         }
                     }
                     
@@ -232,12 +181,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
             // this will print NationaltyType description
             print(resutl)
         } catch {
-            // this will print error description
+
             print(error)
-            //            self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
-            //            return "رقم الهوية/الإقامة غير صالح"
+
             return "رقم الهوية/ الإقامة أو كلمة المرور غير صحيحة"
-            //            idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
+
         }
         
         
@@ -247,12 +195,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate  {
         
         
         if isValidatePass == false {
-            // Password isn't secure enough
-            //                    return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
+           
             return "رقم الهوية/ الإقامة أو كلمة المرور غير صحيحة"
-            
-            //            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
-            //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
+       
         } //end if
         
         return nil

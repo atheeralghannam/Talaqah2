@@ -57,7 +57,7 @@
                                                                     <constraint firstAttribute="height" constant="50" id="LZd-DY-spH"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="continue" textContentType="username"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="go" textContentType="username"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.8980392157" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -142,13 +142,13 @@
                                         <rect key="frame" x="0.0" y="438" width="414" height="314"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ليس لديك حساب؟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-wT-aof">
-                                                <rect key="frame" x="228" y="102" width="127" height="18"/>
+                                                <rect key="frame" x="251" y="98" width="104" height="20"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efd-le-7vq">
-                                                <rect key="frame" x="228" y="50" width="131" height="29"/>
+                                                <rect key="frame" x="260" y="51.5" width="99" height="31"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="16"/>
                                                 <state key="normal" title="نسيت كلمة المرور؟">
                                                     <color key="titleColor" red="1" green="0.63137254899999995" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -158,13 +158,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="هناك خطأ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VF-qO-WE4">
-                                                <rect key="frame" x="325.5" y="13" width="58.5" height="15"/>
+                                                <rect key="frame" x="335.5" y="13" width="48.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="14"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRB-KP-XDa">
-                                                <rect key="frame" x="115" y="96" width="90" height="30"/>
+                                                <rect key="frame" x="122" y="94" width="76" height="32"/>
                                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                                 <state key="normal" title="تسجيل جديد">
                                                     <color key="titleColor" red="1" green="0.63137254899999995" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2091,13 +2091,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="تسجيل الدخول كـ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTD-0U-gEh">
-                                <rect key="frame" x="261" y="292.5" width="123" height="18"/>
+                                <rect key="frame" x="227" y="296" width="103" height="20"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="أهلا بك في طلاقة" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdb-n4-RP5">
-                                <rect key="frame" x="162" y="167" width="222" height="29.5"/>
+                                <rect key="frame" x="162" y="167" width="168" height="33"/>
                                 <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2120,7 +2120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lNo-3S-ac8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4859.420289855073" y="1027.9017857142858"/>
+            <point key="canvasLocation" x="-4894" y="996"/>
         </scene>
         <!--Slp Login View Controller-->
         <scene sceneID="7Y9-e8-oQ0">
