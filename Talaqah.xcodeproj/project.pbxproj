@@ -14,6 +14,7 @@
 		208F16892235F109002CF75F /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208F16882235F109002CF75F /* DesignableView.swift */; };
 		20B1568022480ADC00A70D9F /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */; };
 		371C00DC244FC3AB00D56B5C /* jf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 371C00DB244FBF9A00D56B5C /* jf.ttf */; };
+		375C68C6245531FB007A6F5D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C68C5245531FB007A6F5D /* StartViewController.swift */; };
 		377764E62411BB0C008D045B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E52411BB0C008D045B /* BaseViewController.swift */; };
 		377764E82411D462008D045B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E72411D462008D045B /* HelpViewController.swift */; };
 		37E6C0782429921A009CA456 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0772429921A009CA456 /* SettingsViewController.swift */; };
@@ -93,6 +94,7 @@
 		208F16882235F109002CF75F /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		20B1567F22480ADC00A70D9F /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		371C00DB244FBF9A00D56B5C /* jf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jf.ttf; sourceTree = "<group>"; };
+		375C68C5245531FB007A6F5D /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		377764E52411BB0C008D045B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		377764E72411D462008D045B /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		37E6C0772429921A009CA456 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				37E6C0832429C172009CA456 /* ComSLpViewController.swift */,
 				456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */,
 				45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */,
+				375C68C5245531FB007A6F5D /* StartViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				F5E1735F241A52DB00DA5967 /* SLPEditProfileViewController.swift in Sources */,
 				45D136B923F405A700ADEA97 /* Utilities.swift in Sources */,
 				45596D6D2448F2290007B65B /* Date.swift in Sources */,
+				375C68C6245531FB007A6F5D /* StartViewController.swift in Sources */,
 				456BC4B3242A74E300BB2912 /* SlpRegisterViewController.swift in Sources */,
 				208F16792235EAAB002CF75F /* LoginViewController.swift in Sources */,
 				37E6C0802429B423009CA456 /* SLPSettingsViewController.swift in Sources */,

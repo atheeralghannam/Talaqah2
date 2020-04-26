@@ -17,6 +17,7 @@ class BaseViewController: UIViewController {
     var scheck = false
     var tcheck = false
     var lcheck = false
+    var array = [String]()
     var cue = false
     var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
     var patient : Patient?
@@ -44,7 +45,7 @@ class BaseViewController: UIViewController {
         
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
-        let tal = UIColor(named: "Tala")
+        let tal = UIColor(named: "Tala1")
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
@@ -66,23 +67,76 @@ class BaseViewController: UIViewController {
             destnationVC.fvcue = fvcue
             destnationVC.sxcue = sxcue
             destnationVC.svcue = svcue
+            print(trials)
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "ViewProfile" {
             let destnationVC = segue.destination as! AccountViewController
-            
+            destnationVC.gender = patient!.Gender
             destnationVC.modalPresentationStyle = .fullScreen
-        }else if segue.identifier == "toSettings"{ let destnationVC = segue.destination as! SettingsViewController
+        }else if segue.identifier == "toSettings"{
+            let destnationVC = segue.destination as! SettingsViewController
             destnationVC.categories = patient!.categories
             destnationVC.settings = patient!.settings
             destnationVC.patinet = patient
             destnationVC.modalPresentationStyle = .fullScreen
             
         }
+        if segue.identifier == "logout" {
+            let destnationVC = segue.destination as! StartViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
     }
     
+    @IBAction func Progress(_ sender: UIButton) {
+        db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid ).getDocuments { (snapshot, error) in
+                          if let error = error {
+                              print(error.localizedDescription)
+                          } else {
+                              if let snapshot = snapshot {
+                                  
+                                  for document in snapshot.documents {
+                                      
+                                      let data = document.data()
+                                      
+                                    self.array = data["progress"] as! [String]
+                                      
+                                    if (self.array.isEmpty){
+                                          let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
+                                                     
+                                                     // add an action (button)
+                                                     alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
+                                                     
+                                                     // show the alert
+                                                     self.present(alert, animated: true, completion: nil)
+               
+                                      } else{
+                                        self.performSegue(withIdentifier: "toViewProgress", sender: nil)
+                                    }
+                                    
+                                   
+                                  }
+                                  
+                            
+                                  
+                                  
+                              }
+                          }
+                      }
+    }
     @IBAction func Profile(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "ViewProfile", sender: self)
+        if let pat = patient {
+             self.performSegue(withIdentifier: "ViewProfile", sender: self)
+        }else {
+             getCurrentPatient()
+            let alertController = UIAlertController(title: "فضلًا انتظر", message:
+                "يتم تحميل البيانات", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+            
+            self.present(alertController, animated: true, completion: nil)
+
+        }
+       
     }
     @IBAction func Start(_ sender: UIButton) {
         if (trials.isEmpty && !isLoad){
@@ -121,15 +175,6 @@ class BaseViewController: UIViewController {
                    
                    self.present(alertController, animated: true, completion: nil)
                }
-//        else if patient!.slpUid != ""{
-//            let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
-//                "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-//
-//            self.present(alertController, animated: true, completion: nil)
-//        }else{
-//             self.performSegue(withIdentifier: "toSettings", sender: self)
-//        }
     }
     
     @IBAction func logout(_ sender: UIButton) {
@@ -151,7 +196,8 @@ class BaseViewController: UIViewController {
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             
             let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
-            
+//            loginVC.modalPresentationStyle = .fullScreen
+
             let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
             
             appDel.window?.rootViewController = loginVC

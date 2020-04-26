@@ -85,7 +85,14 @@ class CatSLpViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "back", sender: self)
+        if isSave {
+            self.performSegue(withIdentifier: "back", sender: self)}
+        else {
+            let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
+                           "انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
+                       alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                       self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func initCheckedBoxes(){

@@ -35,7 +35,7 @@ class SelsectWordsController: UIViewController {
                gradientLayer.frame = self.view.bounds
                gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
                self.view.layer.insertSublayer(gradientLayer, at: 0)
-        setUpButtons()
+        //setUpButtons()
     }
     override var shouldAutorotate: Bool {
         return true

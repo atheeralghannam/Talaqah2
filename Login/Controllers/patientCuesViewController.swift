@@ -17,15 +17,30 @@ class patientCuesViewController: UIViewController {
     @IBOutlet var cue5: UISwitch!
     @IBOutlet var cue6: UISwitch!
     @IBOutlet var cue7: UISwitch!
-    
+    var isload = false
     let db = Firestore.firestore()
     var patient : Patient?
     var categories = [""]
     var settings = [3,2,2,2]
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeLeft
+    }
+    override var shouldAutorotate: Bool {
+        return true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        let tal = UIColor(named: "Tala")
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
         setupSwitches()
-
+        
         // Do any additional setup after loading the view.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -36,9 +51,14 @@ class patientCuesViewController: UIViewController {
             destnationVC.categories = categories
         }
     }
+    @IBAction func save(_ sender: UIButton) {
+        
+        updateCues()
+        
+    }
     
     @IBAction func back(_ sender: UIButton) {
-    performSegue(withIdentifier: "back", sender: nil)
+        performSegue(withIdentifier: "back", sender: nil)
     }
     func setupSwitches(){
         
@@ -48,7 +68,7 @@ class patientCuesViewController: UIViewController {
                 if let snapshot = snapshot {
                     for document in snapshot.documents{
                         let data = document.data()
-
+                        
                         self.cue1.isOn = data["cue1"] as! Bool
                         self.cue2.isOn = data["cue2"] as! Bool
                         self.cue3.isOn = data["cue3"] as! Bool
@@ -56,328 +76,106 @@ class patientCuesViewController: UIViewController {
                         self.cue5.isOn = data["cue5"] as! Bool
                         self.cue6.isOn = data["cue6"] as! Bool
                         self.cue7.isOn = data["cue7"] as! Bool
-    
+                        
                     }}}}
         
     }
     
     @IBAction func cue1pressed(_ sender: Any) {
         if cue1.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue1": true
-                                   
-                                ])
-                            }
-                    }
-
-
+            
             cue1.setOn(true, animated:true)
         } else {
             
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue1": false
-                                   
-                                ])
-                            }
-                    }
-
-
             cue1.setOn(false, animated:true)
         }
     }
     @IBAction func cue2pressed(_ sender: Any) {        if cue2.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue2": true
-                                   
-                                ])
-                            }
-                    }
-
-
-            cue2.setOn(true, animated:true)
-        } else {
-            
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue2": false
-                                   
-                                ])
-                            }
-                    }
-
-
-            cue2.setOn(false, animated:true)
+        
+        cue2.setOn(true, animated:true)
+    } else {
+        
+        cue2.setOn(false, animated:true)
         }
     }
     
     @IBAction func cue3pressed(_ sender: Any) {
         if cue3.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue3": true
-                                   
-                                ])
-                            }
-                    }
-
-
+            
             cue3.setOn(true, animated:true)
         } else {
             
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue3": false
-                                   
-                                ])
-                            }
-                    }
-
-
             cue3.setOn(false, animated:true)
         }
     }
     @IBAction func cue4pressed(_ sender: Any) {
         if cue4.isOn {
-
-
-                 self.db.collection("patients")
-                             .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                             .getDocuments() { (querySnapshot, error) in
-                                 if let error = error {
-                                         print(error.localizedDescription)
-                                 } else if querySnapshot!.documents.count != 1 {
-                                         print("More than one documents or none")
-                                 } else {
-                                     let document = querySnapshot!.documents.first
-                                     document!.reference.updateData([
-                                       "cue4": true
-                                        
-                                     ])
-                                 }
-                         }
-
-
-                 cue4.setOn(true, animated:true)
-             } else {
-                 
-                 self.db.collection("patients")
-                             .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                             .getDocuments() { (querySnapshot, error) in
-                                 if let error = error {
-                                         print(error.localizedDescription)
-                                 } else if querySnapshot!.documents.count != 1 {
-                                         print("More than one documents or none")
-                                 } else {
-                                     let document = querySnapshot!.documents.first
-                                     document!.reference.updateData([
-                                       "cue4": false
-                                        
-                                     ])
-                                 }
-                         }
-
-
-                 cue4.setOn(false, animated:true)
-             }
-
+            
+            cue4.setOn(true, animated:true)
+        } else {
+            
+            cue4.setOn(false, animated:true)
+        }
+        
     }
     @IBAction func cue5pressed(_ sender: Any) {
         if cue5.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue5": true
-                                   
-                                ])
-                            }
-                    }
-
-
+            
             cue5.setOn(true, animated:true)
         } else {
             
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue5": false
-                                   
-                                ])
-                            }
-                    }
-
-
             cue5.setOn(false, animated:true)
         }
     }
     @IBAction func cue6pressed(_ sender: Any) {
         if cue6.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue6": true
-                                   
-                                ])
-                            }
-                    }
-
-
+            
+            
             cue6.setOn(true, animated:true)
         } else {
             
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue6": false
-                                   
-                                ])
-                            }
-                    }
-
-
+            
             cue6.setOn(false, animated:true)
         }
     }
     @IBAction func cue7pressed(_ sender: Any) {
         if cue7.isOn {
-
-
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue7": true
-                                   
-                                ])
-                            }
-                    }
-
-
+            
             cue7.setOn(true, animated:true)
         } else {
             
-            self.db.collection("patients")
-                        .whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
-                        .getDocuments() { (querySnapshot, error) in
-                            if let error = error {
-                                    print(error.localizedDescription)
-                            } else if querySnapshot!.documents.count != 1 {
-                                    print("More than one documents or none")
-                            } else {
-                                let document = querySnapshot!.documents.first
-                                document!.reference.updateData([
-                                  "cue7": false
-                                   
-                                ])
-                            }
-                    }
-
-
             cue7.setOn(false, animated:true)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func updateCues(){
+        self.db.collection("patients").whereField("uid", isEqualTo :Auth.auth().currentUser?.uid)
+            .getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
+                                             "تاكد من اتصالك ثم انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
+                                         alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                                         self.present(alertController, animated: true, completion: nil)
+                    print(error.localizedDescription)
+                } else if querySnapshot!.documents.count != 1 {
+                    print("More than one documents or none")
+                } else {
+                    let document = querySnapshot!.documents.first
+                    document!.reference.updateData([
+                        "cue1": self.cue1.isOn,
+                        "cue2": self.cue2.isOn,
+                        "cue3": self.cue3.isOn,
+                        "cue4": self.cue4.isOn,
+                        "cue5": self.cue5.isOn,
+                        "cue6": self.cue6.isOn,
+                        "cue7": self.cue7.isOn
+                    ])
+                }
+        }
+        let alertController = UIAlertController(title: "تم الحفظ", message:
+            "تم حفظ التغييرات بنجاح!", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+        isload = true
     }
-    */
-
+    
 }

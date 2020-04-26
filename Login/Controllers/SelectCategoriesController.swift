@@ -18,7 +18,7 @@ class SelectCategoriesController: UIViewController {
     var array = [Trial]()
     var patient : Patient?
     
-    @IBOutlet weak var NextButton: UIButton!
+//    @IBOutlet weak var NextButton: UIButton!
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .landscapeLeft
@@ -31,14 +31,14 @@ class SelectCategoriesController: UIViewController {
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
-        setUpButton()
+//        setUpButton()
     }
     override var shouldAutorotate: Bool {
         return true
     }
-    func setUpButton(){
-        Utilities.styleFilledButton(button: NextButton)
-    }
+//    func setUpButton(){
+//        Utilities.styleFilledButton(button: NextButton)
+//    }
     @IBAction func selectedCategories(_ sender: UIButton) {
         if sender.isSelected {
             sender.isSelected = false
