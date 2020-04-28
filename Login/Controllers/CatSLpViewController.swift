@@ -3,7 +3,7 @@
 //  Talaqah
 //
 //  Created by Muhailah AlSahali on 24/03/2020.
-//  Copyright © 2020 Gary Tokman. All rights reserved.
+//  Copyright © 2020 Talaqah. All rights reserved.
 //
 
 import UIKit
@@ -85,7 +85,14 @@ class CatSLpViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "back", sender: self)
+        if isSave {
+            self.performSegue(withIdentifier: "back", sender: self)}
+        else {
+            let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
+                           "انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
+                       alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
+                       self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func initCheckedBoxes(){

@@ -1,7 +1,7 @@
 
 import UIKit
 import Firebase
-
+// is it okay?
 class PatientsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var patientsArray = [Patient]()
@@ -332,6 +332,7 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
                 let indexPath = tableView?.indexPathForSelectedRow,
                 let destinationViewController: DetailViewController = segue.destination as? DetailViewController {
                 destinationViewController.patient = patientsArray[indexPath.row]
+                destinationViewController.modalPresentationStyle = .fullScreen
             }
         }
 

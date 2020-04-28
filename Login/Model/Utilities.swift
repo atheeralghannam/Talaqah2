@@ -3,7 +3,7 @@
 //  Login
 //
 //  Created by Haneen Abdullah on 12/02/2020.
-//  Copyright © 2020 Gary Tokman. All rights reserved.
+//  Copyright © 2020 Talaqah. All rights reserved.
 //
 
 import Foundation
@@ -35,7 +35,7 @@ class Utilities {
     }
    
     
-          static  let primaryColor=hexStringToUIColor(hex: "#F2A490")
+          static  let primaryColor=hexStringToUIColor(hex: "#E3BCB5")
               static  let secondaryColor=hexStringToUIColor(hex: "#F5F5F5")
                  static  let greenColor=hexStringToUIColor(hex: "#228B22")
 
@@ -75,7 +75,7 @@ class Utilities {
                   textfield.borderStyle = .none
                   
         //set text font style
-        textfield.font = UIFont(name: "Times Roman", size: 17)
+        textfield.font = UIFont(name: "jf flat", size: 17)
         
            
        }
@@ -99,13 +99,13 @@ class Utilities {
     }
     
     static func styleErrorLabel( label:UILabel) {
-        label.font = UIFont(name: "UIFontWeightRegular", size: 12.0)
+        label.font = UIFont(name: "jf flat", size: 12.0)
         label.textColor = UIColor.red
   
     }
     
       static func styleLabel( label:UILabel) {
-          label.font = UIFont(name: "UIFontWeightRegular", size: 17.0)
+          label.font = UIFont(name: "jf flat", size: 17.0)
           label.textColor = UIColor.black
     
       }
@@ -116,7 +116,7 @@ class Utilities {
       }
     
         static func styleHeaderLabel( label:UILabel) {
-            label.font = UIFont(name: "UIFontWeightRegular", size: 21)
+            label.font = UIFont(name: "jf flat", size: 21)
                     label.textColor = UIColor.black
         }
     

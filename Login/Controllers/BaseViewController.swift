@@ -3,19 +3,23 @@
 //  Talaqah
 //
 //  Created by Atheer Alghannam on 30/06/1441 AH.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import UIKit
 import Firebase
-
+import SCLAlertView
 
 class BaseViewController: UIViewController {
     var isLoad = false// to avoid redudnet trials
+    @IBOutlet weak var stackview: UIStackView!
     var fcheck = false
     var scheck = false
     var tcheck = false
     var lcheck = false
+    var array = [String]()
+    var cue = false
+    var  mcue = false,scue = false,tcue = false, frcue = false, fvcue = false , sxcue = false, svcue = false
     var patient : Patient?
     let db = Firestore.firestore()
     var trials = [Trial]()
@@ -33,17 +37,21 @@ class BaseViewController: UIViewController {
         if let pat = patient {
             //goood
             print("good", pat.FirstName)
+            patient = nil
+            getCurrentPatient()
         }else{
             getCurrentPatient()
         }
-        //getCurrentPatient()
+        
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
-        let tal = UIColor(named: "Tala")
+        let tal = UIColor(named: "Tala1")
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+//        stackview.layer.insertSublayer(gradientLayer, at: 0)
+        getCues()
         // Do any additional setup after loading the view.
     }
     
@@ -52,35 +60,81 @@ class BaseViewController: UIViewController {
             let destnationVC = segue.destination as! SelsectWordsController
             destnationVC.trials = trials
             destnationVC.patient = patient
+            destnationVC.mcue = mcue
+            destnationVC.scue = scue
+            destnationVC.tcue = tcue
+            destnationVC.frcue = frcue
+            destnationVC.fvcue = fvcue
+            destnationVC.sxcue = sxcue
+            destnationVC.svcue = svcue
+            print(trials)
             destnationVC.modalPresentationStyle = .fullScreen
         }
         else if segue.identifier == "ViewProfile" {
             let destnationVC = segue.destination as! AccountViewController
-            
+            destnationVC.gender = patient!.Gender
             destnationVC.modalPresentationStyle = .fullScreen
-        }else if segue.identifier == "toSettings"{ let destnationVC = segue.destination as! SettingsViewController
+        }else if segue.identifier == "toSettings"{
+            let destnationVC = segue.destination as! SettingsViewController
             destnationVC.categories = patient!.categories
             destnationVC.settings = patient!.settings
             destnationVC.patinet = patient
             destnationVC.modalPresentationStyle = .fullScreen
             
         }
+        if segue.identifier == "logout" {
+            let destnationVC = segue.destination as! StartViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
     }
     
+    @IBAction func Progress(_ sender: UIButton) {
+        db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid ).getDocuments { (snapshot, error) in
+                          if let error = error {
+                              print(error.localizedDescription)
+                          } else {
+                              if let snapshot = snapshot {
+                                  
+                                  for document in snapshot.documents {
+                                      
+                                      let data = document.data()
+                                      
+                                    self.array = data["progress"] as! [String]
+                                      
+                                    if (self.array.isEmpty){
+                                         SCLAlertView().showCustom( "عذرًا", subTitle: "لم يتم إجراء أي تمرين", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
+               
+                                      } else{
+                                        self.performSegue(withIdentifier: "toViewProgress", sender: nil)
+                                    }
+                                    
+                                   
+                                  }
+                                  
+                            
+                                  
+                                  
+                              }
+                          }
+                      }
+    }
     @IBAction func Profile(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "ViewProfile", sender: self)
+        if let pat = patient {
+             self.performSegue(withIdentifier: "ViewProfile", sender: self)
+        }else {
+             getCurrentPatient()
+ 
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات",  closeButtonTitle: "حسنًا")        }
+       
     }
     @IBAction func Start(_ sender: UIButton) {
         if (trials.isEmpty && !isLoad){
                    getTrials()
+                   getCues()
                    isLoad = true
                }
         if trials.isEmpty {
-            let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                "يتم تحميل البيانات", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-            
-            self.present(alertController, animated: true, completion: nil)
+          SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
         }else{
             self.performSegue(withIdentifier: "startTrial", sender: self)
         }
@@ -90,39 +144,20 @@ class BaseViewController: UIViewController {
    if let pat = patient{
     
     if pat.slpUid != ""{
-        let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
-            "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-        
-        self.present(alertController, animated: true, completion: nil)
+        SCLAlertView().showInfo("عذرًا لا تستطيع تخصيص الإعدادات", subTitle: "أنت مرتبط بأخصائي لذا لا تستطيع تخصيص الإعدادات", closeButtonTitle: "حسنًا")
     }else{
          self.performSegue(withIdentifier: "toSettings", sender: self)
     }
    }else {
             getCurrentPatient()
-            let alertController = UIAlertController(title: "فضلًا انتظر", message:
-                       "يتم تحميل البيانات", preferredStyle: .alert)
-                   alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-                   
-                   self.present(alertController, animated: true, completion: nil)
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
                }
-//        else if patient!.slpUid != ""{
-//            let alertController = UIAlertController(title: "عذرًا لا تستطيع تخصيص الإعدادات", message:
-//                "يوجد إخصائي لديك لذا لا تستطيع تخصيص الإعدادات", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-//
-//            self.present(alertController, animated: true, completion: nil)
-//        }else{
-//             self.performSegue(withIdentifier: "toSettings", sender: self)
-//        }
     }
     
     @IBAction func logout(_ sender: UIButton) {
         
-        
-        let refreshAlert = UIAlertController(title: "تسجيل الخروج", message: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", preferredStyle: UIAlertController.Style.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
+        let alertView = SCLAlertView()
+        alertView.addButton("نعم") {
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
@@ -130,25 +165,19 @@ class BaseViewController: UIViewController {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-            
             print("Handle Ok logic here")
-            UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            
-            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
-            
-            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            appDel.window?.rootViewController = loginVC
-            
-            
-        }))
+                        UserDefaults.standard.set(false, forKey:Constants.isUserLoggedIn)
+                        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+                        
+                        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "startingScreen") as! UIViewController
+            //            loginVC.modalPresentationStyle = .fullScreen
+
+                        let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        
+                        appDel.window?.rootViewController = loginVC
+        }
+        alertView.showWarning( "تسجيل الخروج", subTitle: "هل أنت متأكد من أنك تريد تسجيل الخروج؟", closeButtonTitle: "لا")
         
-        refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Handle Cancel Logic here")
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
     }
     
     func getCurrentPatient()  {
@@ -359,6 +388,40 @@ class BaseViewController: UIViewController {
             }// end of categories
         }// end document (verbs, names, adj)
     }// end trials
+    
+    func getCues(){
+        print("hello")
+        db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if querySnapshot!.documents.count != 1 {
+                    print("More than one documents or none")
+                }
+                    
+                else {
+                    
+                    let document = querySnapshot!.documents.first
+                    let data = document!.data()
+                    
+                    
+                    self.mcue = data["cue1"] as! Bool
+                    self.scue = data["cue2"] as! Bool
+                    self.tcue = data["cue3"] as! Bool
+                    self.frcue = data["cue4"] as! Bool
+                    self.fvcue = data["cue5"] as! Bool
+                    self.sxcue = data["cue6"] as! Bool
+                    self.svcue = data["cue7"] as! Bool
+                    
+                    
+                }
+                
+                
+        }
+        print(mcue, scue, tcue, frcue,fvcue, sxcue, svcue)
+        print("done")
+        cue = true
+    }
     
     func settings(a : Int , b: Int, index : Int){
         // a == 3 at index 0 (all syllable)

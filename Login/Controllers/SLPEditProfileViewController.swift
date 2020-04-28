@@ -3,7 +3,7 @@
 //  Talaqah
 //
 //  Created by Atheer Alghannam on 17/07/1441 AH.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
     @IBOutlet weak var slpLname: UITextField!
     @IBOutlet weak var slpHospital: UITextField!
     @IBOutlet weak var slpPhone: UITextField!
-    @IBOutlet weak var slpEmail: UITextField!
+   // @IBOutlet weak var slpEmail: UITextField!
     
     @IBOutlet weak var saveButton: UIButton!
     
@@ -30,7 +30,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
 
         
     
-    var sEmail=String(), fName = String(), lName = String(), phoneNumber = String(), sHospital=String()
+    var  fName = String(), lName = String(), phoneNumber = String(), sHospital=String()
     
     
     
@@ -46,7 +46,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         slpLname.delegate = self
         slpFname.delegate = self
         slpPhone.delegate = self
-        slpEmail.delegate = self
+//        slpEmail.delegate = self
         slpHospital.delegate = self
         
     }
@@ -65,7 +65,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         Utilities.styleTextField(textfield: slpLname)
         Utilities.styleTextField(textfield: slpFname)
         Utilities.styleTextField(textfield: slpPhone)
-        Utilities.styleTextField(textfield: slpEmail)
+     //   Utilities.styleTextField(textfield: slpEmail)
         Utilities.styleTextField(textfield: slpHospital)
               Utilities.styleErrorLabel(label: errorLabel)
         Utilities.styleFilledButton(button: saveButton)
@@ -90,7 +90,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
         if slpLname.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             slpFname.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             slpPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            slpEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+//            slpEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             slpHospital.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
             {
             
@@ -101,11 +101,11 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
             return "الرجاء التحقق من تعبئة جميع الحقول"
         }
         
-        
+        var email = Auth.auth().currentUser!.email!
         
         defer {
         
-                   db.collection("slps").whereField("email", isEqualTo:slpEmail.text!).getDocuments {
+            db.collection("slps").whereField("email", isEqualTo:email).getDocuments {
                     (snapshot, error) in
                             if let error = error {
                print(error.localizedDescription)
@@ -137,7 +137,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                        
         defer {
         
-        db.collection("patients").whereField("Email", isEqualTo:slpEmail.text!).getDocuments {
+        db.collection("patients").whereField("Email", isEqualTo:email).getDocuments {
                             (snapshot, error) in
                                     if let error = error {
                        print(error.localizedDescription)
@@ -175,14 +175,14 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                    showError("الرجاء التحقق من إدخال رقم صحيح : ********05")
             return "الرجاء التحقق من إدخال رقم صحيح : ********05"}
 
-        let isValidEmail=self.validation.validateEmailId(emailID: slpEmail.text!)
+//        let isValidEmail=self.validation.validateEmailId(emailID: slpEmail.text!)
         
-        if isValidEmail==false {
-            showError("الرجاء التحقق من إدخال بريد إلكتروني صحيح")
-
-            return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
-            //            return "Please enter valid phone: 05********"
-        }
+//        if isValidEmail==false {
+//            showError("الرجاء التحقق من إدخال بريد إلكتروني صحيح")
+//
+//            return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
+//            //            return "Please enter valid phone: 05********"
+//        }
         
 //        if (isNewEmail1() && isNewEmail2()){
 //            print("")
@@ -242,7 +242,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                     for document in snapshot.documents{
                         let data = document.data()
                         
-                        self.sEmail = data["email"] as! String
+                       // self.sEmail = data["email"] as! String
                         self.fName = data["fname"] as! String
                         self.lName = data["lname"] as!String
                         self.phoneNumber = data["phone"] as! String
@@ -250,7 +250,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                         
                         
                         
-                        self.slpEmail.text = self.sEmail
+                      //  self.slpEmail.text = self.sEmail
                         self.slpFname.text = self.fName
                         self.slpLname.text = self.lName
                         self.slpPhone.text = self.phoneNumber
@@ -324,7 +324,7 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                                      
                                      guard let newfname  = self.slpFname.text else {return}
                                      guard let newlname  = self.slpLname.text else {return}
-                                     guard let newemail = self.slpEmail.text else {return}
+                                  //   guard let newemail = self.slpEmail.text else {return}
                                      guard let newmobile  = self.slpPhone.text else {return}
                                      
                                      
@@ -342,17 +342,17 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                                                  document!.reference.updateData([
                                                      "fname": newfname,
                                                      "lname": newlname,
-                                                     "email":newemail,
+                                                     //"email":newemail,
                                                      "phone":newmobile,
                                                      "hospital":newhospital
                                                  ])
                                                  
                                                  
-                                                 Auth.auth().currentUser?.updateEmail(to: newemail) { (error) in
-                                                     // ...
-                                                     print("succusess update email in firebase!!!")
-                                                     print(error?.localizedDescription)
-                                                 }
+//                                                 Auth.auth().currentUser?.updateEmail(to: newemail) { (error) in
+//                                                     // ...
+//                                                     print("succusess update email in firebase!!!")
+//                                                     print(error?.localizedDescription)
+//                                                 }
                                                  
                                                  
                                                  

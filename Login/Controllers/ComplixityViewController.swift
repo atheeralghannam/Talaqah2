@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SCLAlertView
 
 class ComplixityViewController: UIViewController {
 
@@ -155,10 +156,7 @@ class ComplixityViewController: UIViewController {
                     ])
                 }
         }
-        let alertController = UIAlertController(title: "تم الحفظ", message:
-            "تم حفظ التغييرات بنجاح!", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-        self.present(alertController, animated: true, completion: nil)
+        SCLAlertView().showCustom("تم الحفظ", subTitle: "تم حفظ تغييراتك بنجاح!", color: UIColor(named: "Done")! , icon: UIImage(named: "saved")!, closeButtonTitle: "حسنًا")
     }
     
     func initCheckedBoxes(){

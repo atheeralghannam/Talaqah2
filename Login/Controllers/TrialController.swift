@@ -3,7 +3,7 @@
 //  Talaqah
 //
 //  Created by Muhailah AlSahali on 20/02/2020.
-//  Copyright © 2020 Gary Tokman. All rights reserved.
+//  Copyright © 2020 Talaqah. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +12,7 @@ import FirebaseUI
 import Speech
 import AVFoundation
 import AVKit
+import SCLAlertView
 
 func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -62,6 +63,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
 //    var answers: String? = nil
 //    var results: String? = nil
     var progresses = [Progress]()
+    var isLoad = false
     
     
     //Outlet
@@ -90,7 +92,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toHome"{
             let destnationVC = segue.destination as! BaseViewController
-            destnationVC.trials = trials
             destnationVC.patient = patient
             destnationVC.modalPresentationStyle = .fullScreen
         }
@@ -98,6 +99,13 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
             let destnationVC = segue.destination as! HelpViewController
             destnationVC.trials = trials
             destnationVC.patient = patient
+            destnationVC.mcue = mcue
+            destnationVC.scue = scue
+            destnationVC.tcue = tcue
+            destnationVC.frcue = frcue
+            destnationVC.fvcue = fvcue
+            destnationVC.sxcue = sxcue
+            destnationVC.svcue = svcue
             destnationVC.modalPresentationStyle = .fullScreen
         }
         
@@ -149,41 +157,17 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     @IBAction func viewResult(_ sender: UIButton) {
-        
-        print(pressed)
-        print (countCoResult)
-        print(countFaResult)
-        
-        func goToHomePage(alert: UIAlertAction){
-            print("go to home page")
-            
-            
-            let sampleStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            
-            let homeView  = sampleStoryBoard.instantiateViewController(withIdentifier: "HomeViewController") as! BaseViewController
-            self.present(homeView, animated: true, completion: nil)
-            
-            
-        }
-        
         // create the alert
         var result = String()
         result = "عدد الإجابات الصحيحة  " + String(countCoResult) + "\n" + "عدد الإجابات الخاطئة  " + String(countFaResult)
-        
-        let alert = UIAlertController(title: "النتيجة", message: result, preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        
-        alert.addAction(UIAlertAction(title: "رجوع", style: UIAlertAction.Style.default, handler: nil))
-        
-        alert.addAction(UIAlertAction(title: "إنهاء التمرين", style: UIAlertAction.Style.default, handler: goToHomePage))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-        
+        if countCoResult > countFaResult {
+        SCLAlertView().showCustom("احسنت", subTitle: "معظم الاجابات كانت صحيحه"+"\n" + result, color: UIColor(named: "Gold")! , icon: UIImage(named: "gold")!, closeButtonTitle: "حسنًا")
+        } else if countFaResult == countCoResult {
+        SCLAlertView().showCustom("كدت تصل", subTitle: "الاجابات الخاطئه والصحيحه متساويه"+"\n" + result, color: UIColor(named: "Silver")! , icon: UIImage(named: "silver")!, closeButtonTitle: "حسنًا")
+        } else {
+        SCLAlertView().showCustom("تمرن أكثر", subTitle: "معظم الاجابات كانت خاطئه"+"\n" + result, color: UIColor(named: "Bronze")! , icon: UIImage(named: "bronze")!, closeButtonTitle: "حسنًا")
+        }
         updateProgress()
-        
-        
     }
     
     
@@ -219,56 +203,21 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     
     @IBAction func validateButtonPressed(_ sender: UIButton) {
-        
-        //maybe move comparing code here
-        
         //if nill ..... no answer
         if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
-            
-            // create the alert
-            let alert = UIAlertController(title: "لا توجد إجابة", message: "حاول مجددًا", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
-            
-            
-            
-            
-            
+             SCLAlertView().showCustom("لا توجد إجابة", subTitle: "حاول مجددًا", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
+            self.playSound(filename: "NoAnswer", ext: "mp3")
+
             return;
         }
-        
-        
-        
-        if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
-            
-            // create the alert
-            let alert = UIAlertController(title: "إجابة صحيحة", message: "أحسنت!", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
+       else if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
+             SCLAlertView().showSuccess("إجابة صحيحة", subTitle: "أحسنت!", closeButtonTitle: "حسنًا")
+            self.playSound(filename: "Correct", ext: "mp3")
             setProgress( answer: trials[count].answer ,result: "t")
         }
-            
-            
         else{
-            // create the alert
-            let alert = UIAlertController(title: "إجابة خاطئة", message: "حظ أوفر", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
+            SCLAlertView().showError("إجابة خاطئة", subTitle: "حظ أوفر", closeButtonTitle: "حسنًا")
+            self.playSound(filename: "Wrong", ext: "mp3")
         setProgress( answer: trials[count].answer ,result: "f")
         }
     }
@@ -394,85 +343,98 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     
-    @objc func showCurrentTrial(){
+      @objc func showCurrentTrial(){
         
-        
-          db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
-                 .getDocuments {(snapshot, error) in
-        
-                      if let error = error{print(error.localizedDescription)}
-                      else {
-                            if let snapshot = snapshot {
-                           for document in snapshot.documents{
-                                     let data = document.data()
-        
-        
-                         self.mcue = data["cue1"] as! Bool
-                            self.scue = data["cue2"] as! Bool
-                                self.tcue = data["cue3"] as! Bool
-                                    self.frcue = data["cue4"] as! Bool
-                                        self.fvcue = data["cue5"] as! Bool
-                                              self.sxcue = data["cue6"] as! Bool
-                                                    self.svcue = data["cue7"] as! Bool
-        
-        if self.mcue == false
+        if mcue == false
         { self.cue1.isUserInteractionEnabled = false
-            self.cue1.setTitleColor(.gray, for: .normal)}
-                           
-                            
-                            if self.scue == false
-                              { self.cue2.isUserInteractionEnabled = false
-                              self.cue2.setTitleColor(.gray, for: .normal)}
-                                  
-                                          
-                                          
-                              if self.tcue == false
-                              { self.cue3.isUserInteractionEnabled = false
-                              self.cue3.setTitleColor(.gray, for: .normal)}
-                            
-                                          
-                              if self.frcue == false
-                                  { self.cue4.isUserInteractionEnabled = false
-                                  self.cue4.setTitleColor(.gray, for: .normal)}
-                              
-                                          
-                             if self.fvcue == false
-                                { self.cue5.isUserInteractionEnabled = false
-                                self.cue5.setTitleColor(.gray, for: .normal)}
-                                          
-                                  if self.sxcue == false
-                                   { self.cue6.isUserInteractionEnabled = false
-                                   self.cue6.setTitleColor(.gray, for: .normal)}
-                                    
-                                          
-                            if self.svcue == false
-                              { self.cue7.isUserInteractionEnabled = false
-                              self.cue7.setTitleColor(.gray, for: .normal)}
-                                
-                            
-                            
-                                }}}
-                     
-          
+            self.cue1.setTitleColor(.gray, for: .normal)
+            self.cue1.alpha = 0.54
+        }
+        
+        
+        if scue == false
+        { self.cue2.isUserInteractionEnabled = false
+            self.cue2.setTitleColor(.gray, for: .normal)
+            self.cue2.alpha = 0.54
         }
         
         
         
+        if tcue == false
+        { self.cue3.isUserInteractionEnabled = false
+            self.cue3.setTitleColor(.gray, for: .normal)
+            self.cue3.alpha = 0.54
+        }
         
-        //image
+        
+        if frcue == false
+        { self.cue4.isUserInteractionEnabled = false
+            self.cue4.setTitleColor(.gray, for: .normal)
+            self.cue4.alpha = 0.54
+        }
+        
+        
+        if fvcue == false
+        { self.cue5.isUserInteractionEnabled = false
+            self.cue5.setTitleColor(.gray, for: .normal)
+            self.cue5.alpha = 0.54
+        }
+        
+        if sxcue == false
+        { self.cue6.isUserInteractionEnabled = false
+            self.cue6.setTitleColor(.gray, for: .normal)
+            self.cue6.alpha = 0.54
+        }
+        
+        
+        if svcue == false
+        { self.cue7.isUserInteractionEnabled = false
+            self.cue7.setTitleColor(.gray, for: .normal)
+            self.cue7.alpha = 0.54
+        }
+        
+        print(mcue, scue, tcue, frcue,fvcue, sxcue, svcue)
+        // if it not okay to disabled
+        var notOk2 = false
+        var notOk3 = false
+        var notOk4 = false
+        var notOk5 = false
+        var notOk6 = false
         print(trials, count)
-        cue2.isEnabled = false
-        cue2.alpha = 0.54
-        cue3.isEnabled = false
-        cue3.alpha = 0.54
-        cue4.isEnabled = false
-        cue4.alpha = 0.54
-        cue5.isEnabled = false
-        cue5.alpha = 0.54
-        cue6.isEnabled = false
-        cue6.alpha = 0.54
-        cue7.isEnabled = false
-        cue7.alpha = 0.54
+        if scue == true && mcue == true{
+            cue2.isEnabled = false
+            cue2.alpha = 0.54
+        }else if scue == false && mcue == false{
+            notOk2 = true
+        }
+        if tcue == true && notOk2 == false{
+            cue3.isEnabled = false
+            cue3.alpha = 0.54
+        }else if tcue == false && scue == false && mcue == false {
+          notOk3 = true
+        }
+        if frcue == true && notOk3 == false {
+            cue4.isEnabled = false
+            cue4.alpha = 0.54
+        }else if frcue == false && tcue == false && scue == false && mcue == false{
+            notOk4 = true
+        }
+        if fvcue == true && notOk4 == false {
+            cue5.isEnabled = false
+            cue5.alpha = 0.54
+        }else if fvcue == false && frcue == false && tcue == false && scue == false && mcue == false {
+            notOk5 = true
+        }
+        if sxcue == true && notOk5 == false{
+            cue6.isEnabled = false
+            cue6.alpha = 0.54
+        }else if sxcue == false && fvcue == false && frcue == false && tcue == false && scue == false && mcue == false  {
+            notOk6 = true
+        }
+        if svcue == true && notOk6 == false {
+            cue7.isEnabled = false
+            cue7.alpha = 0.54
+        }
         validateButton.isHidden = true
         playButton.isHidden = true
         writtenCue.text = ""
@@ -487,7 +449,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         
         // Load the image using SDWebImage
         imageView.sd_setImage(with: reference, placeholderImage: placeholderImage) { (image, error, cache, url) in
-            self.playSound(filename: "canYouNaming")
+            self.playSound(filename: "canYouNaming", ext: "mp3")
         }
         
         // Perform operation.
@@ -499,7 +461,6 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         UserDefaults.standard.set(trials[count].answer, forKey: Constants.correcAnswer)
         print(count)
     }
-    
     
     
     //Conection function
@@ -530,94 +491,151 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     }
     
     @IBAction func cuesPressed(_ sender: UIButton) {
-        if sender.currentTitle == "المعنى" {
-            let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                    print("error")
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            if sender.currentTitle == "المعنى" {
+                let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                        print("error")
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                    
                 }
-                
-            }
-            cue2.isEnabled = true
-            cue2.alpha = 1
-        } else if sender.currentTitle == "جملة"{
-            let text = trials[count].writtenCues[0]
-            writtenCue.text = text
-            cue3.isEnabled = true
-            cue3.alpha = 1
-        } else if sender.currentTitle == "الصوت الأول" {
-            let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+                if scue{
+                    cue2.isEnabled = true
+                    cue2.alpha = 1
+                } else if tcue {
+                    cue3.isEnabled = true
+                    cue3.alpha = 1
+                } else if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
                 }
-                
-            }
-            writtenCue.text = ""
-            cue4.isEnabled = true
-            cue4.alpha = 1
-        } else if sender.currentTitle == "المقطع الأول"{
-            let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            } else if sender.currentTitle == "جملة"{
+                let text = trials[count].writtenCues[0]
+                writtenCue.text = text
+                if tcue {
+                    cue3.isEnabled = true
+                    cue3.alpha = 1
+                } else if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
                 }
-            }
-            cue5.isEnabled = true
-            cue5.alpha = 1
-        } else if sender.currentTitle == "الحرف الأول"{
-            let text = trials[count].writtenCues[1]
-            writtenCue.text = text
-            cue6.isEnabled = true
-            cue6.alpha = 1
-        } else if sender.currentTitle == "الكلمة مكتوبة" {
-            let text = trials[count].answer
-            writtenCue.text = text
-            cue7.isEnabled = true
-            cue7.alpha = 1
-        } else if sender.currentTitle == "الكلمة منطوقة"{
-            let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
-            let starsRef = storageRef.child(audPath)
-            starsRef.downloadURL { url, error in
-                if error != nil {
-                    // Handle any errors
-                } else {
-                    // Get the download URL for 'images/stars.jpg'
-                    let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                    self.playerAt = AVPlayer(playerItem: playerItem)
-                    self.playerAt.play()
+            } else if sender.currentTitle == "الصوت الأول" {
+                let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                    
                 }
+                writtenCue.text = ""
+                if frcue {
+                    cue4.isEnabled = true
+                    cue4.alpha = 1
+                } else if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "المقطع الأول"{
+                let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                }
+                if fvcue {
+                    cue5.isEnabled = true
+                    cue5.alpha = 1
+                }else if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الحرف الأول"{
+                let text = trials[count].writtenCues[1]
+                writtenCue.text = text
+                if sxcue {
+                    cue6.isEnabled = true
+                    cue6.alpha = 1
+                }else if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الكلمة مكتوبة" {
+                let text = trials[count].answer
+                writtenCue.text = text
+                if svcue {
+                    cue7.isEnabled = true
+                    cue7.alpha = 1
+                }
+            } else if sender.currentTitle == "الكلمة منطوقة"{
+                let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
+                let starsRef = storageRef.child(audPath)
+                starsRef.downloadURL { url, error in
+                    if error != nil {
+                        // Handle any errors
+                    } else {
+                        // Get the download URL for 'images/stars.jpg'
+                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+                        self.playerAt = AVPlayer(playerItem: playerItem)
+                        self.playerAt.play()
+                    }
+                }
+                writtenCue.text = ""
             }
-            writtenCue.text = ""
-        }
     }
     
     //Utility functions
     
     
-    func playSound(filename:String) {
+    func playSound(filename:String, ext:String) {
         
         // Getting the url
-        let url = Bundle.main.url(forResource: filename, withExtension: "mp3")
+        let url = Bundle.main.url(forResource: filename, withExtension: ext)
         
         // Make sure that we've got the url, otherwise abord
         guard url != nil else {

@@ -3,7 +3,7 @@
 //  Login
 //
 //  Created by Haneen Abdullah on 12/02/2020.
-//  Copyright © 2020 Gary Tokman. All rights reserved.
+//  Copyright © 2020 Talaqah. All rights reserved.
 //
 
 import UIKit
@@ -19,7 +19,9 @@ class RegisterController: UIViewController, UITextFieldDelegate {
     
     
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     @IBOutlet weak var firstNameTextField: UITextField!
     

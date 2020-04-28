@@ -3,7 +3,7 @@
 //  Login
 //
 //  Created by Horiah on 11/06/1441 AH.
-//  Copyright © 1441 Gary Tokman. All rights reserved.
+//  Copyright © 1441 Talaqah. All rights reserved.
 //
 
 import UIKit
@@ -13,20 +13,21 @@ import FirebaseAuth
 
 class AccountViewController: UIViewController {
     
+    @IBOutlet weak var patientImage: UIImageView!
     //var patientArray = [Any]()
     var newPatient = [String: String]()
     private var document: [DocumentSnapshot] = []
     var pEmail = String(), fName = String(), lName = String(), pGender = String(), pnID = String(), phoneNumber = String()
-    
+    var gender = "female"
     var cue = String.self
     var array=[String]()
     
     
     @IBOutlet var PatientName: UITextField!
     
-    @IBOutlet var PatientGender: UITextField!
     
-   
+    
+    
     @IBOutlet var NID: UITextField!
     
     @IBOutlet var PatientPhone: UITextField!
@@ -36,42 +37,52 @@ class AccountViewController: UIViewController {
     
     
     
-   
+    
     
     @IBOutlet var sendProgress: UIButton!
     
-    @IBOutlet var viewProgress: UIButton!
+    //    @IBOutlet var viewProgress: UIButton!
     
-
-   
+    
+    
     
     
     let db = Firestore.firestore()
     
-    //let PatientIfo: [Patient]
-    
-    //let patientInfo = [Patient].self
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-          return .portrait
-      }
-      override var shouldAutorotate: Bool {
-          return true
-      }
+        return .landscapeLeft
+    }
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        override func viewDidLoad() {
-    //        super.viewDidLoad()
-            let value = UIInterfaceOrientation.portrait.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
-
-            Utilities.styleSecondaryButton(button: viewProgress)
-            Utilities.styleTextField(textfield: PatientName)
-            Utilities.styleTextField(textfield: PatientEmail)
-            Utilities.styleTextField(textfield: PatientPhone)
-            Utilities.styleTextField(textfield: PatientGender)
-            Utilities.styleTextField(textfield: NID)
-
+        // Do any additional setup after loading the view.
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        let tal = UIColor(named: "Tala")
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [tal!.cgColor, UIColor.white.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        if gender == "female"{
+            patientImage.image = #imageLiteral(resourceName: "female")
+        }else{
+            patientImage.image = #imageLiteral(resourceName: "male")
+        }
+        //            Utilities.styleSecondaryButton(button: viewProgress)
+        Utilities.styleTextField(textfield: PatientName)
+        Utilities.styleTextField(textfield: PatientEmail)
+        Utilities.styleTextField(textfield: PatientPhone)
+        //            Utilities.styleTextField(textfield: PatientGender)
+        Utilities.styleTextField(textfield: NID)
+        PatientName.isEnabled  = false
+        PatientEmail.isEnabled = false
+        PatientPhone.isEnabled = false
+        NID.isEnabled = false
         loadData()
-       
+        
     }
     
     @IBAction func backToHomePage(_ sender: Any) {
@@ -84,48 +95,48 @@ class AccountViewController: UIViewController {
     
     @IBAction func viewProgressPressed(_ sender: UIViewController) {
         
-               db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid ).getDocuments { (snapshot, error) in
-                   if let error = error {
-                       print(error.localizedDescription)
-                   } else {
-                       if let snapshot = snapshot {
-                           
-                           for document in snapshot.documents {
-                               
-                               let data = document.data()
-                               
-                             self.array = data["progress"] as! [String]
-                               
-                             if (self.array.isEmpty){
-                                   let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
-                                              
-                                              // add an action (button)
-                                              alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-                                              
-                                              // show the alert
-                                              self.present(alert, animated: true, completion: nil)
-        
-                               } else{
-                                 self.performSegue(withIdentifier: "toViewProgress", sender: nil)
-                             }
-                             
+        db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid ).getDocuments { (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let snapshot = snapshot {
+                    
+                    for document in snapshot.documents {
+                        
+                        let data = document.data()
+                        
+                        self.array = data["progress"] as! [String]
+                        
+                        if (self.array.isEmpty){
+                            let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
                             
-                           }
-                           
-                     
-                           
-                           
-                       }
-                   }
-               }
+                            // add an action (button)
+                            alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
+                            
+                            // show the alert
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        } else{
+                            self.performSegue(withIdentifier: "toViewProgress", sender: nil)
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+        }
     }
     
     
     
     func loadPatientInfo(){
-
+        
         let docRef = db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid)
-
+        
         docRef.getDocuments { (querySnapshot, error) in
             
             if let error = error {
@@ -143,34 +154,15 @@ class AccountViewController: UIViewController {
     }
     
     func loadData() {
-      /*  let docRef = db.collection("patients").whereField("uid", isEqualTo: Auth.auth().currentUser?.uid ?? "")
-               
-               docRef.getDocuments { (querySnapshot, error) in
-                   
-                   if let error = error {
-                       print(error.localizedDescription)
-                       return
-                   } //else if querySnapshot!.documents.count != 1 {
-                      // print("More than one documents or none")
-                  // }
-        else {
-                       let document = querySnapshot!.documents.first
-                       let dataDescription = document?.data()
-                       guard let firstname = dataDescription?["FirstName"] else { return }
-                       print(firstname)
-                   }
         
-        */
-        
-//         db.collection("patients")
-            db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments { (snapshot, error) in
+        db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments { (snapshot, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 if let snapshot = snapshot {
-
+                    
                     for document in snapshot.documents {
-
+                        
                         let data = document.data()
                         
                         //self.pEmail = data["Email"] as? String ?? ""
@@ -185,11 +177,11 @@ class AccountViewController: UIViewController {
                         
                         self.PatientName.text = name
                         self.NID.text=self.pnID
-                        self.PatientGender.text = self.pGender
+                        //                        self.PatientGender.text = self.pGender
                         self.PatientPhone.text = self.phoneNumber
                         self.PatientEmail.text = self.pEmail
                         
-
+                        
                         self.newPatient = ["NID": self.pnID, "FirstName": self.fName, "LastName": self.lName, "Gender": self.pGender, "PhoneNumber": self.phoneNumber, "Email":self.pEmail]
                         
                         //self.patientArray.append(self.newPatient)
@@ -219,7 +211,7 @@ class AccountViewController: UIViewController {
     }
     
     
-   // these for trail
+    // these for trail
     func getForCategory(category : String){
         db.collection("trials").whereField("Category", isEqualTo: category)
             .getDocuments() { (querySnapshot, error) in
@@ -248,39 +240,44 @@ class AccountViewController: UIViewController {
     
     func cues(){
         db.collection("trials").getDocuments { (snapshot, error) in
-                      if let error = error {
-                          print(error.localizedDescription)
-                      } else {
-                          if let snapshot = snapshot {
-
-                              for document in snapshot.documents {
-
-                                let data = document.data()["Cues"]! as! [Any]
-                                print(data)
-                                 
-                                for (index, element) in data.enumerated() {
-                                    print(element)
-                                }
-
-                              }
-                              
-                          }
-                      }
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let snapshot = snapshot {
+                    
+                    for document in snapshot.documents {
+                        
+                        let data = document.data()["Cues"]! as! [Any]
+                        print(data)
+                        
+                        for (index, element) in data.enumerated() {
+                            print(element)
+                        }
+                        
+                    }
+                    
+                }
+            }
         }
     }
-// ------------for disable rotate > portrait view only
+    // ------------for disable rotate > portrait view only
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           
-       }
-//       
-//       override open var shouldAutorotate: Bool {
-//           return false
-//       }
+        super.viewWillAppear(animated)
+        
+    }
+    //
+    //       override open var shouldAutorotate: Bool {
+    //           return false
+    //       }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toHome"{
             let destnationVC = segue.destination as! BaseViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+        }
+        else if segue.identifier == "Edit"{
+            let destnationVC = segue.destination as! editprofileViewController
+            destnationVC.gender = gender
             destnationVC.modalPresentationStyle = .fullScreen
         }
     }

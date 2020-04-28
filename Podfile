@@ -12,5 +12,6 @@ pod 'Firebase/Firestore'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'FirebaseUI/Storage'
+pod 'SCLAlertView'
 end
 
