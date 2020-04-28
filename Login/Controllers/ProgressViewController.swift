@@ -215,7 +215,7 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                 
                 print("Cannot send email")
                 // create the alert
-                let alert = UIAlertController(title:"" , message: "لم يتم ربط هذا الجهاز بحساب البريد الإلكتروني. يرجى تسجيل الدخول إلى بريدك الإلكتروني في برنامج Mail,Gmail,...", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title:"" , message: "لم يتم ربط هذا الجهاز بحساب البريد الإلكتروني. يرجى تسجيل الدخول إلى بريدك الإلكتروني في برنامج Mail", preferredStyle: UIAlertController.Style.alert)
                 
                 // add an action (button)
                 
@@ -226,53 +226,6 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                 
             }
         }
-    
-    @IBAction func sendEmailPressed(_ sender: Any) {
-        
-        if MFMailComposeViewController.canSendMail() {
-            print("email")
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            db.collection("patients").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments { (snapshot, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    if let snapshot = snapshot {
-                        
-                        for document in snapshot.documents {
-                            let data = document.data()
-                            self.pEmail = data["Email"] as! String
-                            print (self.pEmail)
-                            //print("I send email")
-                        }
-                    }
-                }
-               
-            }
-            //message.append(Auth.auth().currentUser!.email!)
-            mail.setToRecipients([self.pEmail])
-            mail.setSubject("تقدم حالة المريض")
-            mail.setMessageBody("هنا سيكون تقدم حالة المريض", isHTML: false)
-            self.present(mail, animated: true)
-            
-        } else {
-            // show failure alert
-            
-            print("Cannot send email")
-            // create the alert
-            let alert = UIAlertController(title:"" , message: "لم يتم ربط هذا الجهاز بحساب البريد الإلكتروني. يرجى تسجيل الدخول إلى بريدك الإلكتروني في برنامج Mail,Gmail,...", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            
-            alert.addAction(UIAlertAction(title: "حسنا", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
-        }
-    }
-    
-           
     
     func mailComposeController(_ controller:MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result.rawValue {
@@ -299,30 +252,15 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
         let trialAnswers = trialProgress[0]
         let trialResults = trialProgress[1]
         let trialDate = trialProgress[2]
-        //                                    for trialData in trialProgress{
-        //                                        print("\(trialData) ")
-        //                                    }
-        //                                           print("-------")
         let answers = trialAnswers.components(separatedBy: "-")
-        
-        //                                                                 for trialData in answers{
-        //                                                                            print("\(trialData) ")
-        //                                                                        }
+       
         print("-------")
         let results = trialResults.components(separatedBy: "-")
-        
-        //                                                  for trialData in results{
-        //                                                             print("\(trialData) ")
-        //                                                         }
         print("----=========---")
         
         
         var index = 0
         while index < answers.count {
-            //                                        self.answer = answers[index]
-            //                                        self.result = results[index]
-            //                                        self.date = trialDate
-            
             progress = Progress ( answer: answers[index] , result: results[index] , date: trialDate )
             
             print("\(answers[index])    \(results[index])    \(trialDate)")
@@ -331,12 +269,8 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
             
             print("        -------")
         }
-        
         print("----=========---")
-        //------------
-        
-        //            var progress = Progress (answers, answer,results result,date date)
-        return tProgress
+       return tProgress
     }
     
     
@@ -360,9 +294,4 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
         super.viewWillAppear(animated)
         
     }
-    
-    //       override open var shouldAutorotate: Bool {
-    //           return false
-    //       }
-    
 }
