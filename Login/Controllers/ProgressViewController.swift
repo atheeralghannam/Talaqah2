@@ -99,7 +99,7 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
         var progresses = [String()]
         
         let db = Firestore.firestore()
-//        let uID = "SAYOVleHD3XWWMphbXTMtsPQaYg2"
+
    if (UserDefaults.standard.bool(forKey: Constants.isUserLoggedIn) == true) {
     uID = Auth.auth().currentUser!.uid
    }else {
@@ -118,24 +118,8 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                         let data = document.data()
                         
                         //set one progress
-                                              progresses = data["progress"] as! [String]
+                        progresses = data["progress"] as! [String]
                         
-//                        if (progresses.isEmpty){
-//                            let alert = UIAlertController(title: "إجابة خاطئة", message: "حظ أوفر", preferredStyle: UIAlertController.Style.alert)
-//                                       
-//                                       // add an action (button)
-//                                       alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-//                                       
-//                                       // show the alert
-//                                       self.present(alert, animated: true, completion: nil)
-//                                       
-//                         return
-//                        }
-                      
-                        
-                        
-                        
-                        //                                                var progress =  setProgress(singleProgress: progresses)
                         ////-----------
                         for singleProgress in progresses {
                             let fullTrail = singleProgress
@@ -143,20 +127,6 @@ class ProgressViewController: UIViewController, MFMailComposeViewControllerDeleg
                             
                             self.progressArray.append(contentsOf: p)
                         }
-                        //-------or
-                        //                        for sProgress in tProgress
-                        //self.progressArray.append(sProgress)
-                        //}
-                        
-                        //
-                        //                        }
-                        
-                        //----for test
-                        //                        var fullTrail = progresses[0]
-                        //
-                        //                        var p : [Progress] = self.setProgress(singleProgress : fullTrail)
-                        //
-                        //                        self.progressArray.append(contentsOf: p)
                         
                     }
                     
