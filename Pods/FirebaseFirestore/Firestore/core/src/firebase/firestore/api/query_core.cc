@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2019 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,16 +23,11 @@
 
 #include "Firestore/core/src/firebase/firestore/api/firestore.h"
 #include "Firestore/core/src/firebase/firestore/api/query_listener_registration.h"
-#include "Firestore/core/src/firebase/firestore/api/query_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/api/source.h"
-#include "Firestore/core/src/firebase/firestore/core/bound.h"
 #include "Firestore/core/src/firebase/firestore/core/field_filter.h"
 #include "Firestore/core/src/firebase/firestore/core/filter.h"
 #include "Firestore/core/src/firebase/firestore/core/firestore_client.h"
-#include "Firestore/core/src/firebase/firestore/core/listen_options.h"
 #include "Firestore/core/src/firebase/firestore/core/operator.h"
 #include "Firestore/core/src/firebase/firestore/model/field_value.h"
-#include "Firestore/core/src/firebase/firestore/model/resource_path.h"
 #include "Firestore/core/src/firebase/firestore/util/exception.h"
 #include "absl/algorithm/container.h"
 
@@ -74,7 +69,7 @@ size_t Query::Hash() const {
   return util::Hash(firestore_.get(), query());
 }
 
-void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
+void Query::GetDocuments(Source source, QuerySnapshot::Listener&& callback) {
   ValidateHasExplicitOrderByForLimitToLast();
   if (source == Source::Cache) {
     firestore_->client()->GetDocumentsFromLocalCache(*this,
@@ -89,7 +84,7 @@ void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
 
   class ListenOnce : public EventListener<QuerySnapshot> {
    public:
-    ListenOnce(Source source, QuerySnapshotListener&& listener)
+    ListenOnce(Source source, QuerySnapshot::Listener&& listener)
         : source_(source), listener_(std::move(listener)) {
     }
 
@@ -109,7 +104,7 @@ void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
 
       if (snapshot.metadata().from_cache() && source_ == Source::Server) {
         listener_->OnEvent(Status{
-            Error::kUnavailable,
+            Error::Unavailable,
             "Failed to get documents from server. (However, these documents "
             "may exist in the local cache. Run again without setting source to "
             "FirestoreSourceServer to retrieve the cached documents.)"});
@@ -124,7 +119,7 @@ void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
 
    private:
     Source source_;
-    QuerySnapshotListener listener_;
+    QuerySnapshot::Listener listener_;
 
     std::promise<std::unique_ptr<ListenerRegistration>> registration_promise_;
   };
@@ -139,12 +134,12 @@ void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
 }
 
 std::unique_ptr<ListenerRegistration> Query::AddSnapshotListener(
-    ListenOptions options, QuerySnapshotListener&& user_listener) {
+    ListenOptions options, QuerySnapshot::Listener&& user_listener) {
   ValidateHasExplicitOrderByForLimitToLast();
   // Convert from ViewSnapshots to QuerySnapshots.
   class Converter : public EventListener<ViewSnapshot> {
    public:
-    Converter(Query* parent, QuerySnapshotListener&& user_listener)
+    Converter(Query* parent, QuerySnapshot::Listener&& user_listener)
         : firestore_(parent->firestore()),
           query_(parent->query()),
           user_listener_(std::move(user_listener)) {
@@ -169,7 +164,7 @@ std::unique_ptr<ListenerRegistration> Query::AddSnapshotListener(
    private:
     std::shared_ptr<Firestore> firestore_;
     core::Query query_;
-    QuerySnapshotListener user_listener_;
+    QuerySnapshot::Listener user_listener_;
   };
   auto view_listener =
       absl::make_unique<Converter>(this, std::move(user_listener));

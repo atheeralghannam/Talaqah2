@@ -18,14 +18,19 @@
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_INDEX_FREE_QUERY_ENGINE_H_
 
 #include "Firestore/core/src/firebase/firestore/local/query_engine.h"
-#include "Firestore/core/src/firebase/firestore/model/model_fwd.h"
+
+#include "Firestore/core/src/firebase/firestore/core/query.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
+#include "Firestore/core/src/firebase/firestore/model/document_map.h"
 
 namespace firebase {
 namespace firestore {
 
-namespace core {
-enum class LimitType;
-}  // namespace core
+namespace model {
+
+class DocumentSet;
+
+}  // namespace model
 
 namespace local {
 

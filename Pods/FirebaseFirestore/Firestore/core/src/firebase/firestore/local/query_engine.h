@@ -17,13 +17,22 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_QUERY_ENGINE_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_QUERY_ENGINE_H_
 
-#include "Firestore/core/src/firebase/firestore/model/model_fwd.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 
 namespace firebase {
 namespace firestore {
 
+namespace model {
+
+class DocumentMap;
+class SnapshotVersion;
+
+}  // namespace model
+
 namespace core {
+
 class Query;
+
 }  // namespace core
 
 namespace local {

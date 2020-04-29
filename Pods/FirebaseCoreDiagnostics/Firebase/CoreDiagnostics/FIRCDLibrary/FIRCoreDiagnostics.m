@@ -125,7 +125,6 @@ NSString *const kFIRCoreDiagnosticsHeartbeatDateFileName = @"FIREBASE_DIAGNOSTIC
   // Encode a 2nd time to actually get the bytes from it.
   size_t bufferSize = sizestream.bytes_written;
   CFMutableDataRef dataRef = CFDataCreateMutable(CFAllocatorGetDefault(), bufferSize);
-  CFDataSetLength(dataRef, bufferSize);
   pb_ostream_t ostream = pb_ostream_from_buffer((void *)CFDataGetBytePtr(dataRef), bufferSize);
   if (!pb_encode(&ostream, logs_proto_mobilesdk_ios_ICoreConfiguration_fields, &_config)) {
     GDTCORLogError(GDTCORMCETransportBytesError, @"Error in nanopb encoding for bytes: %s",
@@ -220,7 +219,7 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - nanopb helper functions
 
-/** Callocs a pb_bytes_array and copies the given NSString's bytes into the bytes array.
+/** Mallocs a pb_bytes_array and copies the given NSString's bytes into the bytes array.
  *
  * @note Memory needs to be free manually, through pb_free or pb_release.
  * @param string The string to encode as pb_bytes.
@@ -230,18 +229,16 @@ pb_bytes_array_t *FIREncodeString(NSString *string) {
   return FIREncodeData(stringBytes);
 }
 
-/** Callocs a pb_bytes_array and copies the given NSData bytes into the bytes array.
+/** Mallocs a pb_bytes_array and copies the given NSData bytes into the bytes array.
  *
  * @note Memory needs to be free manually, through pb_free or pb_release.
  * @param data The data to copy into the new bytes array.
  */
 pb_bytes_array_t *FIREncodeData(NSData *data) {
-  pb_bytes_array_t *pbBytesArray = calloc(1, PB_BYTES_ARRAY_T_ALLOCSIZE(data.length));
-  if (pbBytesArray != NULL) {
-    [data getBytes:pbBytesArray->bytes length:data.length];
-    pbBytesArray->size = (pb_size_t)data.length;
-  }
-  return pbBytesArray;
+  pb_bytes_array_t *pbBytes = malloc(PB_BYTES_ARRAY_T_ALLOCSIZE(data.length));
+  memcpy(pbBytes->bytes, [data bytes], data.length);
+  pbBytes->size = (pb_size_t)data.length;
+  return pbBytes;
 }
 
 /** Maps a service string to the representative nanopb enum.
@@ -510,11 +507,8 @@ void FIRPopulateProtoWithInstalledServices(logs_proto_mobilesdk_ios_ICoreConfigu
   }
 
   logs_proto_mobilesdk_ios_ICoreConfiguration_ServiceType *servicesInstalled =
-      calloc(sdkServiceInstalledArray.count,
-             sizeof(logs_proto_mobilesdk_ios_ICoreConfiguration_ServiceType));
-  if (servicesInstalled == NULL) {
-    return;
-  }
+      malloc(sizeof(logs_proto_mobilesdk_ios_ICoreConfiguration_ServiceType) *
+             sdkServiceInstalledArray.count);
   for (NSUInteger i = 0; i < sdkServiceInstalledArray.count; i++) {
     NSNumber *typeEnum = sdkServiceInstalledArray[i];
     logs_proto_mobilesdk_ios_ICoreConfiguration_ServiceType serviceType =

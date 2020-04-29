@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2018 Google LLC
+ * Copyright 2015, 2018 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_UTIL_STATUS_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_UTIL_STATUS_H_
 
-#if _WIN32
+#if defined(_WIN32)
 #include <windows.h>
 #endif
 
@@ -28,13 +28,10 @@
 #include <utility>
 
 #include "Firestore/core/include/firebase/firestore/firestore_errors.h"
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
 #include "absl/base/attributes.h"
 #include "absl/strings/string_view.h"
-
-#if __OBJC__
-@class NSError;
-#endif
 
 namespace firebase {
 namespace firestore {
@@ -83,8 +80,7 @@ class ABSL_MUST_USE_RESULT Status {
   }
 
   Error code() const {
-    return ok() ? Error::kOk
-                : (IsMovedFrom() ? Error::kInternal : state_->code);
+    return ok() ? Error::Ok : (IsMovedFrom() ? Error::Internal : state_->code);
   }
 
   const std::string& error_message() const {
@@ -178,7 +174,8 @@ class ABSL_MUST_USE_RESULT Status {
 
 class PlatformError {
  public:
-  virtual ~PlatformError() = default;
+  virtual ~PlatformError() {
+  }
 
   virtual std::unique_ptr<PlatformError> Copy() = 0;
 
@@ -235,6 +232,12 @@ inline bool Status::operator!=(const Status& x) const {
 }
 
 typedef std::function<void(Status)> StatusCallback;
+
+extern std::string StatusCheckOpHelperOutOfLine(const Status& v,
+                                                const char* msg);
+
+#define STATUS_CHECK_OK(val) \
+  HARD_ASSERT(val.ok(), "%s", StatusCheckOpHelperOutOfLine(val, #val))
 
 }  // namespace util
 }  // namespace firestore

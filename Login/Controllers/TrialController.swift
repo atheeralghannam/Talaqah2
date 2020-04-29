@@ -492,20 +492,22 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     @IBAction func cuesPressed(_ sender: UIButton) {
             if sender.currentTitle == "المعنى" {
-                let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                        print("error")
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                    
-                }
+               
+                self.playSound(filename: trials[count].audiosNames[0], ext: "mp3")
+                //                let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
+//                let starsRef = storageRef.child(audPath)
+//                starsRef.downloadURL { url, error in
+//                    if error != nil {
+//                        // Handle any errors
+//                        print("error")
+//                    } else {
+//                        // Get the download URL for 'images/stars.jpg'
+//                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+//                        self.playerAt = AVPlayer(playerItem: playerItem)
+//                        self.playerAt.play()
+//                    }
+//
+//                }
                 if scue{
                     cue2.isEnabled = true
                     cue2.alpha = 1
@@ -545,19 +547,20 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "الصوت الأول" {
-                let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                    
-                }
+                  self.playSound(filename: trials[count].audiosNames[1], ext: "mp3")
+//                let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
+//                let starsRef = storageRef.child(audPath)
+//                starsRef.downloadURL { url, error in
+//                    if error != nil {
+//                        // Handle any errors
+//                    } else {
+//                        // Get the download URL for 'images/stars.jpg'
+//                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+//                        self.playerAt = AVPlayer(playerItem: playerItem)
+//                        self.playerAt.play()
+//                    }
+//
+//                }
                 writtenCue.text = ""
                 if frcue {
                     cue4.isEnabled = true
@@ -573,18 +576,19 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "المقطع الأول"{
-                let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                }
+               self.playSound(filename: trials[count].audiosNames[2], ext: "mp3")
+//                let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
+//                let starsRef = storageRef.child(audPath)
+//                starsRef.downloadURL { url, error in
+//                    if error != nil {
+//                        // Handle any errors
+//                    } else {
+//                        // Get the download URL for 'images/stars.jpg'
+//                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+//                        self.playerAt = AVPlayer(playerItem: playerItem)
+//                        self.playerAt.play()
+//                    }
+//                }
                 if fvcue {
                     cue5.isEnabled = true
                     cue5.alpha = 1
@@ -613,18 +617,19 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "الكلمة منطوقة"{
-                let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                }
+               self.playSound(filename: trials[count].audiosNames[3], ext: "mp3")
+//                let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
+//                let starsRef = storageRef.child(audPath)
+//                starsRef.downloadURL { url, error in
+//                    if error != nil {
+//                        // Handle any errors
+//                    } else {
+//                        // Get the download URL for 'images/stars.jpg'
+//                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
+//                        self.playerAt = AVPlayer(playerItem: playerItem)
+//                        self.playerAt.play()
+//                    }
+//                }
                 writtenCue.text = ""
             }
     }

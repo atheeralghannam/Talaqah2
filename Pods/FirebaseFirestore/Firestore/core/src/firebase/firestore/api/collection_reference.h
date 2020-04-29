@@ -20,19 +20,21 @@
 #include <memory>
 #include <string>
 
-#include "Firestore/core/src/firebase/firestore/api/api_fwd.h"
 #include "Firestore/core/src/firebase/firestore/api/query_core.h"
-#include "Firestore/core/src/firebase/firestore/core/core_fwd.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 
 namespace firebase {
 namespace firestore {
+namespace core {
 
-namespace model {
-class ResourcePath;
-}  // namespace model
+class ParsedSetData;
+
+}  // namespace core
 
 namespace api {
+
+class DocumentReference;
 
 /**
  * A `CollectionReference` object can be used for adding documents, getting
@@ -46,7 +48,7 @@ class CollectionReference : public Query {
                       std::shared_ptr<Firestore> firestore);
 
   /** ID of the referenced collection. */
-  const std::string& collection_id() const;
+  std::string collection_id() const;
 
   /**
    * For subcollections, `parent` returns the containing `DocumentReference`.

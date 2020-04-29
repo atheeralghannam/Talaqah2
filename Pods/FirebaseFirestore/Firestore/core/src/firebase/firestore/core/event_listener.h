@@ -39,7 +39,8 @@ class EventListener {
   static std::unique_ptr<EventListener<T>> Create(
       util::StatusOrCallback<T> callback);
 
-  virtual ~EventListener() = default;
+  virtual ~EventListener() {
+  }
 
   /**
    * OnEvent will be called with the new value or the error if an error

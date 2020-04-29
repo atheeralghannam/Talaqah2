@@ -19,14 +19,11 @@
 #include <memory>
 #include <utility>
 
-#include "Firestore/core/src/firebase/firestore/core/query.h"
-#include "Firestore/core/src/firebase/firestore/local/leveldb_key.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_persistence.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_transaction.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_util.h"
 #include "Firestore/core/src/firebase/firestore/local/local_serializer.h"
 #include "Firestore/core/src/firebase/firestore/local/reference_delegate.h"
-#include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/mutation_batch.h"
 #include "Firestore/core/src/firebase/firestore/model/resource_path.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/nanopb_util.h"
@@ -454,15 +451,6 @@ std::vector<MutationBatch> LevelDbMutationQueue::AllMutationBatchesWithIds(
   return result;
 }
 
-std::string LevelDbMutationQueue::mutation_queue_key() const {
-  return LevelDbMutationQueueKey::Key(user_id_);
-}
-
-std::string LevelDbMutationQueue::mutation_batch_key(
-    model::BatchId batch_id) const {
-  return LevelDbMutationKey::Key(user_id_, batch_id);
-}
-
 Message<firestore_client_MutationQueue> LevelDbMutationQueue::MetadataForKey(
     const std::string& key) {
   std::string value;
@@ -474,7 +462,7 @@ Message<firestore_client_MutationQueue> LevelDbMutationQueue::MetadataForKey(
 
   if (reader.ok()) {
     return result;
-  } else if (reader.status().code() == Error::kNotFound) {
+  } else if (reader.status().code() == Error::NotFound) {
     // Return a default-constructed message (`TryParse` is guaranteed to return
     // a default-constructed message on failure).
     return result;

@@ -19,10 +19,9 @@
 
 namespace firebase {
 namespace firestore {
-
 namespace core {
 class FirestoreClient;
-}  // namespace core
+}
 
 namespace api {
 

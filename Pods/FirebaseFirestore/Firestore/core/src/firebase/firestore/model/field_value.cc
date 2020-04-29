@@ -27,7 +27,6 @@
 
 #include "Firestore/core/src/firebase/firestore/immutable/sorted_map.h"
 #include "Firestore/core/src/firebase/firestore/model/field_mask.h"
-#include "Firestore/core/src/firebase/firestore/nanopb/byte_string.h"
 #include "Firestore/core/src/firebase/firestore/timestamp_internal.h"
 #include "Firestore/core/src/firebase/firestore/util/comparison.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
@@ -815,10 +814,6 @@ ComparisonResult FieldValue::BaseValue::CompareTypes(
 // would make this have Type::Null, which then blows up when you try to Set
 // on it.
 ObjectValue::ObjectValue() : fv_(FieldValue::EmptyObject()) {
-}
-
-ObjectValue::ObjectValue(FieldValue fv) : fv_(std::move(fv)) {
-  HARD_ASSERT(fv_.type() == FieldValue::Type::Object);
 }
 
 ObjectValue ObjectValue::FromMap(const FieldValue::Map& value) {

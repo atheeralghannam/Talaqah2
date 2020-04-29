@@ -22,8 +22,12 @@
 #include <vector>
 
 #include "Firestore/Protos/nanopb/firestore/local/mutation.nanopb.h"
+#include "Firestore/core/include/firebase/firestore/timestamp.h"
+#include "Firestore/core/src/firebase/firestore/auth/user.h"
+#include "Firestore/core/src/firebase/firestore/local/leveldb_key.h"
 #include "Firestore/core/src/firebase/firestore/local/mutation_queue.h"
-#include "Firestore/core/src/firebase/firestore/model/model_fwd.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/types.h"
 #include "Firestore/core/src/firebase/firestore/nanopb/message.h"
 #include "absl/strings/string_view.h"
@@ -31,15 +35,9 @@
 #include "leveldb/db.h"
 
 namespace firebase {
-class Timestamp;
-
 namespace firestore {
-
-namespace auth {
-class User;
-}  // namespace auth
-
 namespace local {
+
 class LevelDbPersistence;
 class LocalSerializer;
 
@@ -102,9 +100,13 @@ class LevelDbMutationQueue : public MutationQueue {
   std::vector<model::MutationBatch> AllMutationBatchesWithIds(
       const std::set<model::BatchId>& batch_ids);
 
-  std::string mutation_queue_key() const;
+  std::string mutation_queue_key() const {
+    return LevelDbMutationQueueKey::Key(user_id_);
+  }
 
-  std::string mutation_batch_key(model::BatchId batch_id) const;
+  std::string mutation_batch_key(model::BatchId batch_id) {
+    return LevelDbMutationKey::Key(user_id_, batch_id);
+  }
 
   /** Parses the MutationQueue metadata from the given LevelDB row contents. */
   nanopb::Message<firestore_client_MutationQueue> MetadataForKey(

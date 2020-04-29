@@ -174,7 +174,6 @@
                                              metadata:metadata];
 
   if (completion) {
-    __block BOOL completed = NO;
     dispatch_queue_t callbackQueue = _storage.fetcherServiceForApp.callbackQueue;
     if (!callbackQueue) {
       callbackQueue = dispatch_get_main_queue();
@@ -183,19 +182,13 @@
     [task observeStatus:FIRStorageTaskStatusSuccess
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(snapshot.metadata, nil);
-                    }
+                    completion(snapshot.metadata, nil);
                   });
                 }];
     [task observeStatus:FIRStorageTaskStatusFailure
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(nil, snapshot.error);
-                    }
+                    completion(nil, snapshot.error);
                   });
                 }];
   }
@@ -229,7 +222,6 @@
                                              metadata:metadata];
 
   if (completion) {
-    __block BOOL completed = NO;
     dispatch_queue_t callbackQueue = _storage.fetcherServiceForApp.callbackQueue;
     if (!callbackQueue) {
       callbackQueue = dispatch_get_main_queue();
@@ -238,19 +230,13 @@
     [task observeStatus:FIRStorageTaskStatusSuccess
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(snapshot.metadata, nil);
-                    }
+                    completion(snapshot.metadata, nil);
                   });
                 }];
     [task observeStatus:FIRStorageTaskStatusFailure
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(nil, snapshot.error);
-                    }
+                    completion(nil, snapshot.error);
                   });
                 }];
   }
@@ -262,7 +248,6 @@
 
 - (FIRStorageDownloadTask *)dataWithMaxSize:(int64_t)size
                                  completion:(FIRStorageVoidDataError)completion {
-  __block BOOL completed = NO;
   FIRStorageDownloadTask *task =
       [[FIRStorageDownloadTask alloc] initWithReference:self
                                          fetcherService:_storage.fetcherServiceForApp
@@ -278,20 +263,13 @@
               handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                 FIRStorageDownloadTask *task = snapshot.task;
                 dispatch_async(callbackQueue, ^{
-                  if (!completed) {
-                    completed = YES;
-                    completion(task.downloadData, nil);
-                  }
+                  completion(task.downloadData, nil);
                 });
               }];
-
   [task observeStatus:FIRStorageTaskStatusFailure
               handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                 dispatch_async(callbackQueue, ^{
-                  if (!completed) {
-                    completed = YES;
-                    completion(nil, snapshot.error);
-                  }
+                  completion(nil, snapshot.error);
                 });
               }];
   [task
@@ -324,7 +302,6 @@
                                           dispatchQueue:_storage.dispatchQueue
                                                    file:fileURL];
   if (completion) {
-    __block BOOL completed = NO;
     dispatch_queue_t callbackQueue = _storage.fetcherServiceForApp.callbackQueue;
     if (!callbackQueue) {
       callbackQueue = dispatch_get_main_queue();
@@ -333,19 +310,13 @@
     [task observeStatus:FIRStorageTaskStatusSuccess
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(fileURL, nil);
-                    }
+                    completion(fileURL, nil);
                   });
                 }];
     [task observeStatus:FIRStorageTaskStatusFailure
                 handler:^(FIRStorageTaskSnapshot *_Nonnull snapshot) {
                   dispatch_async(callbackQueue, ^{
-                    if (!completed) {
-                      completed = YES;
-                      completion(nil, snapshot.error);
-                    }
+                    completion(nil, snapshot.error);
                   });
                 }];
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2019 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,6 +97,9 @@ class DocumentViewChangeSet {
  */
 class ViewSnapshot {
  public:
+  using Listener = std::unique_ptr<EventListener<ViewSnapshot>>;
+  using SharedListener = std::shared_ptr<EventListener<ViewSnapshot>>;
+
   ViewSnapshot(Query query,
                model::DocumentSet documents,
                model::DocumentSet old_documents,
@@ -175,9 +178,6 @@ class ViewSnapshot {
   bool sync_state_changed_ = false;
   bool excludes_metadata_changes_ = false;
 };
-
-using ViewSnapshotListener = std::unique_ptr<EventListener<ViewSnapshot>>;
-using ViewSnapshotSharedListener = std::shared_ptr<EventListener<ViewSnapshot>>;
 
 bool operator==(const ViewSnapshot& lhs, const ViewSnapshot& rhs);
 

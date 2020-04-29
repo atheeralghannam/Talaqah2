@@ -22,7 +22,6 @@
 
 #include "Firestore/core/src/firebase/firestore/util/path.h"
 #include "Firestore/core/src/firebase/firestore/util/statusor.h"
-#include "absl/strings/str_cat.h"
 
 namespace firebase {
 namespace firestore {
@@ -35,7 +34,7 @@ Status Filesystem::ExcludeFromBackups(const Path& dir) {
                           forKey:NSURLIsExcludedFromBackupKey
                            error:&error]) {
     return Status{
-        Error::kInternal,
+        Error::Internal,
         "Failed to mark persistence directory as excluded from backups"}
         .CausedBy(Status::FromNSError(error));
   }
@@ -70,7 +69,7 @@ StatusOr<Path> Filesystem::LegacyDocumentsDir(absl::string_view app_name) {
   return Path::FromNSString(NSHomeDirectory()).AppendUtf8(dot_prefixed);
 
 #else
-  return Status(Error::kUnimplemented, "No legacy storage on this platform.");
+  return Status(Error::Unimplemented, "No legacy storage on this platform.");
 #endif
 }
 

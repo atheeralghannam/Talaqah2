@@ -9,6 +9,7 @@
 #import "SDImageCache.h"
 #import "NSImage+Compatibility.h"
 #import "SDImageCodersManager.h"
+#import "SDImageTransformer.h"
 #import "SDImageCoderHelper.h"
 #import "SDAnimatedImage.h"
 #import "UIImage+MemoryCacheCost.h"
@@ -186,25 +187,13 @@
         dispatch_async(self.ioQueue, ^{
             @autoreleasepool {
                 NSData *data = imageData;
-                if (!data && [image conformsToProtocol:@protocol(SDAnimatedImage)]) {
-                    // If image is custom animated image class, prefer its original animated data
-                    data = [((id<SDAnimatedImage>)image) animatedImageData];
-                }
                 if (!data && image) {
-                    // Check image's associated image format, may return .undefined
-                    SDImageFormat format = image.sd_imageFormat;
-                    if (format == SDImageFormatUndefined) {
-                        // If image is animated, use GIF (APNG may be better, but has bugs before macOS 10.14)
-                        if (image.sd_isAnimated) {
-                            format = SDImageFormatGIF;
-                        } else {
-                            // If we do not have any data to detect image format, check whether it contains alpha channel to use PNG or JPEG format
-                            if ([SDImageCoderHelper CGImageContainsAlpha:image.CGImage]) {
-                                format = SDImageFormatPNG;
-                            } else {
-                                format = SDImageFormatJPEG;
-                            }
-                        }
+                    // If we do not have any data to detect image format, check whether it contains alpha channel to use PNG or JPEG format
+                    SDImageFormat format;
+                    if ([SDImageCoderHelper CGImageContainsAlpha:image.CGImage]) {
+                        format = SDImageFormatPNG;
+                    } else {
+                        format = SDImageFormatJPEG;
                     }
                     data = [[SDImageCodersManager sharedManager] encodedDataWithImage:image format:format options:nil];
                 }
@@ -222,10 +211,7 @@
                             }
                         } else {
                             @try {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                                 extendedData = [NSKeyedArchiver archivedDataWithRootObject:extendedObject];
-#pragma clang diagnostic pop
                             } @catch (NSException *exception) {
                                 NSLog(@"NSKeyedArchiver archive failed with exception: %@", exception);
                             }
@@ -313,17 +299,6 @@
     return [self.diskCache containsDataForKey:key];
 }
 
-- (void)diskImageDataQueryForKey:(NSString *)key completion:(SDImageCacheQueryDataCompletionBlock)completionBlock {
-    dispatch_async(self.ioQueue, ^{
-        NSData *imageData = [self diskImageDataBySearchingAllPathsForKey:key];
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(imageData);
-            });
-        }
-    });
-}
-
 - (nullable NSData *)diskImageDataForKey:(nullable NSString *)key {
     if (!key) {
         return nil;
@@ -341,12 +316,7 @@
 }
 
 - (nullable UIImage *)imageFromDiskCacheForKey:(nullable NSString *)key {
-    return [self imageFromDiskCacheForKey:key options:0 context:nil];
-}
-
-- (nullable UIImage *)imageFromDiskCacheForKey:(nullable NSString *)key options:(SDImageCacheOptions)options context:(nullable SDWebImageContext *)context {
-    NSData *data = [self diskImageDataForKey:key];
-    UIImage *diskImage = [self diskImageForKey:key data:data options:options context:context];
+    UIImage *diskImage = [self diskImageForKey:key];
     if (diskImage && self.config.shouldCacheImagesInMemory) {
         NSUInteger cost = diskImage.sd_memoryCost;
         [self.memoryCache setObject:diskImage forKey:key cost:cost];
@@ -356,10 +326,6 @@
 }
 
 - (nullable UIImage *)imageFromCacheForKey:(nullable NSString *)key {
-    return [self imageFromCacheForKey:key options:0 context:nil];
-}
-
-- (nullable UIImage *)imageFromCacheForKey:(nullable NSString *)key options:(SDImageCacheOptions)options context:(nullable SDWebImageContext *)context {
     // First check the in-memory cache...
     UIImage *image = [self imageFromMemoryCacheForKey:key];
     if (image) {
@@ -367,7 +333,7 @@
     }
     
     // Second check the disk cache...
-    image = [self imageFromDiskCacheForKey:key options:options context:context];
+    image = [self imageFromDiskCacheForKey:key];
     return image;
 }
 
@@ -419,10 +385,7 @@
                     }
                 } else {
                     @try {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                         extendedObject = [NSKeyedUnarchiver unarchiveObjectWithData:extendedData];
-#pragma clang diagnostic pop
                     } @catch (NSException *exception) {
                         NSLog(@"NSKeyedUnarchiver unarchive failed with exception: %@", exception);
                     }
@@ -445,29 +408,22 @@
 }
 
 - (nullable NSOperation *)queryCacheOperationForKey:(nullable NSString *)key options:(SDImageCacheOptions)options context:(nullable SDWebImageContext *)context done:(nullable SDImageCacheQueryCompletionBlock)doneBlock {
-    return [self queryCacheOperationForKey:key options:options context:context cacheType:SDImageCacheTypeAll done:doneBlock];
-}
-
-- (nullable NSOperation *)queryCacheOperationForKey:(nullable NSString *)key options:(SDImageCacheOptions)options context:(nullable SDWebImageContext *)context cacheType:(SDImageCacheType)queryCacheType done:(nullable SDImageCacheQueryCompletionBlock)doneBlock {
     if (!key) {
         if (doneBlock) {
             doneBlock(nil, nil, SDImageCacheTypeNone);
         }
         return nil;
     }
-    // Invalid cache type
-    if (queryCacheType == SDImageCacheTypeNone) {
-        if (doneBlock) {
-            doneBlock(nil, nil, SDImageCacheTypeNone);
-        }
-        return nil;
+    
+    id<SDImageTransformer> transformer = context[SDWebImageContextImageTransformer];
+    if (transformer) {
+        // grab the transformed disk image if transformer provided
+        NSString *transformerKey = [transformer transformerKey];
+        key = SDTransformedKeyForKey(key, transformerKey);
     }
     
     // First check the in-memory cache...
-    UIImage *image;
-    if (queryCacheType != SDImageCacheTypeDisk) {
-        image = [self imageFromMemoryCacheForKey:key];
-    }
+    UIImage *image = [self imageFromMemoryCacheForKey:key];
     
     if (image) {
         if (options & SDImageCacheDecodeFirstFrameOnly) {
@@ -490,7 +446,7 @@
         }
     }
 
-    BOOL shouldQueryMemoryOnly = (queryCacheType == SDImageCacheTypeMemory) || (image && !(options & SDImageCacheQueryMemoryData));
+    BOOL shouldQueryMemoryOnly = (image && !(options & SDImageCacheQueryMemoryData));
     if (shouldQueryMemoryOnly) {
         if (doneBlock) {
             doneBlock(image, nil, SDImageCacheTypeMemory);
@@ -725,10 +681,6 @@
 #pragma mark - SDImageCache
 
 - (id<SDWebImageOperation>)queryImageForKey:(NSString *)key options:(SDWebImageOptions)options context:(nullable SDWebImageContext *)context completion:(nullable SDImageCacheQueryCompletionBlock)completionBlock {
-    return [self queryImageForKey:key options:options context:context cacheType:SDImageCacheTypeAll completion:completionBlock];
-}
-
-- (id<SDWebImageOperation>)queryImageForKey:(NSString *)key options:(SDWebImageOptions)options context:(nullable SDWebImageContext *)context cacheType:(SDImageCacheType)cacheType completion:(nullable SDImageCacheQueryCompletionBlock)completionBlock {
     SDImageCacheOptions cacheOptions = 0;
     if (options & SDWebImageQueryMemoryData) cacheOptions |= SDImageCacheQueryMemoryData;
     if (options & SDWebImageQueryMemoryDataSync) cacheOptions |= SDImageCacheQueryMemoryDataSync;
@@ -739,7 +691,7 @@
     if (options & SDWebImagePreloadAllFrames) cacheOptions |= SDImageCachePreloadAllFrames;
     if (options & SDWebImageMatchAnimatedImageClass) cacheOptions |= SDImageCacheMatchAnimatedImageClass;
     
-    return [self queryCacheOperationForKey:key options:cacheOptions context:context cacheType:cacheType done:completionBlock];
+    return [self queryCacheOperationForKey:key options:cacheOptions context:context done:completionBlock];
 }
 
 - (void)storeImage:(UIImage *)image imageData:(NSData *)imageData forKey:(nullable NSString *)key cacheType:(SDImageCacheType)cacheType completion:(nullable SDWebImageNoParamsBlock)completionBlock {

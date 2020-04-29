@@ -20,10 +20,17 @@
 #include <memory>
 
 #include "Firestore/core/src/firebase/firestore/api/listener_registration.h"
-#include "Firestore/core/src/firebase/firestore/core/core_fwd.h"
+#include "Firestore/core/src/firebase/firestore/core/event_listener.h"
+#include "Firestore/core/src/firebase/firestore/util/empty.h"
 
 namespace firebase {
 namespace firestore {
+namespace core {
+
+class FirestoreClient;
+
+}  // namespace core
+
 namespace api {
 
 /**

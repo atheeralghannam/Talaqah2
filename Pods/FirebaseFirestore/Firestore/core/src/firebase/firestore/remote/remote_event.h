@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "Firestore/core/src/firebase/firestore/core/view_snapshot.h"
+#include "Firestore/core/src/firebase/firestore/local/target_data.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/maybe_document.h"
@@ -34,11 +35,6 @@
 
 namespace firebase {
 namespace firestore {
-
-namespace local {
-class TargetData;
-}  // namespace local
-
 namespace remote {
 
 /**
@@ -47,7 +43,8 @@ namespace remote {
  */
 class TargetMetadataProvider {
  public:
-  virtual ~TargetMetadataProvider() = default;
+  virtual ~TargetMetadataProvider() {
+  }
 
   /**
    * Returns the set of remote document keys for the given target ID as of the
@@ -86,7 +83,7 @@ class TargetChange {
                model::DocumentKeySet added_documents,
                model::DocumentKeySet modified_documents,
                model::DocumentKeySet removed_documents)
-      : resume_token_{std::move(resume_token)},
+      : resume_token_{resume_token},
         current_{current},
         added_documents_{std::move(added_documents)},
         modified_documents_{std::move(modified_documents)},

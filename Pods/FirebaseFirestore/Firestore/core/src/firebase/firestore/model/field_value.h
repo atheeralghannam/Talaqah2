@@ -30,20 +30,18 @@
 #include "Firestore/core/src/firebase/firestore/immutable/sorted_map.h"
 #include "Firestore/core/src/firebase/firestore/model/database_id.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/model/field_mask.h"
+#include "Firestore/core/src/firebase/firestore/model/field_path.h"
+#include "Firestore/core/src/firebase/firestore/model/field_value.h"
+#include "Firestore/core/src/firebase/firestore/nanopb/byte_string.h"
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "absl/base/attributes.h"
 #include "absl/types/optional.h"
 
 namespace firebase {
 namespace firestore {
-
-namespace nanopb {
-class ByteString;
-}  // namespace nanopb
-
 namespace model {
 
-class FieldMask;
-class FieldPath;
 class ObjectValue;
 
 /**
@@ -287,7 +285,9 @@ class ObjectValue : public util::Comparable<ObjectValue> {
   // ObjectValue::Empty() to make intentions clear to readers.
   ObjectValue();
 
-  explicit ObjectValue(FieldValue fv);
+  explicit ObjectValue(FieldValue fv) : fv_(std::move(fv)) {
+    HARD_ASSERT(fv_.type() == FieldValue::Type::Object);
+  }
 
   static ObjectValue Empty() {
     return ObjectValue(FieldValue::EmptyObject());

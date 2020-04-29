@@ -27,7 +27,8 @@ namespace remote {
 /** Observer that gets notified of events on a gRPC stream. */
 class GrpcStreamObserver {
  public:
-  virtual ~GrpcStreamObserver() = default;
+  virtual ~GrpcStreamObserver() {
+  }
 
   // Stream has been successfully established.
   virtual void OnStreamStart() = 0;

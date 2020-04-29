@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2018 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,12 +48,13 @@ class FieldMask {
 
   FieldMask(std::initializer_list<FieldPath> list) : fields_{list} {
   }
-
   template <class InputIt>
   FieldMask(InputIt first, InputIt last) : fields_{first, last} {
   }
-
   explicit FieldMask(std::set<FieldPath> fields) : fields_{std::move(fields)} {
+  }
+
+  FieldMask(const FieldMask& f) : fields_{f.begin(), f.end()} {
   }
 
   const_iterator begin() const {

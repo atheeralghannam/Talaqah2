@@ -19,7 +19,8 @@
 
 #include "Firestore/core/src/firebase/firestore/immutable/sorted_set.h"
 #include "Firestore/core/src/firebase/firestore/local/document_key_reference.h"
-#include "Firestore/core/src/firebase/firestore/model/model_fwd.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 
 namespace firebase {
 namespace firestore {

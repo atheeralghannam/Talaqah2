@@ -20,15 +20,10 @@
 #include <string>
 
 #include "Firestore/core/src/firebase/firestore/core/field_filter.h"
+#include "Firestore/core/src/firebase/firestore/model/field_path.h"
 
 namespace firebase {
 namespace firestore {
-
-namespace model {
-class FieldPath;
-class FieldValue;
-}  // namespace model
-
 namespace core {
 
 /**

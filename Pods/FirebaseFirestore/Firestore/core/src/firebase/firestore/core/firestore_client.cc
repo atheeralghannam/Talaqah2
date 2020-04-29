@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2019 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,15 @@
 #include <memory>
 #include <utility>
 
-#include "Firestore/core/src/firebase/firestore/api/document_reference.h"
-#include "Firestore/core/src/firebase/firestore/api/document_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/api/query_core.h"
-#include "Firestore/core/src/firebase/firestore/api/query_snapshot.h"
 #include "Firestore/core/src/firebase/firestore/api/settings.h"
 #include "Firestore/core/src/firebase/firestore/auth/credentials_provider.h"
 #include "Firestore/core/src/firebase/firestore/core/database_info.h"
 #include "Firestore/core/src/firebase/firestore/core/event_manager.h"
-#include "Firestore/core/src/firebase/firestore/core/query_listener.h"
-#include "Firestore/core/src/firebase/firestore/core/sync_engine.h"
 #include "Firestore/core/src/firebase/firestore/core/view.h"
 #include "Firestore/core/src/firebase/firestore/local/index_free_query_engine.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_opener.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_persistence.h"
-#include "Firestore/core/src/firebase/firestore/local/local_documents_view.h"
 #include "Firestore/core/src/firebase/firestore/local/local_serializer.h"
-#include "Firestore/core/src/firebase/firestore/local/local_store.h"
 #include "Firestore/core/src/firebase/firestore/local/memory_persistence.h"
 #include "Firestore/core/src/firebase/firestore/local/query_result.h"
 #include "Firestore/core/src/firebase/firestore/model/database_id.h"
@@ -61,10 +53,8 @@ namespace core {
 
 using api::DocumentReference;
 using api::DocumentSnapshot;
-using api::DocumentSnapshotListener;
 using api::ListenerRegistration;
 using api::QuerySnapshot;
-using api::QuerySnapshotListener;
 using api::Settings;
 using api::SnapshotMetadata;
 using auth::CredentialsProvider;
@@ -326,7 +316,9 @@ bool FirestoreClient::is_terminated() const {
 }
 
 std::shared_ptr<QueryListener> FirestoreClient::ListenToQuery(
-    Query query, ListenOptions options, ViewSnapshotSharedListener&& listener) {
+    Query query,
+    ListenOptions options,
+    ViewSnapshot::SharedListener&& listener) {
   VerifyNotTerminated();
 
   auto query_listener = QueryListener::Create(
@@ -354,7 +346,7 @@ void FirestoreClient::RemoveListener(
 }
 
 void FirestoreClient::GetDocumentFromLocalCache(
-    const DocumentReference& doc, DocumentSnapshotListener&& callback) {
+    const DocumentReference& doc, DocumentSnapshot::Listener&& callback) {
   VerifyNotTerminated();
 
   // TODO(c++14): move `callback` into lambda.
@@ -379,7 +371,7 @@ void FirestoreClient::GetDocumentFromLocalCache(
                            /*from_cache=*/true});
     } else {
       maybe_snapshot =
-          Status{Error::kUnavailable,
+          Status{Error::Unavailable,
                  "Failed to get document from cache. (However, this document "
                  "may exist on the server. Run again without setting source to "
                  "FirestoreSourceCache to attempt to retrieve the document "};
@@ -393,7 +385,7 @@ void FirestoreClient::GetDocumentFromLocalCache(
 }
 
 void FirestoreClient::GetDocumentsFromLocalCache(
-    const api::Query& query, QuerySnapshotListener&& callback) {
+    const api::Query& query, QuerySnapshot::Listener&& callback) {
   VerifyNotTerminated();
 
   // TODO(c++14): move `callback` into lambda.

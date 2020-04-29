@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2019 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,24 +40,39 @@ class QueryListener {
   static std::shared_ptr<QueryListener> Create(
       Query query,
       ListenOptions options,
-      ViewSnapshotSharedListener&& listener);
+      ViewSnapshot::SharedListener&& listener) {
+    return std::make_shared<QueryListener>(std::move(query), std::move(options),
+                                           std::move(listener));
+  }
 
   static std::shared_ptr<QueryListener> Create(
-      Query query, ViewSnapshotSharedListener&& listener);
+      Query query, ViewSnapshot::SharedListener&& listener) {
+    return Create(std::move(query), ListenOptions::DefaultOptions(),
+                  std::move(listener));
+  }
 
   static std::shared_ptr<QueryListener> Create(
       Query query,
       ListenOptions options,
-      util::StatusOrCallback<ViewSnapshot>&& listener);
+      util::StatusOrCallback<ViewSnapshot>&& listener) {
+    auto event_listener =
+        EventListener<ViewSnapshot>::Create(std::move(listener));
+    return Create(std::move(query), std::move(options),
+                  std::move(event_listener));
+  }
 
   static std::shared_ptr<QueryListener> Create(
-      Query query, util::StatusOrCallback<ViewSnapshot>&& listener);
+      Query query, util::StatusOrCallback<ViewSnapshot>&& listener) {
+    return Create(std::move(query), ListenOptions::DefaultOptions(),
+                  std::move(listener));
+  }
 
   QueryListener(Query query,
                 ListenOptions options,
-                ViewSnapshotSharedListener&& listener);
+                ViewSnapshot::SharedListener&& listener);
 
-  virtual ~QueryListener() = default;
+  virtual ~QueryListener() {
+  }
 
   const Query& query() const {
     return query_;
@@ -94,7 +109,7 @@ class QueryListener {
    * The EventListener that will process ViewSnapshots associated with this
    * query listener.
    */
-  ViewSnapshotSharedListener listener_;
+  ViewSnapshot::SharedListener listener_;
 
   /**
    * Initial snapshots (e.g. from cache) may not be propagated to the

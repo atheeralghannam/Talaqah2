@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Google LLC
+ * Copyright 2017 Google
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,13 +36,10 @@
 
 #include "Firestore/core/src/firebase/firestore/api/query_core.h"
 #include "Firestore/core/src/firebase/firestore/api/query_listener_registration.h"
-#include "Firestore/core/src/firebase/firestore/api/query_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/api/source.h"
 #include "Firestore/core/src/firebase/firestore/core/bound.h"
 #include "Firestore/core/src/firebase/firestore/core/direction.h"
 #include "Firestore/core/src/firebase/firestore/core/filter.h"
 #include "Firestore/core/src/firebase/firestore/core/firestore_client.h"
-#include "Firestore/core/src/firebase/firestore/core/listen_options.h"
 #include "Firestore/core/src/firebase/firestore/core/order_by.h"
 #include "Firestore/core/src/firebase/firestore/core/query.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
@@ -62,7 +59,6 @@ using firebase::firestore::api::ListenerRegistration;
 using firebase::firestore::api::Query;
 using firebase::firestore::api::QueryListenerRegistration;
 using firebase::firestore::api::QuerySnapshot;
-using firebase::firestore::api::QuerySnapshotListener;
 using firebase::firestore::api::SnapshotMetadata;
 using firebase::firestore::api::Source;
 using firebase::firestore::core::AsyncEventListener;
@@ -358,9 +354,10 @@ int32_t SaturatedLimitValue(NSInteger limit) {
     return [self queryFilteredUsingComparisonPredicate:predicate];
   } else if ([predicate isKindOfClass:[NSCompoundPredicate class]]) {
     return [self queryFilteredUsingCompoundPredicate:predicate];
-  } else if ([predicate isKindOfClass:[[NSPredicate predicateWithBlock:^BOOL(id, NSDictionary *) {
-                          return true;
-                        }] class]]) {
+  } else if ([predicate isKindOfClass:[[NSPredicate
+                                          predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+                                            return true;
+                                          }] class]]) {
     ThrowInvalidArgument("Invalid query. Block-based predicates are not supported. Please use "
                          "predicateWithFormat to create predicates instead.");
   } else {
@@ -449,7 +446,7 @@ int32_t SaturatedLimitValue(NSInteger limit) {
   return [self.firestore.dataConverter parsedQueryValue:value allowArrays:allowArrays];
 }
 
-- (QuerySnapshotListener)wrapQuerySnapshotBlock:(FIRQuerySnapshotBlock)block {
+- (QuerySnapshot::Listener)wrapQuerySnapshotBlock:(FIRQuerySnapshotBlock)block {
   class Converter : public EventListener<QuerySnapshot> {
    public:
     explicit Converter(FIRQuerySnapshotBlock block) : block_(block) {
