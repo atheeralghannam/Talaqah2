@@ -116,9 +116,9 @@
 		4525BAA4245A912F002E0E78 /* hesleep2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BA9C245A912E002E0E78 /* hesleep2.mp3 */; };
 		4525BAA5245A912F002E0E78 /* hesleep3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BA9D245A912E002E0E78 /* hesleep3.mp3 */; };
 		4525BAA6245A912F002E0E78 /* shesleep3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BA9E245A912F002E0E78 /* shesleep3.mp3 */; };
-		4525BAA7245A912F002E0E78 /* hesleep1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BA9F245A912F002E0E78 /* hesleep1.mp3 */; };
-		4525BAA8245A912F002E0E78 /* shesleep1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BAA0245A912F002E0E78 /* shesleep1.mp3 */; };
-		4525BAA9245A912F002E0E78 /* shesleep4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BAA1245A912F002E0E78 /* shesleep4.mp3 */; };
+		4525BAAD245A997F002E0E78 /* hesleep1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BAAA245A997F002E0E78 /* hesleep1.mp3 */; };
+		4525BAAE245A997F002E0E78 /* shesleep4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BAAB245A997F002E0E78 /* shesleep4.mp3 */; };
+		4525BAAF245A997F002E0E78 /* shesleep1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4525BAAC245A997F002E0E78 /* shesleep1.mp3 */; };
 		45596D6D2448F2290007B65B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45596D6C2448F2290007B65B /* Date.swift */; };
 		456BC4B3242A74E300BB2912 /* SlpRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */; };
 		45731F0B242BF0810096C7FF /* SLPViewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */; };
@@ -296,9 +296,9 @@
 		4525BA9C245A912E002E0E78 /* hesleep2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hesleep2.mp3; sourceTree = "<group>"; };
 		4525BA9D245A912E002E0E78 /* hesleep3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hesleep3.mp3; sourceTree = "<group>"; };
 		4525BA9E245A912F002E0E78 /* shesleep3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shesleep3.mp3; sourceTree = "<group>"; };
-		4525BA9F245A912F002E0E78 /* hesleep1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hesleep1.mp3; sourceTree = "<group>"; };
-		4525BAA0245A912F002E0E78 /* shesleep1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shesleep1.mp3; sourceTree = "<group>"; };
-		4525BAA1245A912F002E0E78 /* shesleep4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shesleep4.mp3; sourceTree = "<group>"; };
+		4525BAAA245A997F002E0E78 /* hesleep1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hesleep1.mp3; sourceTree = "<group>"; };
+		4525BAAB245A997F002E0E78 /* shesleep4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shesleep4.mp3; sourceTree = "<group>"; };
+		4525BAAC245A997F002E0E78 /* shesleep1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shesleep1.mp3; sourceTree = "<group>"; };
 		45596D6C2448F2290007B65B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlpRegisterViewController.swift; sourceTree = "<group>"; };
 		45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPViewProfileViewController.swift; sourceTree = "<group>"; };
@@ -515,14 +515,14 @@
 		4525B9F924598E5A002E0E78 /* Audios */ = {
 			isa = PBXGroup;
 			children = (
-				4525BA9F245A912F002E0E78 /* hesleep1.mp3 */,
+				4525BAAA245A997F002E0E78 /* hesleep1.mp3 */,
+				4525BAAC245A997F002E0E78 /* shesleep1.mp3 */,
+				4525BAAB245A997F002E0E78 /* shesleep4.mp3 */,
 				4525BA9C245A912E002E0E78 /* hesleep2.mp3 */,
 				4525BA9D245A912E002E0E78 /* hesleep3.mp3 */,
 				4525BA9A245A912E002E0E78 /* hesleep4.mp3 */,
-				4525BAA0245A912F002E0E78 /* shesleep1.mp3 */,
 				4525BA9B245A912E002E0E78 /* shesleep2.mp3 */,
 				4525BA9E245A912F002E0E78 /* shesleep3.mp3 */,
-				4525BAA1245A912F002E0E78 /* shesleep4.mp3 */,
 				4525BA0C24598F25002E0E78 /* blender1.mp3 */,
 				4525BA3E24598F95002E0E78 /* blender2.mp3 */,
 				4525BA1424598F36002E0E78 /* blender3.mp3 */,
@@ -756,7 +756,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4525BAA9245A912F002E0E78 /* shesleep4.mp3 in Resources */,
 				4525B9EF2459803E002E0E78 /* mouth3.mp3 in Resources */,
 				4525BA6A24598FAF002E0E78 /* fat4.mp3 in Resources */,
 				4525BA6C24598FAF002E0E78 /* grape3.mp3 in Resources */,
@@ -778,8 +777,7 @@
 				4525BA8A24598FAF002E0E78 /* kitchen1.mp3 in Resources */,
 				4525BA6024598FAF002E0E78 /* heart4.mp3 in Resources */,
 				4525BA8124598FAF002E0E78 /* fat3.mp3 in Resources */,
-				4525BAA8245A912F002E0E78 /* shesleep1.mp3 in Resources */,
-				4525BAA7245A912F002E0E78 /* hesleep1.mp3 in Resources */,
+				4525BAAD245A997F002E0E78 /* hesleep1.mp3 in Resources */,
 				4525BAA6245A912F002E0E78 /* shesleep3.mp3 in Resources */,
 				4525BA5324598FAF002E0E78 /* chair2.mp3 in Resources */,
 				4525BA5024598FAF002E0E78 /* knife1.mp3 in Resources */,
@@ -806,6 +804,7 @@
 				4525BA7324598FAF002E0E78 /* scarf3.mp3 in Resources */,
 				4525BA9424598FAF002E0E78 /* chair3.mp3 in Resources */,
 				4525BA5C24598FAF002E0E78 /* blender1.mp3 in Resources */,
+				4525BAAE245A997F002E0E78 /* shesleep4.mp3 in Resources */,
 				4525BAA5245A912F002E0E78 /* hesleep3.mp3 in Resources */,
 				4525BA9524598FAF002E0E78 /* kitchen3.mp3 in Resources */,
 				4525BA7524598FAF002E0E78 /* egg3.mp3 in Resources */,
@@ -823,6 +822,7 @@
 				4525BA7924598FAF002E0E78 /* chair1.mp3 in Resources */,
 				4525BAA3245A912F002E0E78 /* shesleep2.mp3 in Resources */,
 				4525B9F524598B2C002E0E78 /* lemon1.mp3 in Resources */,
+				4525BAAF245A997F002E0E78 /* shesleep1.mp3 in Resources */,
 				4525BA9224598FAF002E0E78 /* eye3.mp3 in Resources */,
 				4525BA8524598FAF002E0E78 /* egg2.mp3 in Resources */,
 				4525BA6924598FAF002E0E78 /* scarf1.mp3 in Resources */,
