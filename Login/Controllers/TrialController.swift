@@ -206,18 +206,18 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         //if nill ..... no answer
         if UserDefaults.standard.string(forKey: Constants.currentAnswer) == nil{
              SCLAlertView().showCustom("لا توجد إجابة", subTitle: "حاول مجددًا", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
-            self.playSound(filename: "NoAnswer", ext: "mp3")
+            playSound(filename: "NoAnswer", ext: "mp3")
 
             return;
         }
        else if (UserDefaults.standard.bool(forKey: Constants.isAnswerCorrect) == true){
              SCLAlertView().showSuccess("إجابة صحيحة", subTitle: "أحسنت!", closeButtonTitle: "حسنًا")
-            self.playSound(filename: "Correct", ext: "mp3")
+            playSound(filename: "Correct", ext: "mp3")
             setProgress( answer: trials[count].answer ,result: "t")
         }
         else{
             SCLAlertView().showError("إجابة خاطئة", subTitle: "حظ أوفر", closeButtonTitle: "حسنًا")
-            self.playSound(filename: "Wrong", ext: "mp3")
+            playSound(filename: "Wrong", ext: "mp3")
         setProgress( answer: trials[count].answer ,result: "f")
         }
     }
@@ -449,7 +449,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         
         // Load the image using SDWebImage
         imageView.sd_setImage(with: reference, placeholderImage: placeholderImage) { (image, error, cache, url) in
-            self.playSound(filename: "canYouNaming", ext: "mp3")
+        self.playSound(filename: "canYouNaming", ext: "mp3")
            
         }
          trials[self.count].isShown = true
@@ -499,20 +499,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
     
     @IBAction func cuesPressed(_ sender: UIButton) {
             if sender.currentTitle == "المعنى" {
-                let audPath = "audios/"+trials[count].audiosNames[0]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                        print("error")
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                    
-                }
+                playSound(filename: trials[count].audiosNames[0], ext: "mp3")
                 if scue{
                     cue2.isEnabled = true
                     cue2.alpha = 1
@@ -552,19 +539,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "الصوت الأول" {
-                let audPath = "audios/"+trials[count].audiosNames[1]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                    
-                }
+                playSound(filename: trials[count].audiosNames[1], ext: "mp3")
                 writtenCue.text = ""
                 if frcue {
                     cue4.isEnabled = true
@@ -580,18 +555,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "المقطع الأول"{
-                let audPath = "audios/"+trials[count].audiosNames[2]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                }
+                playSound(filename: trials[count].audiosNames[2], ext: "mp3")
                 if fvcue {
                     cue5.isEnabled = true
                     cue5.alpha = 1
@@ -620,18 +584,7 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
                     cue7.alpha = 1
                 }
             } else if sender.currentTitle == "الكلمة منطوقة"{
-                let audPath = "audios/"+trials[count].audiosNames[3]+".mp3"
-                let starsRef = storageRef.child(audPath)
-                starsRef.downloadURL { url, error in
-                    if error != nil {
-                        // Handle any errors
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        let playerItem = AVPlayerItem(url: URL(string: url!.absoluteString)!)
-                        self.playerAt = AVPlayer(playerItem: playerItem)
-                        self.playerAt.play()
-                    }
-                }
+                playSound(filename: trials[count].audiosNames[3], ext: "mp3")
                 writtenCue.text = ""
             }
     }
@@ -646,13 +599,14 @@ class TrialController: UIViewController,SFSpeechRecognizerDelegate {
         
         // Make sure that we've got the url, otherwise abord
         guard url != nil else {
+            print("Problem")
             return
         }
         
         // Create the audio player and play the sound
         do {
             audioPlayerFirst = try AVAudioPlayer(contentsOf: url!)
-            audioPlayerFirst?.play()
+            audioPlayerFirst!.play() 
         }
         catch {
             print("error")
