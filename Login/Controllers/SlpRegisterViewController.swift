@@ -14,6 +14,7 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
     
     var validation = Validation()
     var gender = "male"
+    @IBOutlet weak var theGender: UISegmentedControl!
     
  
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -48,6 +49,15 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
     }//end viewDidLoad()
     
     
+    @IBAction func Gender(_ sender: UISegmentedControl) {
+        let getIndex = theGender.selectedSegmentIndex
+               if getIndex == 0 {
+                   gender = "male"
+               }
+               else {
+                   gender = "female"
+               }
+    }
     //may not needed
     override func awakeFromNib() {
         self.view.layoutIfNeeded()
@@ -209,7 +219,7 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
 //                    db.collection("slps").addDocument(data: [ "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "HospitalName": hospitalName, "uid": result!.user.uid ]) { (error) in
 //
                         let db = Firestore.firestore()
-                    db.collection("slps").addDocument(data: [ "fname":firstName, "lname":lastName, "email":email, "phone": phone, "uid": result!.user.uid, "hospital": hospitalName ]) { (error) in
+                    db.collection("slps").addDocument(data: [ "fname":firstName, "lname":lastName, "email":email, "phone": phone, "uid": result!.user.uid, "hospital": hospitalName, "Gender": self.gender ]) { (error) in
                             
                         
                         if error != nil {
@@ -262,5 +272,11 @@ class SlpRegisterViewController: UIViewController, UITextFieldDelegate {
         return false
     } //end shouldAutorotate()
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toStartSlp"{
+            let destnationVC = segue.destination as! PatientsTableViewController
+            destnationVC.modalPresentationStyle = .fullScreen
+
+        }
+    }
 }//end controller
