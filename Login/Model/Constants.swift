@@ -27,6 +27,8 @@ struct Constants {
     static let slpEmail = "slpEmail"
     static let selectedPatient="selectedPatient"
     static let pGender = "pGender"
+    static let sGender = "sGender"
+    static let isExistID="isExistID"
 
 
     

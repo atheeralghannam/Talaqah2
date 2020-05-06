@@ -26,6 +26,8 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
     
     var pEmail=String(), fName = String(), lName = String(), pGender = String(),pnID = String(), phoneNumber = String()
     
+    @IBOutlet weak var errorLabel: UILabel!
+    var validation = Validation()
     
     var gender = String()
     var isSave = false
@@ -37,6 +39,8 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
     @IBOutlet var luname: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetUpElements()
+
         if UserDefaults.standard.string(forKey: "pGender") == "female"{
             PatientImage.image = #imageLiteral(resourceName: "female")
         }else{
@@ -58,10 +62,96 @@ class editprofileViewController: UIViewController, UITableViewDelegate, UITextFi
         
     }
     
+    func SetUpElements() {
+            
+            // Hide the error label
+            errorLabel.alpha = 0
+            
+            // Style the elements
+            Utilities.styleTextField(textfield: funame)
+            Utilities.styleTextField(textfield: luname)
+            Utilities.styleTextField(textfield: umobile)
+         //   Utilities.styleTextField(textfield: slpEmail)
+            Utilities.styleTextField(textfield: natId)
+                  Utilities.styleErrorLabel(label: errorLabel)
+            self.natId.isEnabled=false
+            umobile.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+            umobile.delegate = self
+            
+            
+            //todo set up genderSegmented Style
+            
+        }
+        
+        func showError(_ message:String) {
+            
+            errorLabel.text = message
+            errorLabel.alpha = 1
+            print(message)
+        }
+        
+            func validateFields() -> Bool? {
+                
+                
+                
+                // Get text input from TextField
+                
+                
+                // Check that all fields are filled in
+                if luname.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                    funame.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                    umobile.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
+                    //||
+        //            slpEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+    //                slpHospital.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
+                    {
+                    
+                    //            return "Please fill in all fields."
+                        
+                        showError("الرجاء التحقق من تعبئة جميع الحقول")
+        //                return ""
+                    return false
+                }
+
+                let isValidName=self.validation.validateName(name: funame.text!) &&  self.validation.validateName(name: luname.text!)
+                       
+                       if isValidName==false {
+                        showError("الرجاء التحقق من إدخال اسم")
+        //                             return ""
+                           return false
+                       }
+                
+                let isValidPhone=self.validation.isValidPhoneNumber(phoneNumber: umobile.text!)
+                
+                if isValidPhone==false {
+                           showError("الرجاء التحقق من إدخال رقم صحيح : ********05")
+                    return false}
+
+        //        let isValidEmail=self.validation.validateEmailId(emailID: slpEmail.text!)
+                
+        //        if isValidEmail==false {
+        //            showError("الرجاء التحقق من إدخال بريد إلكتروني صحيح")
+        //
+        //            return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
+        //            //            return "Please enter valid phone: 05********"
+        //        }
+                
+        //        if (isNewEmail1() && isNewEmail2()){
+        //            print("")
+        //        }
+        //        else{
+        //            return "هذا البريد الإلكتروني مستخدم من شخص آخر"
+        //
+        //        }
+               
+                return true
+
+            }
     
-    
-    @IBAction func SaveProfileData(_ sender: Any) {
-        editUsersProfile()
+    @IBAction func SaveProfileData(_ sender: Any) {  if(validateFields()!){
+                  errorLabel.alpha = 0
+              editUsersProfile()
+          }
     }
     
     

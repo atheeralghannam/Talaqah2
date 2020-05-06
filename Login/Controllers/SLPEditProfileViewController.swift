@@ -28,7 +28,8 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
     var isNewEmail2 = false
 //    let myGroup = DispatchGroup()
 
-        
+    @IBOutlet weak var gender: UIImageView!
+   
     
     var  fName = String(), lName = String(), phoneNumber = String(), sHospital=String()
     
@@ -36,7 +37,12 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+      var gend = UserDefaults.standard.string(forKey: Constants.sGender)
+        if gend == "female"{
+            self.gender.image = #imageLiteral(resourceName: "fdoctor")
+        }else {
+            self.gender.image = #imageLiteral(resourceName: "mdoctor")
+        }
 
         SetUpElements()
         

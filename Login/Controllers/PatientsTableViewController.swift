@@ -17,6 +17,7 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var slpPhone: UILabel!
     @IBOutlet weak var slpHospital: UILabel!
     @IBOutlet var addButton: UIButton!
+    @IBOutlet weak var gender: UIImageView!
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -40,6 +41,12 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
             lname = UserDefaults.standard.string(forKey: Constants.slplName)!
             fname = UserDefaults.standard.string(forKey: Constants.slpfName)!
             slpName.text = fname + " " + lname
+            let gend = UserDefaults.standard.string(forKey: Constants.sGender)
+            if gend == "female"{
+                self.gender.image = #imageLiteral(resourceName: "fdoctor")
+            }else {
+                self.gender.image = #imageLiteral(resourceName: "mdoctor")
+            }
         }
         loadData()
         
@@ -64,11 +71,17 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
                         self.slpHospital.text = data["hospital"] as? String
                         
                         UserDefaults.standard.set(data["email"], forKey: Constants.slpEmail)
-                              UserDefaults.standard.set(data["fname"], forKey: Constants.slpfName)
-                              UserDefaults.standard.set(data["lname"], forKey: Constants.slplName)
-                              UserDefaults.standard.set(data["phone"], forKey: Constants.slpphone)
-                              UserDefaults.standard.set(data["hospital"], forKey: Constants.slpHospital)
+                        UserDefaults.standard.set(data["fname"], forKey: Constants.slpfName)
+                        UserDefaults.standard.set(data["lname"], forKey: Constants.slplName)
+                        UserDefaults.standard.set(data["phone"], forKey: Constants.slpphone)
+                        UserDefaults.standard.set(data["hospital"], forKey: Constants.slpHospital)
+                        UserDefaults.standard.set(data["Gender"], forKey: Constants.sGender)
                         self.slpName.text = self.fname + " " + self.lname
+                        if data["Gender"] as! String == "female"{
+                            self.gender.image = #imageLiteral(resourceName: "fdoctor")
+                        }else {
+                            self.gender.image = #imageLiteral(resourceName: "mdoctor")
+                        }
                     }}}}
       
   

@@ -14,7 +14,7 @@ class RegisterController: UIViewController, UITextFieldDelegate {
     
     var validation = Validation()
     var gender = "male"
-    
+    let db = Firestore.firestore()
     //    var isValidId = true
     
     
@@ -155,6 +155,14 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         let isMatchedPass=(password==confirmPassword)
         let isValidateId=self.validation.isValidateId(id: nIDTextField.text!)
         let isValidPhone=self.validation.isValidPhoneNumber(phoneNumber: phoneNumberTextField.text!)
+        let isValidatedEmail = self.validation.validateEmailId(emailID:emailTextField.text!)
+              
+              
+              if isValidatedEmail == false {
+                              return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
+
+                  
+              }
         
         
         
@@ -177,6 +185,39 @@ class RegisterController: UIViewController, UITextFieldDelegate {
             return "الرجاء التحقق من إدخال رقم صحيح : ********05"
 //            return "Please enter valid phone: 05********"
         }
+            db.collection("patients").whereField("NID", isEqualTo:nIDTextField.text).getDocuments {
+                                            (snapshot, error) in
+                                                    if let error = error {
+                                       print(error.localizedDescription)
+                                                              }
+                                                    else if snapshot!.documents.count != 0 {
+                                                        UserDefaults.standard.set(true,forKey: Constants.isExistID)
+                                                        print("registeration")
+                                                        print("not unique in patients")
+
+                                                        self.showError("رقم الهوية مسجّل مسبقًا.")
+                return
+
+        //                                                print("not unique in patients")
+                
+        //                                                UserDefaults.standard.set(true,forKey: Constants.isExistID)
+                                                                              }
+                                                    else{
+                                                        UserDefaults.standard.set(false,forKey: Constants.isExistID)
+                
+                                                        self.newRegister()
+                                                        print(" unique in patients")
+                
+                            }
+                    }
+                    
+                
+        //        if(UserDefaults.standard.bool(forKey:Constants.isExistID)){
+        //            print("registeration")
+        //            print(UserDefaults.standard.bool(forKey:Constants.isExistID))
+        //            return "رقم الهوية مسجّل مسبقًا."
+        //        }
+                
         
         return nil
     }
@@ -278,7 +319,71 @@ class RegisterController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "toLogin", sender: nil)
     }
     
-    
+    func newRegister(){
+           // Create cleaned versions of the data
+           let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let nID = nIDTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let phone = phoneNumberTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           //                                let gender="female"
+           
+           
+           
+           
+           let db = Firestore.firestore()
+
+           
+           // Create the user
+           Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+               
+               // Check for errors
+               if err != nil {
+                   // check if email is already registered
+                   Auth.auth().fetchSignInMethods(forEmail: email, completion: {
+                       (providers, error) in
+                       if let error = error {
+                           print(error.localizedDescription)
+                           self.showError("خطأ في تسجيل المستخدم !")
+                           //                            self.showError("Error creating user")
+                           print("Error creating user")
+                       } else if let providers = providers {
+                           self.showError("هذا البريد الإلكتروني مسجل مسبقًا")
+                           //                            self.showError("Email already exists")
+                           print("Email already exists")
+                           print(providers)
+                       }
+                   })
+                   // There was an error creating the user
+                   //                                        self.showError("Error creating user")
+                   //                                        print("Error creating user")
+               }
+               else {
+                   
+                   // User was created successfully, now store the first name and last name
+                   //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
+                   db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
+                                                                "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":"", "settings": [3,2,2,2],"categories": [],"progress": []]) { (error) in
+                       
+                       
+                       
+                       if error != nil {
+                           // Show error message
+                           self.showError("خطأ في حفظ بيانات المستخدم !")
+                           //                             self.showError("Error saving user data")
+                           print("Error saving user data")
+                       }
+                   }
+                   
+                   // Transition to the home screen
+                   //                                  self.transitionToHome()
+                   UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
+                   self.performSegue(withIdentifier: "toStart", sender: nil)
+               }
+               
+           }
+       }
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
