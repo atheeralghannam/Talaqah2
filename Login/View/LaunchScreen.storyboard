@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="jf.ttf">
+            <string>JFFlat-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
-                <viewController storyboardIdentifier="splashScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="splashScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="01J-lp-oVM" customClass="LViewController" customModule="Talaqah" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -18,21 +24,34 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TalaqahlLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6Hs-hP-IMZ">
                                 <rect key="frame" x="65.5" y="247.5" width="283.5" height="401"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="﴿وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي﴾" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6va-n8-ca5">
+                                <rect key="frame" x="0.0" y="684" width="414" height="21"/>
+                                <fontDescription key="fontDescription" name="JFFlat-Regular" family="JF Flat" pointSize="17"/>
+                                <color key="textColor" red="0.98224562410000005" green="0.4408633113" blue="0.33721879119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="Tala1"/>
                         <constraints>
                             <constraint firstItem="6Hs-hP-IMZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5bY-DM-aBR"/>
+                            <constraint firstItem="6va-n8-ca5" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="FTG-io-c5F"/>
+                            <constraint firstItem="6va-n8-ca5" firstAttribute="top" secondItem="6Hs-hP-IMZ" secondAttribute="bottom" constant="35.5" id="HFP-ze-4gV"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="6va-n8-ca5" secondAttribute="bottom" constant="157" id="YAs-jP-q9B"/>
                             <constraint firstItem="6Hs-hP-IMZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="j3Q-In-JEr"/>
+                            <constraint firstItem="6va-n8-ca5" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="v2f-Rc-5pq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
         <image name="TalaqahlLogo" width="283.5" height="401"/>
+        <namedColor name="Tala1">
+            <color red="0.9570000171661377" green="0.89800000190734863" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

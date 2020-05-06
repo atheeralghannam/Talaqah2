@@ -74,18 +74,17 @@ class SLPSettingsViewController: UIViewController {
             
             
             
-            
-            
-            SCLAlertView().showSuccess("تم حذف المريض بنجاح", subTitle: "", closeButtonTitle: "حسنًا")
-            self.performSegue(withIdentifier: "backToPatientsList", sender: nil)
-            
-            
+            let appearance = SCLAlertView.SCLAppearance(
+                       showCloseButton: false
+                   )
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("حسنًا") {
+                self.performSegue(withIdentifier: "deletePatient", sender: self)
+            }
+            alert.showSuccess("تم حذف المريض بنجاح", subTitle: "")
         }
         alertView.showWarning( "إزالة المريض", subTitle: "هل أنت متأكد من أنك تريد إزالة هذا المريض؟", closeButtonTitle: "لا")
         
-        
-        
-        performSegue(withIdentifier: "deletePatient", sender: self)
         
         
         

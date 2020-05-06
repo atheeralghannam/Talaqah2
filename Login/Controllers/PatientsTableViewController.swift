@@ -211,8 +211,6 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
         )
         let alertView = SCLAlertView(appearance: appearance)
         let txt = alertView.addTextField("رقم هوية/إقامة المريض")
-
-        alertView.showWarning("إضافة مريض", subTitle: "ادخل رقم هوية/إقامة المريض الذي تود إضافته", closeButtonTitle: "إلغاء")
         alertView.addButton( "إضافة") {
             let numOfText = txt.text!.trimmingCharacters(in: .whitespacesAndNewlines).count
             
@@ -338,6 +336,8 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
             }
             
         }
+        alertView.showCustom("إضافة مريض", subTitle: "ادخل رقم هوية/إقامة المريض الذي تود إضافته",color: UIColor(named: "Done")!, icon: UIImage(named: "saved")!,  closeButtonTitle: "إلغاء")
+
     }
     
     

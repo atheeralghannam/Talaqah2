@@ -116,6 +116,7 @@
 		373A36462462A34100DCAB6A /* eye1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 373A36422462A34100DCAB6A /* eye1.mp3 */; };
 		3744E1F0245641AD0088336D /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744E1EF245641AD0088336D /* UIView+Ext.swift */; };
 		375C68C6245531FB007A6F5D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C68C5245531FB007A6F5D /* StartViewController.swift */; };
+		3772E1F124634A910067B5E0 /* LViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772E1F024634A910067B5E0 /* LViewController.swift */; };
 		377764E62411BB0C008D045B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E52411BB0C008D045B /* BaseViewController.swift */; };
 		377764E82411D462008D045B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377764E72411D462008D045B /* HelpViewController.swift */; };
 		37E6C0782429921A009CA456 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6C0772429921A009CA456 /* SettingsViewController.swift */; };
@@ -300,6 +301,7 @@
 		373A36422462A34100DCAB6A /* eye1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = eye1.mp3; path = ../../../../../../Downloads/eye1.mp3; sourceTree = "<group>"; };
 		3744E1EF245641AD0088336D /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		375C68C5245531FB007A6F5D /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		3772E1F024634A910067B5E0 /* LViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LViewController.swift; sourceTree = "<group>"; };
 		377764E52411BB0C008D045B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		377764E72411D462008D045B /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		37E6C0772429921A009CA456 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				456BC4B2242A74E300BB2912 /* SlpRegisterViewController.swift */,
 				45731F0A242BF0810096C7FF /* SLPViewProfileViewController.swift */,
 				375C68C5245531FB007A6F5D /* StartViewController.swift */,
+				3772E1F024634A910067B5E0 /* LViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				45F8A82F24428A6800BAB3D6 /* Progress.swift in Sources */,
 				37E6C07C24299DEC009CA456 /* ComplixityViewController.swift in Sources */,
 				F523F836240D314700B003CF /* BaseSLPViewController.swift in Sources */,
+				3772E1F124634A910067B5E0 /* LViewController.swift in Sources */,
 				377764E62411BB0C008D045B /* BaseViewController.swift in Sources */,
 				F5221A44240E173500CBC7B2 /* DetailViewController.swift in Sources */,
 				F5B7BF1023EB43E70033B094 /* Validation.swift in Sources */,
