@@ -99,69 +99,6 @@ var patient: Patient?
         
     }
     
-    @IBAction func removePatientTapped(_ sender: Any) {
-        
-        
-        
-        print("Tapped")
-
-                                                        
-                                                        
-                                                        let refreshAlert = UIAlertController(title: "إزالة المريض", message:"هل أنت متأكد من أنك تريد إزالة هذا المريض؟", preferredStyle: UIAlertController.Style.alert)
-                                                               
-                                                               refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
-                                                         
-                                                                   
-                                                                self.db.collection("patients")
-                                                                    .whereField("NID", isEqualTo : self.patient?.NID)
-                                                                                                .getDocuments() { (querySnapshot, error) in
-                                                                                                    if let error = error {
-                                                                                                            print(error.localizedDescription)
-                                                                                                    } else if querySnapshot!.documents.count != 1 {
-                                                                                                            print("More than one documents or none")
-                                                                                                    } else {
-                                                                                                        
-                                                                                                    
-                                                                                                        let document = querySnapshot!.documents.first
-                                                                                                        document!.reference.updateData([
-                                                                                                          "slpUid": ""
-                                                                                                        ])
-
-                                                                                                    }}
-                                                                                
-                                                                                
-                                                                                                  var refreshAlert = UIAlertController(title: "تم حذف المريض بنجاح", message: "", preferredStyle: UIAlertController.Style.alert)
-
-                                                                                                    refreshAlert.addAction(UIAlertAction(title: "حسنًا", style: .default, handler: { (action: UIAlertAction!) in
-                                                                                                      print("Handle Ok logic here")
-                                                                                                   
-                                                                                                        self.performSegue(withIdentifier: "backToPatientsList", sender: nil)
-                                                                                                        
-         
-                                                                                                      }))
-
-                                                                
-
-                                                                                                    self.present(refreshAlert, animated: true, completion: nil)
-                                                                
-                                                                
-                                                                   
-                                                               }))
-                                                               
-                                                               refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-                                                                   print("Handle Cancel Logic here")
-                                                               }))
-                                                               
-                                                        self.present(refreshAlert, animated: true, completion: nil)
-                                                        
-                                                        
-        
-        
-        
-        
-        
-
-    }
     @IBAction func pSettings(_ sender: UIButton) {
         if patient != nil {
                    self.performSegue(withIdentifier: "patientSettings", sender: self)
@@ -181,47 +118,6 @@ var patient: Patient?
     }
     
     
-    
-    @IBAction func viewProgressClicked(_ sender: Any) {
-//      let db = Firestore.firestore()
-
-      
-          
-          db.collection("patients").whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: Constants.selectedPatient) ).getDocuments { (snapshot, error) in
-              if let error = error {
-                  print(error.localizedDescription)
-              } else {
-                  if let snapshot = snapshot {
-                      
-                      for document in snapshot.documents {
-                          
-                          let data = document.data()
-                          
-                        self.array = data["progress"] as! [String]
-                          
-                        if (self.array.isEmpty){
-                              let alert = UIAlertController(title: "عذرًا", message: "لم يتم إجراء أي تمرين", preferredStyle: UIAlertController.Style.alert)
-                                         
-                                         // add an action (button)
-                                         alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-                                         
-                                         // show the alert
-                                         self.present(alert, animated: true, completion: nil)
-   
-                          } else{
-                            self.performSegue(withIdentifier: "toSlpViewProgress", sender: nil)
-                        }
-                        
-                       
-                      }
-                      
-                
-                      
-                      
-                  }
-              }
-          }
-    }
     
     
 }

@@ -68,19 +68,6 @@ class CatSLpViewController: UIViewController {
         }
     }
     
-    @IBAction func goToSet(_ sender: UIButton) {
-        //Segue
-        if isSave {
-            //preform segue full screen to set
-            self.performSegue(withIdentifier: "toCom", sender: self)
-            
-        } else{
-            let alertController = UIAlertController(title: "لم يتم حفظ التغييرات", message:
-                "انقر حفظ ليتم حفظ تغييراتك", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "حسنًا", style: .default))
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
     @IBAction func Save(_ sender: UIButton) {
         patientCate()
     }

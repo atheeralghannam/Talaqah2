@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-
+import SCLAlertView
 
 class ResetPasswordViewController: UIViewController {
     
@@ -63,13 +63,7 @@ class ResetPasswordViewController: UIViewController {
 //                self.showToast(message: "Password reset email sent.", font: UIFont(name: "Times New Roman", size: 12.0)!)
                 self.errorLabel.alpha = 0
                 // create the alert
-                 let alert = UIAlertController(title: "تم إرسال رابط إعادة تعيين كلمة المرور لبريدك الإلكتروني بنجاح.", message: "فضلًا تحقق من بريدك الإلكتروني", preferredStyle: UIAlertController.Style.alert)
-                 
-                 // add an action (button)
-                 alert.addAction(UIAlertAction(title: "حسنًا", style: UIAlertAction.Style.default, handler: nil))
-                 
-                 // show the alert
-                 self.present(alert, animated: true, completion: nil)
+                SCLAlertView().showInfo("فضلًا تحقق من بريدك الإلكتروني", subTitle: "تم إرسال رابط إعادة تعيين كلمة المرور لبريدك الإلكتروني بنجاح.", closeButtonTitle: "حسنًا" )
                 // Password reset email sent.
                 
 //                //if - else

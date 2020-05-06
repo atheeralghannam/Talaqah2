@@ -50,58 +50,45 @@ class SLPSettingsViewController: UIViewController {
     }
     
     @IBAction func DeletePatient(_ sender: UIButton) {
+        let alertView = SCLAlertView()
         
+        alertView.addButton("نعم") {
+            
+            
+            self.db.collection("patients")
+                .whereField("NID", isEqualTo : self.patient!.NID)
+                .getDocuments() { (querySnapshot, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else if querySnapshot!.documents.count != 1 {
+                        print("More than one documents or none")
+                    } else {
+                        
+                        
+                        let document = querySnapshot!.documents.first
+                        document!.reference.updateData([
+                            "slpUid": ""
+                        ])
+                        
+                    }}
+            
+            
+            
+            
+            
+            SCLAlertView().showSuccess("تم حذف المريض بنجاح", subTitle: "", closeButtonTitle: "حسنًا")
+            self.performSegue(withIdentifier: "backToPatientsList", sender: nil)
+            
+            
+        }
+        alertView.showWarning( "إزالة المريض", subTitle: "هل أنت متأكد من أنك تريد إزالة هذا المريض؟", closeButtonTitle: "لا")
         
-        
-        print("Tapped")
-
-                                                        
-                                                        
-                                                        let refreshAlert = UIAlertController(title: "إزالة المريض", message:"هل أنت متأكد من أنك تريد إزالة هذا المريض؟", preferredStyle: UIAlertController.Style.alert)
-                                                               
-                                                               refreshAlert.addAction(UIAlertAction(title: "نعم", style: .default, handler: { (action: UIAlertAction!) in
-                                                         
-                                                                   
-                                                                self.db.collection("patients")
-                                                                    .whereField("NID", isEqualTo : self.patient!.NID)
-                                                                                                .getDocuments() { (querySnapshot, error) in
-                                                                                                    if let error = error {
-                                                                                                            print(error.localizedDescription)
-                                                                                                    } else if querySnapshot!.documents.count != 1 {
-                                                                                                            print("More than one documents or none")
-                                                                                                    } else {
-                                                                                                        
-                                                                                                    
-                                                                                                        let document = querySnapshot!.documents.first
-                                                                                                        document!.reference.updateData([
-                                                                                                          "slpUid": ""
-                                                                                                        ])
-
-                                                                                                    }}
-                                                                                
-                                                                                
-
-                                                                
-
-                                                                SCLAlertView().showSuccess("تم حذف المريض بنجاح", subTitle: "", closeButtonTitle: "حسنًا")
-                                                                self.performSegue(withIdentifier: "backToPatientsList", sender: nil)
-                                                                
-                                                                   
-                                                               }))
-                                                               
-                                                               refreshAlert.addAction(UIAlertAction(title: "لا", style: .cancel, handler: { (action: UIAlertAction!) in
-                                                                   print("Handle Cancel Logic here")
-                                                               }))
-                                                               
-                                                        self.present(refreshAlert, animated: true, completion: nil)
-                                                        
-                                                        
         
         
         performSegue(withIdentifier: "deletePatient", sender: self)
         
         
-
+        
     }
     @IBAction func back(_ sender: UIButton) {
         self.performSegue(withIdentifier: "back", sender: self)
