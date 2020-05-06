@@ -124,7 +124,7 @@ class BaseViewController: UIViewController {
         }else {
              getCurrentPatient()
  
-            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات",  closeButtonTitle: "حسنًا")        }
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات",  closeButtonTitle: "حسنًا", animationStyle: .noAnimation)        }
        
     }
     @IBAction func Start(_ sender: UIButton) {
@@ -134,7 +134,7 @@ class BaseViewController: UIViewController {
                    isLoad = true
                }
         if trials.isEmpty {
-          SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا", animationStyle: .noAnimation)
         }else{
             self.performSegue(withIdentifier: "startTrial", sender: self)
         }
@@ -150,7 +150,7 @@ class BaseViewController: UIViewController {
     }
    }else {
             getCurrentPatient()
-            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا")
+            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا", animationStyle: .noAnimation)
                }
     }
     
