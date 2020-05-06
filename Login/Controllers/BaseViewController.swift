@@ -129,13 +129,15 @@ class BaseViewController: UIViewController {
     }
     @IBAction func Start(_ sender: UIButton) {
         if (trials.isEmpty && !isLoad){
+              SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا", animationStyle: .noAnimation)
                    getTrials()
                    getCues()
                    isLoad = true
                }
-        if trials.isEmpty {
-            SCLAlertView().showWait("فضلًا انتظر", subTitle:  "يجري تحميل البيانات", closeButtonTitle: "حسنًا", animationStyle: .noAnimation)
-        }else{
+       else if trials.isEmpty && isLoad {
+             SCLAlertView().showInfo("عذرًا لا يوجد لديك تمرين مناسب", subTitle:  "قريبا سيتم تزويد البرنامج بتمارين اضافية", closeButtonTitle: "حسنًا", animationStyle: .noAnimation)
+        }
+        else{
             self.performSegue(withIdentifier: "startTrial", sender: self)
         }
     }
