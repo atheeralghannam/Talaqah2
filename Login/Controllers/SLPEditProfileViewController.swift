@@ -25,8 +25,8 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
     var validation = Validation()
     var isNewEmail1 = false
     var isNewEmail2 = false
- 
-    
+     var lname = String(), fname = String()
+
     @IBOutlet weak var gender: UIImageView!
     
     
@@ -133,7 +133,20 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
     
     func loadProfileData(){
         
-        
+        db.collection("slps").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments {(snapshot, error) in
+            if let error = error{print(error.localizedDescription)}
+            else {
+                if let snapshot = snapshot {
+                    for document in snapshot.documents{
+                        let data = document.data()
+                        
+                        self.slpFname.text = data["fname"] as! String
+                        self.slpLname.text = data["lname"] as!String
+                        self.slpPhone.text = data["phone"] as? String
+                        self.slpHospital.text = data["hospital"] as? String
+                        
+
+                    }}}}
         
         self.slpFname.text =  UserDefaults.standard.string( forKey: Constants.slpfName)
         self.slpLname.text =  UserDefaults.standard.string( forKey: Constants.slplName)
@@ -193,6 +206,9 @@ class SLPEditProfileViewController: UIViewController, UITableViewDelegate, UITex
                             //"email":newemail,
                             "phone":newmobile,
                             "hospital":newhospital
+                        
+                        
+                        
                         ])
                         
                         

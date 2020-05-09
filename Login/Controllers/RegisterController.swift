@@ -109,122 +109,96 @@ class RegisterController: UIViewController, UITextFieldDelegate {
     }
     
     // Check the fields and validate that the data is correct. If everything is correct, this method returns nil. Otherwise, it returns the error message
-    func validateFields() -> String? {
-        
-        // Get text input from TextField
-        guard
-            let password=passwordTextField.text
+    func validateFields(){
             
-            else {
-                return nil}
-        
-        let confirmPassword = confirmPasswordTextField.text
-        
-        // Check that all fields are filled in
-        if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            nIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            phoneNumberTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            confirmPasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            // Get text input from TextField
+    //        guard
+                let password=passwordTextField.text
+                
+    //            else {
+    //                return nil}
             
-            //            return "Please fill in all fields."
-            return "الرجاء التحقق من تعبئة جميع الحقول"
-        }
-        
-        
-        // how to use
-        //                                do {
-        //                                    let resutl = try ValidateSAID.check(nIDTextField.text!)
-        //
-        //                                    // this will print NationaltyType description
-        //                                    print(resutl)
-        //                                } catch {
-        //                                    // this will print error description
-        //                                    isValidId=false
-        //                                    print(error)
-        ////                                    self.showToast(message: "رقم الهوية/الإقامة غير صالح", font: UIFont(name: "Times New Roman", size: 12.0)!)
-        ////                                                  idTextField.isError(baseColor: UIColor.gray.cgColor, numberOfShakes: 3, revert: true)
-        //                                }
-        
-        
-        
-        // Check if the password is secure
-        let isValidatePass = self.validation.validatePassword( password: password)
-        let isMatchedPass=(password==confirmPassword)
-        let isValidateId=self.validation.isValidateId(id: nIDTextField.text!)
-        let isValidPhone=self.validation.isValidPhoneNumber(phoneNumber: phoneNumberTextField.text!)
-        let isValidatedEmail = self.validation.validateEmailId(emailID:emailTextField.text!)
-              
-              
-              if isValidatedEmail == false {
-                              return "الرجاء التحقق من إدخال بريد إلكتروني صحيح"
-
-                  
-              }
-        
-        
-        
-        if isValidatePass == false {
-            // Password isn't secure enough
-                         return "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام"
-//            return "كلمة المرور يجب أن تحتوي على الأقل ثمانية أحرف وأرقام"
-            //            return "Please make sure your password is at least 8 characters, contains a special character and a number."
-        }
-        if isMatchedPass==false{
-            return "تأكيد كلمة المرور يجب أن تتطابق مع كلمة المرور المدخلة"
-            //            return "Please make sure your password and its confirm are both same."
-        }
-        
-        if isValidateId==false{
-            return "رقم الهوية/الإقامة غير صحيح"
-        }
-        
-        if isValidPhone==false {
-            return "الرجاء التحقق من إدخال رقم صحيح : ********05"
-//            return "Please enter valid phone: 05********"
-        }
-            db.collection("patients").whereField("NID", isEqualTo:nIDTextField.text).getDocuments {
-                                            (snapshot, error) in
-                                                    if let error = error {
-                                       print(error.localizedDescription)
-                                                              }
-                                                    else if snapshot!.documents.count != 0 {
-                                                        UserDefaults.standard.set(true,forKey: Constants.isExistID)
-                                                        print("registeration")
-                                                        print("not unique in patients")
-
-                                                        self.showError("رقم الهوية مسجّل مسبقًا.")
+            let confirmPassword = confirmPasswordTextField.text
+            
+            // Check that all fields are filled in
+            if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                nIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                phoneNumberTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+                confirmPasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                
+                //            return "Please fill in all fields."
+                showError( "الرجاء التحقق من تعبئة جميع الحقول")
                 return
+            }
+            
+     
+            
+            
+            // Check if the password is secure
+            let isValidatePass = self.validation.validatePassword( password: password!)
+            let isMatchedPass=(password==confirmPassword)
+            let isValidateId=self.validation.isValidateId(id: nIDTextField.text!)
+            let isValidPhone=self.validation.isValidPhoneNumber(phoneNumber: phoneNumberTextField.text!)
+            let isValidatedEmail = self.validation.validateEmailId(emailID:emailTextField.text!)
+                  
+                  
+                  if isValidatedEmail == false {
+                                  showError( "الرجاء التحقق من إدخال بريد إلكتروني صحيح")
+    return
+                      
+                  }
+            
+            
+            
+            if isValidatePass == false {
+                // Password isn't secure enough
+                showError( "كلمة المرور يجب أن تحتوي على الأقل ستة أحرف وأرقام")
+                
+                return
+            }
+            if isMatchedPass==false{
+                showError( "تأكيد كلمة المرور يجب أن تتطابق مع كلمة المرور المدخلة")
 
-        //                                                print("not unique in patients")
-                
-        //                                                UserDefaults.standard.set(true,forKey: Constants.isExistID)
-                                                                              }
-                                                    else{
-                                                        UserDefaults.standard.set(false,forKey: Constants.isExistID)
-                
-                                                        self.newRegister()
-                                                        print(" unique in patients")
-                
-                            }
-                    }
+                return
+            }
+            
+            if isValidateId==false{
+                showError( "رقم الهوية/الإقامة غير صحيح")
+                return
+            }
+            
+            if isValidPhone==false {
+                showError( "الرجاء التحقق من إدخال رقم صحيح : ****05")
+    //            return "Please enter valid phone: 05****"
+                return
+            }
+                db.collection("patients").whereField("NID", isEqualTo:nIDTextField.text).getDocuments {
+                                                (snapshot, error) in
+                                                        if let error = error {
+                                           print(error.localizedDescription)
+                                                                  }
+                                                        else if snapshot!.documents.count != 0 {
+                                                            UserDefaults.standard.set(true,forKey: Constants.isExistID)
+                                                            print("registeration")
+                                                            print("not unique in patients")
+
+                                                            self.showError("رقم الهوية مسجّل مسبقًا.")
+                    return
+
+                                                                                  }
+                                                        else{
+                                                            UserDefaults.standard.set(false,forKey: Constants.isExistID)
                     
-                
-        //        if(UserDefaults.standard.bool(forKey:Constants.isExistID)){
-        //            print("registeration")
-        //            print(UserDefaults.standard.bool(forKey:Constants.isExistID))
-        //            return "رقم الهوية مسجّل مسبقًا."
-        //        }
-                
-        
-        return nil
-    }
-    
-    
-    
-    
+                                                            self.newRegister()
+                                                            print(" unique in patients")
+                    
+                                }
+                        }
+                        
+        }
     func showError(_ message:String) {
         
         errorLabel.text = message
@@ -236,81 +210,8 @@ class RegisterController: UIViewController, UITextFieldDelegate {
     @IBAction func RegisterTapped(_ sender: Any) {
         
         // Validate the fields
-        let error = validateFields()
-        
-        if error != nil {
-            
-            // There's something wrong with the fields, show error message
-            showError(error!)
-        }
-        else {
-            
-            // Create cleaned versions of the data
-            let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let nID = nIDTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let phone = phoneNumberTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            //                                let gender="female"
-            
-            
-            
-            
-            
-            
-            // Create the user
-            Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
-                
-                // Check for errors
-                if err != nil {
-                    // check if email is already registered
-                    Auth.auth().fetchSignInMethods(forEmail: email, completion: {
-                        (providers, error) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                            self.showError("خطأ في تسجيل المستخدم !")
-                            //                            self.showError("Error creating user")
-                            print("Error creating user")
-                        } else if let providers = providers {
-                            self.showError("هذا البريد الإلكتروني مسجل مسبقًا")
-                            //                            self.showError("Email already exists")
-                            print("Email already exists")
-                            print(providers)
-                        }
-                    })
-                    // There was an error creating the user
-                    //                                        self.showError("Error creating user")
-                    //                                        print("Error creating user")
-                }
-                else {
-                    
-                    // User was created successfully, now store the first name and last name
-                    let db = Firestore.firestore()
-                    //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
-                    db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
-                                                                 "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":"", "settings": [3,2,2,2],"categories": [],"progress": []]) { (error) in
-                        
-                        
-                        
-                        if error != nil {
-                            // Show error message
-                            self.showError("خطأ في حفظ بيانات المستخدم !")
-                            //                             self.showError("Error saving user data")
-                            print("Error saving user data")
-                        }
-                    }
-                    
-                    // Transition to the home screen
-                    //                                  self.transitionToHome()
-                    UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
-                    self.performSegue(withIdentifier: "toStart", sender: nil)
-                }
-                
-            }
-            
-            
-        }
+          validateFields()
+
     }
     
     
@@ -355,14 +256,11 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                            print(providers)
                        }
                    })
-                   // There was an error creating the user
-                   //                                        self.showError("Error creating user")
-                   //                                        print("Error creating user")
+
                }
                else {
                    
-                   // User was created successfully, now store the first name and last name
-                   //                                     db.collection("users").addDocument(data: ["NID": nID,"FirstName":firstName,"LastName":lastName,"Email":email, "PhoneNumber": phone,"Gender":gender,"uid": result!.user.uid ]) { (error) in
+           
                    db.collection("patients").addDocument(data: ["NID": nID, "FirstName":firstName, "LastName":lastName, "Email":email, "PhoneNumber": phone, "Gender": self.gender, "uid": result!.user.uid, "cue1": true, "cue2": true, "cue3": true,
                                                                 "cue4": true, "cue5": true, "cue6": true, "cue7": true, "slpUid":"", "settings": [3,2,2,2],"categories": [],"progress": []]) { (error) in
                        
@@ -371,13 +269,10 @@ class RegisterController: UIViewController, UITextFieldDelegate {
                        if error != nil {
                            // Show error message
                            self.showError("خطأ في حفظ بيانات المستخدم !")
-                           //                             self.showError("Error saving user data")
                            print("Error saving user data")
                        }
                    }
                    
-                   // Transition to the home screen
-                   //                                  self.transitionToHome()
                    UserDefaults.standard.set(true, forKey:Constants.isUserLoggedIn)
                    self.performSegue(withIdentifier: "toStart", sender: nil)
                }

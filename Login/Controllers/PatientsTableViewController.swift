@@ -32,22 +32,24 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.delegate = self
         db = Firestore.firestore()
         //        UserDefaults.standard.bool(forKey: Constants.isSlpLoggedIn) == false &&
-        if UserDefaults.standard.string( forKey: Constants.slpfName) == nil{
-            loadProfileData()
-        }else {
-            slpEmail.text = UserDefaults.standard.string(forKey: Constants.slpEmail)
-            slpHospital.text = UserDefaults.standard.string(forKey: Constants.slpHospital)
-            slpPhone.text = UserDefaults.standard.string(forKey: Constants.slpphone)
-            lname = UserDefaults.standard.string(forKey: Constants.slplName)!
-            fname = UserDefaults.standard.string(forKey: Constants.slpfName)!
-            slpName.text = fname + " " + lname
-            let gend = UserDefaults.standard.string(forKey: Constants.sGender)
-            if gend == "female"{
-                self.gender.image = #imageLiteral(resourceName: "fdoctor")
-            }else {
-                self.gender.image = #imageLiteral(resourceName: "mdoctor")
-            }
-        }
+        loadProfileData()
+
+//        if UserDefaults.standard.string( forKey: Constants.slpfName) == nil{
+//            loadProfileData()
+//        }else {
+//            slpEmail.text = UserDefaults.standard.string(forKey: Constants.slpEmail)
+//            slpHospital.text = UserDefaults.standard.string(forKey: Constants.slpHospital)
+//            slpPhone.text = UserDefaults.standard.string(forKey: Constants.slpphone)
+//            lname = UserDefaults.standard.string(forKey: Constants.slplName)!
+//            fname = UserDefaults.standard.string(forKey: Constants.slpfName)!
+//            slpName.text = fname + " " + lname
+//            let gend = UserDefaults.standard.string(forKey: Constants.sGender)
+//            if gend == "female"{
+//                self.gender.image = #imageLiteral(resourceName: "fdoctor")
+//            }else {
+//                self.gender.image = #imageLiteral(resourceName: "mdoctor")
+//            }
+//        }
         loadData()
         
     }
@@ -228,7 +230,7 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error)
                     
                     SCLAlertView().showError("خطأ", subTitle: "رقم الهوية/الإقامة غير صالح", closeButtonTitle: "حسنًا")
-                    
+                    return
                 }
                 
                 
@@ -253,6 +255,7 @@ class PatientsTableViewController: UIViewController, UITableViewDelegate, UITabl
                         } else if querySnapshot!.documents.count != 1 {
                             SCLAlertView().showInfo("غير موجود", subTitle: "عذرًا، لا يوجد مريض بهذا الرقم", closeButtonTitle: "حسنًا")
                             print("More than one documents or NONE")
+                            return
                         } else {
                             
                             

@@ -37,9 +37,10 @@ class SLPCuesViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
+        updateCues()
     }
     func updateCues(){
-        self.db.collection("patients").whereField("uid", isEqualTo :Auth.auth().currentUser!.uid)
+        self.db.collection("patients").whereField("uid", isEqualTo :UserDefaults.standard.string(forKey: Constants.selectedPatient))
             .getDocuments() { (querySnapshot, error) in
                 if let error = error {
                     SCLAlertView().showCustom( "لم يتم حفظ التغييرات", subTitle: "تاكد من اتصالك ثم انقر حفظ ليتم حفظ التغييرات", color: UIColor(named: "Silver")! , icon: UIImage(named: "excmark")!, closeButtonTitle: "حسنًا")
